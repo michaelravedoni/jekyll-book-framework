@@ -1,0 +1,25 @@
+---
+layout: microtypo
+---
+<!DOCTYPE html>
+{% include head.html %}
+<body>
+{% include header.html %}
+
+		<section class="main">
+			<div class="page-header">
+				<h2>{% if page.category %}{{ page.category }}{% else %}{{ site.title }}{% endif %}</h2>
+				<h3>{{ page.title }}</h3>
+			</div>
+			<article class="content no-counter">
+				{{ content }}
+				{% if page.partiep_link %}
+				<div class="prev" title="Previous part" rel="prev">
+					<a href="{{site.baseurl}}{{page.partiep_link}}">← Previous part</a>
+				</div>{% else %}{% endif %}
+				{% if page.parties_link %}
+				<div class="next" title="Next part" rel="next">
+					<a href="{{site.baseurl}}{{page.parties_link}}">Next part →</a>
+				</div>{% else %}{% endif %}
+			</article>
+{% include footer.html %}

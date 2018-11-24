@@ -1,0 +1,47 @@
+
+<header>
+  <h1>
+    <a href="{{ site.baseurl }}/">{{ site.title }}</a>
+    <button type="button" class="open-nav" id="open-nav"></button>
+  </h1>
+
+  <nav {% if site.show_full_navigation %}class="full-navigation"{% endif %}>
+    <ul>
+      <li class="nav-item top-level {% if page.url == '/' %}current{% endif %}">
+        {% assign home = site.html_pages | where: 'url', '/' | first %}
+        <a href="{{ site.baseurl }}/">{{ home.title }}</a>
+      </li>
+    </ul>
+
+    <ul>
+      {% assign grouped = site.book | group_by: 'category' %}
+      {% for group in grouped %}
+      <li class="nav-item top-level {% if group.name == page.category %}current{% endif %}">
+        {% assign items = group.items | sort: 'order' %}
+        <a href="{{ site.baseurl }}{{ items.first.url }}">{{ group.name }}</a>
+        <ul>
+          {% for item in items %}
+          <li class="nav-item {% if item.url == page.url %}current{% endif %}"><a href="{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% if page.url != '/' %}
+    <ul>
+      <li class="nav-item top-level {% if page.url == '/search/' %}current{% endif %}">
+        {% assign search = site.html_pages | where: 'url', '/search/' | first %}
+        <a href="{{ site.baseurl }}/search/">{{ search.title }}</a>
+      </li>
+    </ul>
+    {% endif %}
+
+    <ul>
+      <li class="nav-item top-level">
+        <a class="" href="{{site.aboutUrl}}#downloads">Download and print</a>
+      </li>
+    </ul>
+
+  </nav>
+</header>

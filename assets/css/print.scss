@@ -1,0 +1,372 @@
+---
+layout: null
+sitemap: false
+---
+/* Fonts */
+
+@font-face {
+  font-family: 'Fira Mono';
+  src: url('/assets/fonts/FiraMono-Regular.woff2') format('woff2'),
+       url('/assets/fonts/FiraMono-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fira Mono Bold';
+  src: url('/assets/fonts/FiraMono-Bold.woff2') format('woff2'),
+       url('/assets/fonts/FiraMono-Bold.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: url('/assets/fonts/FiraSans-Regular.woff2') format('woff2'),
+         url('/assets/fonts/FiraSans-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal; }
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: url('/assets/fonts/FiraSans-Italic.woff2') format('woff2'),
+         url('/assets/fonts/FiraSans-Italic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic; }
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: url('/assets/fonts/FiraSans-SemiBold.woff2') format('woff2'),
+         url('/assets/fonts/FiraSans-SemiBold.woff') format('woff');
+    font-weight: 500;
+    font-style: normal; }
+
+@font-face {
+    font-family: 'Fira Sans';
+    src: url('/assets/fonts/FiraSans-SemiBoldItalic.woff2') format('woff2'),
+         url('/assets/fonts/FiraSans-SemiBoldItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic; }
+
+
+/* Variables */
+
+:root {
+
+    /* color for the interface */
+    --color-background: rgba(0, 0, 0, 0.2);
+    --color-marginBox: transparent;
+    --color-pageBox: transparent;
+    --color-paper: white;
+
+    /* color used for the baseline */
+    --color-baseline: transparent;
+
+}
+
+
+/* Interface */
+
+/* To define how the book look on the screen: */
+@media screen {
+    body {
+        background-color: var(--color-background);
+    }
+    .pagedjs_pages {
+        display: flex;
+        width: calc(var(--width) * 2);
+        flex: 0;
+        flex-wrap: wrap;
+        margin: 0 auto;
+    }
+    .pagedjs_page {
+        background-color: var(--color-paper);
+        box-shadow: 0 0 0 2px var(--color-pageBox);
+        margin: 0;
+        flex-shrink: 0;
+        flex-grow: 0;
+        margin-top: 10mm;
+    }
+    .pagedjs_first_page {
+        margin-left: var(--width);
+    }
+
+
+    /* show the margin-box */
+
+    .pagedjs_margin-content
+        {
+        box-shadow: 0 0 0 1px inset var(--color-marginBox);
+    }
+
+
+    /* uncomment for recto/verso book.
+    --------------------------------------------------- */
+    .pagedjs_pages {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .pagedjs_first_page {
+        margin-left: 0;
+    }
+
+    .pagedjs_page {
+        margin: 0 auto;
+        margin-top: 10mm;
+    }
+
+}
+
+
+/* Hack */
+
+/* here come some simple hacks for features that are not yet in paged js */
+
+/* simple break solution  */
+
+.break {
+    break-after: page;
+}
+
+/* data split */
+/* hack for the justification of the first part of a paragraph splitted */
+p[data-split-original="true"] {
+    text-align-last: justify;
+}
+
+
+/* layout */
+
+@page {
+  size: a4 ;
+  margin-left: 5cm ;
+  margin-right: 2cm ;
+  margin-top: 3cm ;
+  margin-bottom: 4cm ;
+}
+
+body {
+  margin: 0 ;
+  font-family: "Fira Sans", sans-serif ;
+  font-weight: 400 ;
+  font-size: 14px ;
+  line-height: 1.75em ;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Fira Mono Bold", monospace ;
+  font-weight: 500 ;
+}
+
+h1 {
+  font-size: 2.25em ;
+  line-height: 1.25em ;
+  margin-bottom: 1em ;
+}
+
+.merci h1 {
+  font-size: 2.25em ;
+  margin-top: 0em ;
+}
+
+h1.chapter, .toc h1 {
+  break-before: page ;
+  font-size: 2.75em ;
+  line-height: 1.25em ;
+  margin-bottom: 1.5em ;
+  }
+
+h1.intro {
+  font-size: 2.75em ;
+  line-height: 1.25em ;
+  margin-bottom: 1.5em ;
+}
+
+.intro > h1.chapter {
+  break-before: avoid ;
+}
+
+h1.biblio {
+  font-size: 2em ;
+  line-height: 1.25em ;
+  margin-bottom: 1.5em ;
+  }
+
+h1.sub-annexes {
+  break-before: page ;
+  line-height: 1.25em ;
+  font-size: 2em ;
+  margin-bottom: 2em ;
+}
+
+h1.sub-chapter {
+  break-before: page ;
+  line-height: 1.25em ;
+  font-size: 2em ;
+  margin-bottom: 2em ;
+  margin-left: 2cm ;
+}
+
+h2 {
+  margin-top : 2em ;
+  line-height: 1.25em ;
+  font-size: 1.5em ;
+}
+
+h4 {
+  margin-bottom: -0.7em ;
+}
+
+.pagedjs_page_content .chapter:first-child .chaptertitle:first-child {
+margin-top: 0;
+}
+
+h1.chapter:first-child , h1.intro:first-child , h1.biblio:first-child , h2:first-child , h1.sub-chapter:first-child , h1.sub-annexes:first-child , .toc h1:first-child {
+margin-top: 0;
+}
+
+p {
+  margin-bottom: 1.75em ;
+  text-align: justify ;
+}
+
+a {
+  text-decoration: none ;
+  color: #000 ;
+}
+
+a:over, a:active {
+  text-decoration: underline ;
+}
+
+blockquote {
+  font-style: italic ;
+}
+
+.first-pages {
+  page: titre ;
+}
+
+.chapter {
+  string-set: titlesection content(text) ;
+}
+
+.cover-book a::after {
+  content: target-counter(attr(href), page) ;
+  float: right ;
+}
+
+.cover-book ul {
+  list-style: none ;
+  margin : 3em 0 0 0 ;
+  padding : 0 ;
+  line-height: 2 ;
+}
+
+.toc-1 {
+  font-weight: 500 ;
+  margin-top: 2em ;
+}
+
+@page {
+  @bottom-right {
+    content: counter(page) ;
+  }
+
+  @bottom-left {
+    content: string(titlesection, first) ;
+    font-family: "Fira Mono", monospace ;
+    font-weight: 400 ;
+    font-size: 0.9em ;
+    width: 13cm ;
+  }
+}
+
+@page titre {
+  @bottom-center {
+    content: none ;
+  }
+  @bottom-right {
+    content: none ;
+  }
+}
+
+figure {
+  margin-left: 0 ;
+}
+
+img {
+  height: 250px ;
+  filter: grayscale(1);
+}
+
+img.cover-logo {
+  height: 85px ;
+}
+
+figcaption {
+	opacity: 0.65;
+	font-style: italic;
+}
+
+.bibliography {
+  list-style: none;
+	padding-left: 0rem;
+
+	li {
+		margin: 1.2em 0 ;
+	}
+}
+
+sup {
+  line-height: 0 ;
+}
+
+.footnotes p {
+  margin-top: 0em ;
+  margin-bottom: 0em ;
+  line-height: 1.5em ;
+}
+
+a.reversefootnote {
+  visibility: hidden ;
+}
+
+.footnotes ol {
+  margin-left: 0 ;
+  padding-left: 0 ;
+}
+
+.cover h1 {
+  font-size: 2.5em ;
+  margin-bottom: 0 ;
+  margin-top: 2.5em ;
+}
+
+.cover h2 {
+  font-size: 2.5em ;
+  margin-top: 0.5em ;
+}
+
+.cover h3 {
+  font-size: 1.7em ;
+  margin-top: 2em ;
+  margin-bottom: 4em ;
+}
+
+.cover p, .resume p {
+  line-height: 1.5em ;
+}
+
+.resume p {
+  font-size: 0.9em ;
+}
+
+.resume h1 {
+  margin-bottom: 0em ;
+  margin-top: 0em ;
+}

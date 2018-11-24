@@ -1,0 +1,142 @@
+# ----
+# Site
+
+title               : "Site title"
+url                 : ""
+baseurl             : "" # does not include hostname
+google_analytics_key: ""
+show_full_navigation: false
+
+# Serving
+port                : 4000
+host                : 127.0.0.1
+show_dir_listing    : false
+
+# ----
+# Book
+
+bookTitle           : "Book title" # Required
+shortTitle          : "Short book title"
+description         : "Book short description"
+creators:
+  - lastName        : lastName
+    firstName       : firstName
+    affiliation     : affiliation
+    email           : authorname@domain.com
+    twitter         : "@authorname"
+    sameAs          :
+      - https://authorname.com/
+  - lastName        : lastName 2
+    firstName       : firstName 2
+    creatorType     : Directeur
+    affiliation     : affiliation 2
+    email           : authorname2@domain.com
+    twitter         : "@authorname2"
+publisher           : Publisher
+cc                  : CC-BY # Choose a Creative Commons license (https://creativecommons.org/choose/)
+date                : 2018-01-01
+pdf                 : #"/doc/book.pdf" # If different from generated
+paperback           : # Paperback version
+markdownD           : #todo
+epub                : #todo
+mobi                : #todo
+isbn                : 9780030426599
+lang                : fr
+isFamilyFriendly    : true
+genre               :
+funder              :
+
+abstract_locale: "David se rappelait de ce programme mélangeant deux anciennes technologies. Il s’en souvenait très bien, cinq années de travail acharné pour réaliser un vieux rêve d’enfant un peu solitaire. Il voulait un ami et il avait trouvé en l’informatique la possibilité d’avoir cet ami. Un ami capable de réfléchir vite, exempt de sentiment. C’est lui aussi qui était à la base du dernier processeur, le sphéro. Un processeur ayant une architecture en forme de sphère et capable de traiter les informations à une vitesse jamais atteinte. Tous les ordinateurs en étaient équipés. Le créateur officiel, le Dr. Stewart Davis, n’était bien sûr pas au courant de la présence de Prélude dans son projet. Prélude avait simplement suggéré légèrement au Dr. En modifiant légèrement ses documents."
+keywords_locale: "édition, livre, chaîne d'édition, chaîne de publication, traitement de texte, logiciel de publication assistée par ordinateur, livre numérique"
+
+abstract: "Encouraging others to adopt the same licensing practices meant closing off the escape hatch that had allowed privately owned versions of Emacs to emerge. To close that escape hatch, Stallman and his free software colleagues came up with a solution: users would be free to modify GNU Emacs just so long as they published their modifications. In addition, the resulting works would also have carry the same GNU Emacs License.
+The word is a weighted term in the Stallman lexicon. In a pointed swipe at his parents, Stallman, to this day, refuses to acknowledge any home before Currier House, the dorm he lived in during his days at Harvard. He has also been known to describe leaving that home in tragicomic terms. Once, while describing his years at Harvard, Stallman said his only regret was getting kicked out. It wasn't until I asked Stallman what precipitated his ouster, that I realized I had walked into a classic Stallman setup line."
+keywords: "publishing, book, publishing chain, word processor, desktop publishin software, ebook"
+
+status              : draft # draft, revised, published
+version             : v1.0
+versiondate         : 2018-11-20
+
+# -----
+# Book links
+
+aboutUrl            : /8-about/
+
+# -----
+# Logo and image
+
+logo                : assets/icon/favicon.png
+
+# -----
+# Metadata
+
+google_site_verification:
+schema:
+  type              : Book # Required
+  links:
+    - https://gitlab.com/michaelravedoni/book/
+
+repo_url            : https://github.com/michaelravedoni/jekyll-book-framework/ # Required
+repo_branch         : master
+
+# -----
+# Build
+
+locale              : fr
+encoding            : UTF-8
+timezone            : Etc/UTC
+permalink           : pretty
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-scholar
+  - jekyll-microtypo
+  - jekyll-redirect-from
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENCE
+  - materials
+  - package.json
+  - rsync-ignore.txt
+  - env.json
+
+collections:
+  book:
+    title: Documentation
+    permalink: /:path/
+    output: true
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: default
+  -
+    scope:
+      path: ""
+      type: "book"
+    values:
+      seo:
+        type: Book
+
+# --------------
+# Jekyll Scholar
+
+scholar:
+  style             : american-political-science-association
+  locale            : fr
+  source            : _bibliography
+  bibliography      : bibliography.bib
+  relative          : "/6-appendices/bibliography/"
+  sort_by           : author
+  bibliography_list_tag : ul
+
+# --------------
+# Jekyll Microtypo
+
+microtypo:
+  median: true

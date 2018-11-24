@@ -1,0 +1,128 @@
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="generator" content="Jekyll https://jekyllrb.com/">
+		<meta name="description" content="{{site.description | escape | strip_html}}" />
+		<meta name="keywords" content="{{ site.keywords_locale }}" />
+		{% if page.layout == "cover" %}<title>{{site.bookTitle | escape | strip_html}} – {% for creator in site.creators %}{{creator.firstName}} {{creator.lastName}}{% if forloop.last == true %}{% else %}, {% endif %}{% endfor %}</title>{% else %}<title>{{page.title}} – {{ site.title }}</title>{% endif %}
+		<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
+		<link rel="apple-touch-icon" href="{{ site.baseurl }}/assets/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/icons/touch-icon.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/icons/favicon.png">
+		{% if site.google_site_verification %}<meta name="google-site-verification" content="{{site.google_site_verification}}" />{% endif %}
+
+		<!-- DC -->
+		<link rel="schema.dc" href="https://purl.org/dc/elements/1.1/">
+		{% for creator in site.creators %}
+		<meta name="dc.creator" content="{{creator.lastName}}, {{creator.firstName}}" />
+		{% endfor %}
+		<meta name="dc.publisher" content="{{site.publisher}}" />
+		<meta name="dc.language" content="{{site.lang}}" />
+		<meta name="dc.title" content="{{site.bookTitle | escape | strip_html}}" />
+		<meta name="dc.description" content="{{site.description | escape | strip_html}}" />
+		<meta name="dc.rights" content="{{site.cc}}" />
+		<meta name="dc.date" content="{{ site.date }}" />
+		<meta name="dc.issued" content="{{site.date | date: "%Y/%m/%d"}}" />
+		<meta name="dc.date" content="{{site.date | date: "%Y/%m/%d"}}" />
+		<meta name="dc.identifier" content="{{site.url}}/{{page.url}}" />
+		<!-- OG -->
+		<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}"/>
+		<meta property="og:url" content="{{site.baseurl}}{{ page.url }}">
+		<meta property="og:description" content="{{site.description | escape | strip_html}}"/>
+		<meta property="og:site_name" content="{{ site.title }}"/>
+		<meta property="og:type" content="book"/>
+		<meta property="og:locale" content="{{site.locale}}" />
+
+		<!--  Twitter Card -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:domain" content="{{site.baseurl}}" />
+		<meta name="twitter:creator" content="{{site.creators[0].twitter}}"/>
+		<meta name="twitter:site" content="{{site.creators[0].twitter}}" />
+		<meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
+		<meta name="twitter:description" content="{{site.description | escape | strip_html}}">
+		<meta name="twitter:url" content="{{site.baseurl|absolute_url}}{{ page.url }}"/>
+		<!-- citation -->
+		<meta name="citation_title"content="{{site.bookTitle | escape | strip_html}}">
+		{% for creator in site.creators %}
+		<meta name="citation_author" content="{{creator.lastName}}, {{creator.firstName}}">
+		{% endfor %}
+		{% if site.date %}<meta name="citation_publication_date" content="{{site.date | date: '%Y/%m/%d'}}">{% endif %}
+		{% if site.pdf %}<meta name="citation_pdf_url" content="{{site.pdf|absolute_url}}">{% endif %}
+		<meta name="citation_abstract_html_url" content="{{site.url|absolute_url}}{{page.url}}">
+		{% if site.lang %}<meta name="citation_language" content="{{site.lang}}" />{% endif %}
+		{% if site.isbn %}<meta name="citation_isbn" content="{{site.isbn}}" />{% endif %}
+
+		<!--  https://schema.org/Book -->
+		<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@graph": [
+			{
+				"@type": "{{site.schema.type}}",
+				"name": "{{site.bookTitle | escape | strip_html}}",
+				{% if site.shortTitle %}"alternativeHeadline": "{{site.shortTitle | escape | strip_html}}",{% endif %}
+				{% if site.date %}"datePublished": "{{site.date | date: '%Y-%m-%d'}}",{% endif %}
+				{% if site.isbn %}"isbn": "{{site.isbn}}",{% endif %}
+				{% if site.abstract %}"description": "{{site.abstract | escape | strip_html}}",{% endif %}
+				"abridged": "false",
+				"accessMode": ["textual", "visual"],
+				"accessModeSufficient": ["textual", "visual"],
+				"copyrightYear": {{site.date | date: '%Y'}},
+				"copyrightHolder": [
+				{% for creator in site.creators %}
+				{
+					"@type": "Person",
+					"name": "{{creator.lastName}}, {{creator.firstName}}",
+					"givenName": "{{creator.firstName}}",
+					"familyName": "{{creator.lastName}}",
+					{% if creator.sameAs %}{% for s in creator.sameAs %}"sameAs": "{{s}}",{% endfor %}{% endif %}
+					{% if creator.affiliation %}
+					"affiliation": {
+						"@type": "Organization",
+						"name": "{{creator.affiliation}}"
+						}{% endif %}
+					}{% if forloop.last == true %}{% else %},{% endif %}
+				{% endfor %}
+				],
+				"discussionUrl": "{{ site.repo_url}}/issues/",
+				{% if site.pdf %}
+				"associatedMedia": {
+					"@type": "MediaObject",
+					"contentUrl": "{{site.pdf}}",
+					"encodingFormat": "application/pdf"
+				},
+				{% endif %}
+				{% if site.lang %}"inLanguage": "{{site.lang}}",{% endif %}
+				"isFamilyFriendly": "{{site.isFamilyFriendly}}",
+				{% if site.genre %}"genre": "{{site.genre}}",{% endif %}
+				{% if site.funder %}"funder": "{{site.funder}}",{% endif %}
+				{% if site.image %}"image": "{{site.image}}",{% endif %}
+				{% if site.cc %}"license": "http://creativecommons.org/licenses/{{site.cc}}/4.0/",{% endif %}
+				{% if site.publisher %}"publisher": {
+					"@type": "Organization",
+					"name": "{{site.publisher}}"
+				},
+				{% endif %}
+				"author": [
+				{% for creator in site.creators %}
+				{
+					"@type": "Person",
+					"name": "{{creator.lastName}}, {{creator.firstName}}",
+					"givenName": "{{creator.firstName}}",
+					"familyName": "{{creator.lastName}}",
+					{% if creator.sameAs %}{% for s in creator.sameAs %}"sameAs": "{{s}}",{% endfor %}{% endif %}
+					{% if creator.affiliation %}
+					"affiliation": {
+						"@type": "Organization",
+						"name": "{{creator.affiliation}}"
+						}{% endif %}
+					}{% if forloop.last == true %}{% else %},{% endif %}
+				{% endfor %}
+				]
+				}
+			]
+			}
+			</script>
+
+	</head>

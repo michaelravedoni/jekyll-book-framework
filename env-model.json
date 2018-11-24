@@ -1,0 +1,4 @@
+{
+  "FTP_HOST": "<user>@<host>:<path/>",
+  "FTP_HOST_STAGING": "<user>@<host>:<path/>"
+}

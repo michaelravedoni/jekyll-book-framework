@@ -1,0 +1,40 @@
+---
+layout: null
+sitemap: false
+---
+
+$baseurl: "{{ site.baseurl }}";
+
+// Colors
+$color-primary: #005262 !default; //#002a32
+$color-primary-light: lighten($color-primary, 20%);
+$color-secondary: #2B2E31 !default;
+$color-font-body: #222 !default;
+$color-font-headings: $color-font-body !default;
+$color-font-light: #888 !default;
+$color-font-figcaption: $color-font-body !default;
+
+$body-background-color: $color-secondary !default;
+
+// Content
+$content-max-width: 850px;
+$content-background-color: #ffffff !default;
+
+// Navigation
+$nav-header-background-color: $color-primary;
+$nav-header-height: 60px;
+$nav-background-color: #f5f5f5;
+$nav-width: 335px;
+
+// Space and break
+$space: 20px;
+$mobile-break: 700px;
+$full-width-break: $nav-width + ($space * 4) + $content-max-width;
+
+@import "mixins";
+@import "normalize";
+@import "pygments";
+@import "typography";
+@import "code";
+@import "tables";
+@import "layout";
