@@ -17,7 +17,7 @@ Any revisions or corrections made to this publication after the first edition da
 ## Downloads
 {% if site.epub %}[EPUB]({{site.epub}})<br>{% endif %}
 {% if site.mobi %}[MOBI/KINDLE]({{site.mobi}})<br>{% endif %}
-{% if site.pdf %}[PDF]({{site.baseurl}}{{site.pdf|absolute_url}})<br>{% else %}[Printable version]({{site.baseurl}}{{site.url|absolute_url}}/print)<br>{% endif %}
+{% if site.pdf %}[PDF]({{site.url}}{{site.baseurl}}{{site.pdf}})<br>{% else %}[Printable version]({{site.url}}{{site.baseurl}}/print)<br>{% endif %}
 {% if site.markdownD %}[Markdown]({{site.markdown}})<br>{% endif %}
 {% if site.paperback %}[Paperback]({{site.paperback}}){% endif %}
 

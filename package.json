@@ -4,13 +4,20 @@
   "description": "A jekyll framework for publishing book in multiple format (HTML, PDF, epub)",
   "author": "Michael Ravedoni",
   "license": "MIT",
+  "keywords": [
+    "web-publications",
+    "publishing",
+    "jekyll-template",
+    "paged-media",
+    "book"
+  ],
   "main": "/_site",
   "dependencies": {},
   "devDependencies": {
     "run-run": "^1.1.0"
   },
   "scripts": {
-    "build": "bundle exec jekyll build --config _config.yml",
+    "build": "bundle exec jekyll build --config _config.yml,_config-stage.yml",
     "dev": "bundle exec jekyll serve --watch",
     "stage": "cat env.json | run-run -- 'npm run build && rsync -e ssh -avzuhcp _site/ {FTP_HOST_STAGING} --exclude-from 'rsync-ignore.txt' --delete'",
     "stage-dry": "cat env.json | run-run -- 'rsync -e ssh -avzuhcp _site/ {FTP_HOST_STAGING} --exclude-from 'rsync-ignore.txt' --dry-run --delete'",
@@ -24,5 +31,5 @@
   "bugs": {
     "url": "https://github.com/michaelravedoni/jekyll-book-framework/issues"
   },
-  "homepage": "https://michael.ravedoni.com/jekyll-book-framework"
+  "homepage": "https://ravedoni.com/test/jekyll-book-framework/"
 }

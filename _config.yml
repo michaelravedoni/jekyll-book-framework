@@ -100,8 +100,10 @@ exclude:
   - LICENCE
   - materials
   - package.json
+  - package-lock.json
   - rsync-ignore.txt
   - env.json
+  - env-model.json
 
 collections:
   book:

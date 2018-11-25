@@ -22,7 +22,7 @@ When written by the author, the foreword may cover the story of how the book cam
 
 
 ### Print this book
-{% if site.pdf %}[Printable PDF version]({{site.baseurl}}{{site.pdf|absolute_url}})<br>{% else %}[Printable PDF version]({{site.baseurl}}{{site.url|absolute_url}}/print)<br>{% endif %}
+{% if site.pdf %}[Printable PDF version]({{site.url}}{{site.baseurl}}{{site.pdf}})<br>{% else %}[Printable PDF version]({{site.url}}{{site.baseurl}}/print)<br>{% endif %}
 
 {% if site.paperback %}
 ### Read this book

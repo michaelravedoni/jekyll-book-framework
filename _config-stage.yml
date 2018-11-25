@@ -1,0 +1,6 @@
+# ----
+# Site
+
+title               : "Site title"
+url                 : "https://ravedoni.com"
+baseurl             : "/test/jekyll-book-framework" # does not include hostname

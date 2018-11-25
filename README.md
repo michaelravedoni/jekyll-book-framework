@@ -13,7 +13,7 @@
   <h3>
     <a href="#documentation">Documentation</a>
     <span> | </span>
-    <a href="#"><s>Demo</s>
+    <a href="https://ravedoni.com/test/jekyll-book-framework/">Demo</a>
     <span> | </span>
     <a href="#contributing">Contributing</a>
   </h3>
@@ -41,6 +41,8 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/michaelravedoni/jekyll-book-framework/blob/master/LICENSE)
 
 This tool is inspired by [Antoine Fauchié](https://gitlab.com/antoinentl)'s excellent [thesis](https://memoire.quaternum.net/) (_Vers un système modulaire de publication : éditer avec le numérique_). The [project](https://gitlab.com/antoinentl/systeme-modulaire-de-publication) on which his thesis was based served as the basis for the development of `jekyll-book-framework`.
+
+To get an idea, you can see the [demo of this project](https://ravedoni.com/test/jekyll-book-framework/).
 
 ## Features
 
