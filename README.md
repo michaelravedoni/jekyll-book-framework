@@ -54,31 +54,40 @@ To get an idea, you can see the [demo of this project](https://ravedoni.com/test
 ## Usage
 
 ### Download
-With git:
+Download the project using git:
 
 ```bash
 git clone https://github.com/michaelravedoni/jekyll-book-framework.git
 cd jekyll-book-framework
-git remote rm origin
 ```
 
-Manually :
+Or, manually :
 
 [Download](https://github.com/michaelravedoni/jekyll-book-framework/archive/master.zip) the project and unzip it.
 
+Then rename the folder with the name you want. For example: `my-book` (`JEKYLL-BOOK-NAME` in the following steps).
+
+
 ### Install
-Navigate into your project directory and install Jekyll and npm dependencies (you have to [install Ruby, jekyll](https://jekyllrb.com/docs/installation/) and [npm](https://www.npmjs.com/get-npm) globaly for this):
+To run the project, you have to install [Jekyll](https://jekyllrb.com/docs/installation/) (and therefore [Ruby](https://www.ruby-lang.org/en/documentation/installation/)). Also install [npm](https://www.npmjs.com/get-npm) if you want to easily deploy the FTP life application (see [_deploy_](#deploy)) or to easily run the project.
+
+After you install [Ruby](https://www.ruby-lang.org/en/documentation/installation/), install the Jekyll CLI:
 
 ```bash
-cd JEKYLL-BOOK-REPOSITORY-NAME
+$ gem install jekyll bundler
+```
+
+Enter in your project's folder:
+
+```bash
+cd JEKYLL-BOOK-NAME
+```
+
+Install all Ruby and npm dependencies, such as Jekyll and plugins:
+
+```bash
 bundle install
 npm run install
-```
-Initialize your site directory as a Git repository (and connect your remote repository to your local repository).
-
-```bash
-git init
-git remote add origin https://github.com/username-or-organization-name/your-remote-repository-name
 ```
 
 ### Start
@@ -96,6 +105,7 @@ npm run build
 ```
 
 ### Deploy
+#### Via FTP (RSync)
 For deploying the site via FTP (RSync), follow this instructions. In the main project folder `/`, run (if not already done) :
 ```bash
 npm install
@@ -103,7 +113,7 @@ npm install
 
 Rename the `env-model.json` file in `env.json` and open-it. Then fill the `<user>`, `<host>` and `<path/>` with your FTP remote server informations. For example:
 ```bash
-username_example@example.ftp.com:web/my-jekyll-book/
+username_example@example.ftp.com:web/JEKYLL-BOOK-NAME/
 ```
 
 Then, to deploy the app, run :
@@ -113,6 +123,13 @@ npm run stage-dry  #If you want to run a dry test
 
 npm run deploy     #For the production server
 npm run deploy-dry #If you want to run a dry test
+```
+### Via Git
+Initialize your site directory as a Git repository (and connect your remote repository to your local repository) if you want it to be online available.
+
+```bash
+git init
+git remote add origin https://github.com/username-or-organization-name/JEKYLL-BOOK-NAME
 ```
 
 ## Documentation
