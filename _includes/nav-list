@@ -1,0 +1,53 @@
+{% assign url_parts = page.url | split: '/' %}
+{% assign url_parts_size = url_parts | size %}
+{% assign rm = url_parts | last %}
+{% capture rm_slash %}{{rm}}/{% endcapture %}
+{% assign base_url = page.url | replace: rm_slash %}
+
+
+{% comment %}Create a nav list{% endcomment %}
+  <ul>
+    {% for nav in web-nav-tree %}
+      {% comment %} set "current" class on current page {% endcomment %}
+
+      {% capture nav_url %}{{ work-url-contents-directory }}/{{ nav.file }}/{% endcapture %}
+      {% capture nav_file_number %}{{ nav.file | split: '-' | first' }}{% endcapture %}
+      {% capture nav_page_number %}{{ page.name | split: '-' | first' }}{% endcapture %}
+
+      {% if page.url == nav_url or nav_file_number == nav_page_number or (nav_url == base_url and nav.file == nav.children[0].file) %}
+        {% assign active = "current" %}
+      {% else %}
+        {% assign active = "no-url" %}
+      {% endif %}
+
+    <li class="nav-item top-level {{ active }}{% unless site-pages-page-list contains nav.file %} no-file{% endunless %}{% if nav.children == nil %} no-children{% else %} has-children{% endif %}{% if nav.class != nil %} {{ nav.class }}{% endif %}">
+
+        {% if nav.file != nil %}
+          {% comment %} internal/external URL check {% endcomment %}
+          {% if nav.file contains "://" %}
+            {% assign nav_url = nav.file %}
+          {% endif %}
+          <a href="{{ nav_url }}">{{ nav.label }}</a>
+
+        {% else %}
+          <a>{{ nav.label }}</a>
+        {% endif %}
+
+        {% if nav.children != nil %}
+        <ul>
+          {% for child in nav.children %}
+            {% comment %} set "current" class on current page {% endcomment %}
+            {% if page.url contains child.file %}
+              {% assign active = "current" %}
+            {% else %}
+              {% assign active = "" %}
+            {% endif %}
+
+          {% capture child_nav_url %}{{ work-url-contents-directory }}/{{ child.file }}/{% endcapture %}
+            <li class="nav-item {{active}}"><a href="{{ child_nav_url }}">{{ child.label }}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>

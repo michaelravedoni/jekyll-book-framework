@@ -55,16 +55,15 @@ $baseurl: "{{ site.baseurl }}";
 /* Variables */
 
 :root {
-
-    /* color for the interface */
-    --color-background: rgba(0, 0, 0, 0.2);
-    --color-marginBox: transparent;
-    --color-pageBox: transparent;
-    --color-paper: white;
-
-    /* color used for the baseline */
-    --color-baseline: transparent;
-
+  /* margin for the interface */
+  --margin: 4px;
+  /* color for the interface */
+  --color-background: whitesmoke;
+  --color-marginBox: transparent;
+  --color-pageBox: rgba(0,0,0,0.2);
+  --color-paper: white;
+  /* color used for the baseline */
+  --color-baseline: transparent;
 }
 
 
@@ -84,7 +83,7 @@ $baseurl: "{{ site.baseurl }}";
     }
     .pagedjs_page {
         background-color: var(--color-paper);
-        box-shadow: 0 0 0 2px var(--color-pageBox);
+        box-shadow: 0 0 0 1px var(--color-pageBox);
         margin: 0;
         flex-shrink: 0;
         flex-grow: 0;
@@ -102,9 +101,9 @@ $baseurl: "{{ site.baseurl }}";
         box-shadow: 0 0 0 1px inset var(--color-marginBox);
     }
 
-
     /* uncomment for recto/verso book.
     --------------------------------------------------- */
+    /*
     .pagedjs_pages {
         flex-direction: column;
         width: 100%;
@@ -118,9 +117,394 @@ $baseurl: "{{ site.baseurl }}";
         margin: 0 auto;
         margin-top: 10mm;
     }
+    */
 
 }
 
+
+
+/* print css that's being rendered on screen */
+
+/* variable used for the book */
+:root {
+  --margin-top: 73px;
+  --margin-bottom: 73px;
+	--color-primary: teal;
+	--color-secondary: indianred;
+	--color-bg-chapter: whitesmoke;
+	--font-size-base: 16px;
+}
+
+@page {
+  size: A5 portrait;
+
+	font-family: "Fira Sans", sans-serif;
+  font-weight: 400 ;
+  font-size: var(--font-size-base);
+	line-height: 27px;
+}
+
+@page:blank {
+  @top-left-corner{ content: none; }
+  @top-left{ content: none; }
+  @top-center{ content: none; }
+  @top-right{ content: none; }
+  @top-right-corner{ content: none; }
+  @right-top{ content: none; }
+  @right-middle{ content: none; }
+  @right-bottom{ content: none; }
+  @bottom-right-corner{ content: none; }
+  @bottom-right{ content: none; }
+  @bottom-center{ content: none; }
+  @bottom-left{ content: none; }
+  @bottom-left-corner{ content: none; }
+  @left-bottom{ content: none; }
+  @left-middle{ content: none; }
+  @left-top{ content: none; }
+}
+
+@page:left {
+	--margin-left: 28mm;
+  --margin-right: 14mm;
+
+	@top-left-corner {
+    content: counter(page);
+    padding-right: 3ch
+  }
+  @top-left {
+		content: string(chaptertitle);
+  }
+}
+
+@page:right {
+	--margin-left: 14mm;
+  --margin-right: 28mm;
+	@top-right{
+		content: string(booktitle);
+	}
+	@top-right-corner {
+    content: counter(page);
+    padding-left: 3ch;
+  }
+}
+
+section[data-type="cover"] {
+	page: cover;
+}
+@page cover {
+	--margin-left: 0;
+  --margin-right: 0;
+	display: block;
+	background-color: var(--color-primary);
+  color: white;
+	break-after: right;
+  margin-top: 0;
+  margin-bottom: 0;
+	@top-right {content: none;}
+	@top-right-corner {content: none;}
+	@top-left-corner {content: none;}
+}
+
+section.front-matter {
+	page: front-matter ;
+}
+@page front-matter {
+	@top-right {content: none;}
+	@top-right-corner {content: none;}
+	@top-left-corner {content: none;}
+}
+
+.chapter-title {
+  string-set: chaptertitle content(text) ;
+}
+.cover-book-title {
+	string-set: booktitle content(text) ;
+}
+
+section.chapter,
+section[data-type="half-title"],
+section[data-type="toc"],
+section[data-type="colophon"],
+section[data-type="dedication"],
+section[data-type="epigraph"],
+section[data-type="forewords"],
+section[data-type="preface"] {
+	break-before: page;
+	break-after: right;
+}
+
+section[data-type="appendix"],
+section[data-type="bibliography"],
+section[data-type="glossary"],
+section[data-type="index"] {
+	break-before: right;
+}
+
+section[data-type="dedication"],
+section[data-type="epigraph"] {
+	break-after: always;
+}
+
+section.chapter {
+  page: chapter;
+	break-before: right;
+}
+@page chapter :first {
+	background-color: var(--color-bg-chapter);
+	@top-right {content: none;}
+	@top-right-corner {content: none;}
+	@top-left-corner {content: none;}
+}
+
+section[data-type="back-cover"] {
+	break-after: avoid;
+	page: back-cover ;
+}
+@page back-cover {
+	background: var(--color-primary);
+  color: white;
+	@top-right {content: none;}
+	@top-right-corner {content: none;}
+	@top-left-corner {content: none;}
+}
+
+p {
+  text-align:justify;
+}
+
+/* Cover */
+.cover-header,
+.cover-meta {
+	margin-left: 2rem;
+	line-height: initial;
+}
+.cover-book-title {
+	background-color: var(--color-secondary);
+  font-size: 48px;
+	margin-top: 0;
+	margin-bottom: 0;
+	color: white;
+  text-align: left;
+  }
+.cover-book-subtitle {
+	background-color: var(--color-secondary);
+  font-size: 24px;
+	margin-top: 0;
+  color: white;
+  text-align: left;
+  }
+.cover-creators {
+	font-size: 36px;
+  color: white;
+  margin-top: 2rem;
+  margin-bottom: 10px;
+}
+.cover-image {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+  left: 0;
+}
+.cover-meta {
+	text-align: right;
+	margin-right: 2rem;
+}
+
+/* Half-title */
+.half-title-title {
+	text-align: center;
+	margin-bottom:4em;
+	font-size: 2.75em;
+	line-height: 1.25em;
+}
+
+/* Title-page */
+.title-page-title {
+	text-align: center;
+	margin-bottom: 1em;
+	font-size: 2em;
+	line-height: 1.25em;
+}
+.title-page-creators {
+	text-align: center;
+	margin-bottom: 4em;
+	font-size: 1.75em;
+	line-height: 1em;
+}
+.title-page-bottom-wrapper {
+	position:absolute;
+	bottom: 10px;
+	margin: auto;
+  width: 100%;
+}
+.title-page-publisher,
+.title-page-date {
+	text-align: center;
+	margin-bottom: 1em;
+	font-size: 1em;
+	line-height: 1em;
+}
+.title-page-publisher-logo {
+	display: block;
+	margin:auto;
+	width: 100px;
+}
+
+/* Colophon */
+section[data-type="colophon"] {
+	font-size: 75%;
+	line-height: initial;
+}
+.colophon-title,
+.colophon-history-heading,
+.colophon-citation-heading,
+.colophon-cover-heading {
+	font-weight: bold;
+}
+.colophon-cip,
+.colophon-contributors,
+.colophon-citation,
+.colophon-history,
+.colophon-licenses,
+.colophon-cover {
+	margin-top: 2em;
+	margin-bottom: 1em;
+}
+.colophon-license-image {
+	margin-bottom: 1em;
+}
+.colophon-cip-text {
+	color: gray;
+	margin-bottom: .8em;
+}
+.colophon-history-item,
+.colophon-contributors-item,
+.colophon-citation-item {
+	margin-left:2em;
+}
+.colophon-license-exceptions,
+.colophon-license,
+.colophon-disclaimers {
+	margin-bottom: .8em;
+}
+.colophon-contributors-role {
+	width: 6rem;
+  display: inline-block;
+}
+.colophon-cover-text,
+.colophon-cover-source {
+	font-size:85%;
+}
+
+/* Dedication */
+section[data-type="dedication"] .dedication-text {
+	margin-top: 200px;
+	margin-left: 100px;
+	text-align: right;
+	font-style: italic;
+	orphans: 2;
+	widows: 2;
+}
+
+/* Epigraph */
+.epigraph-citation {
+	margin-top: 200px;
+	margin-left: 100px;
+	text-align: right;
+	font-style: italic;
+	orphans: 2;
+	widows: 2;
+}
+.epigraph-author {
+	margin-left: 100px;
+	text-align: right;
+	font-variant: small-caps;
+}
+
+/* Preface */
+.toc h1,
+.forewords-title,
+.preface-title {
+  font-size: 1.75em;
+  line-height: 1em;
+  margin-bottom: 0;
+}
+.preface-author {
+	margin-left:1em;
+	font-weight:bold;
+}
+
+/* toc */
+.toc a::after {
+  content: target-counter(attr(href), page) ;
+  float: right ;
+}
+.toc ul {
+  list-style: none ;
+  margin : 3em 0 0 0 ;
+  padding : 0 ;
+  line-height: 2 ;
+}
+.toc-1 {
+  font-weight: 700;
+  margin-top: 1em ;
+}
+.toc-2 {
+  margin-left: 1em ;
+}
+.toc-3 {
+  margin-left: 2em ;
+}
+.toc-4 {
+  margin-left: 3em ;
+}
+
+/* Link */
+a {
+  text-decoration: none ;
+  color: #000 ;
+}
+a:over, a:active {
+  text-decoration: underline ;
+}
+
+/* Headings */
+.toc h1,
+.forewords-title {
+  font-size: 1.75em;
+  line-height: 1em;
+  margin-bottom: 1.5em;
+}
+
+h1.chapter,
+.chapter-title,
+h1.glossary,
+h1.index,
+h1.bibliography {
+	font-size: 2.75em ;
+  line-height: 1.25em ;
+  margin-bottom: 2em ;
+}
+h1.sub-chapter,
+h1.section,
+h2 {
+  font-size: 2em ;
+	line-height: 1em ;
+}
+.biblio h2 {
+  font-size: 1.25em ;
+	line-height: 1em ;
+}
+
+/* Bibliography */
+.biblio ul {
+	list-style: none;
+}
+.biblio li {
+	font-size:.8em;
+	line-height: 1.1em;
+  text-indent: -1.5em;
+}
 
 /* Hack */
 
@@ -128,248 +512,11 @@ $baseurl: "{{ site.baseurl }}";
 
 /* simple break solution  */
 
-.break {
+.page-break {
     break-after: page;
 }
 
-/* data split */
-/* hack for the justification of the first part of a paragraph splitted */
-p[data-split-original="true"] {
-    text-align-last: justify;
-}
-
-
-/* layout */
-
-@page {
-  size: a4 ;
-  margin-left: 5cm ;
-  margin-right: 2cm ;
-  margin-top: 3cm ;
-  margin-bottom: 4cm ;
-}
-
-body {
-  margin: 0 ;
-  font-family: "Fira Sans", sans-serif ;
-  font-weight: 400 ;
-  font-size: 14px ;
-  line-height: 1.75em ;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: "Fira Mono Bold", monospace ;
-  font-weight: 500 ;
-}
-
-h1 {
-  font-size: 2.25em ;
-  line-height: 1.25em ;
-  margin-bottom: 1em ;
-}
-
-.merci h1 {
-  font-size: 2.25em ;
-  margin-top: 0em ;
-}
-
-h1.chapter, .toc h1 {
-  break-before: page ;
-  font-size: 2.75em ;
-  line-height: 1.25em ;
-  margin-bottom: 1.5em ;
-  }
-
-h1.intro {
-  font-size: 2.75em ;
-  line-height: 1.25em ;
-  margin-bottom: 1.5em ;
-}
-
-.intro > h1.chapter {
-  break-before: avoid ;
-}
-
-h1.biblio {
-  font-size: 2em ;
-  line-height: 1.25em ;
-  margin-bottom: 1.5em ;
-  }
-
-h1.sub-annexes {
-  break-before: page ;
-  line-height: 1.25em ;
-  font-size: 2em ;
-  margin-bottom: 2em ;
-}
-
-h1.sub-chapter {
-  break-before: page ;
-  line-height: 1.25em ;
-  font-size: 2em ;
-  margin-bottom: 2em ;
-  margin-left: 2cm ;
-}
-
-h2 {
-  margin-top : 2em ;
-  line-height: 1.25em ;
-  font-size: 1.5em ;
-}
-
-h4 {
-  margin-bottom: -0.7em ;
-}
-
-.pagedjs_page_content .chapter:first-child .chaptertitle:first-child {
-margin-top: 0;
-}
-
-h1.chapter:first-child , h1.intro:first-child , h1.biblio:first-child , h2:first-child , h1.sub-chapter:first-child , h1.sub-annexes:first-child , .toc h1:first-child {
-margin-top: 0;
-}
-
-p {
-  margin-bottom: 1.75em ;
-  text-align: justify ;
-}
-
-a {
-  text-decoration: none ;
-  color: #000 ;
-}
-
-a:over, a:active {
-  text-decoration: underline ;
-}
-
-blockquote {
-  font-style: italic ;
-}
-
-.first-pages {
-  page: titre ;
-}
-
-.chapter {
-  string-set: titlesection content(text) ;
-}
-
-.cover-book a::after {
-  content: target-counter(attr(href), page) ;
-  float: right ;
-}
-
-.cover-book ul {
-  list-style: none ;
-  margin : 3em 0 0 0 ;
-  padding : 0 ;
-  line-height: 2 ;
-}
-
-.toc-1 {
-  font-weight: 500 ;
-  margin-top: 2em ;
-}
-
-@page {
-  @bottom-right {
-    content: counter(page) ;
-  }
-
-  @bottom-left {
-    content: string(titlesection, first) ;
-    font-family: "Fira Mono", monospace ;
-    font-weight: 400 ;
-    font-size: 0.9em ;
-    width: 13cm ;
-  }
-}
-
-@page titre {
-  @bottom-center {
-    content: none ;
-  }
-  @bottom-right {
-    content: none ;
-  }
-}
-
-figure {
-  margin-left: 0 ;
-}
-
-img {
+.image-grey {
   height: 250px ;
   filter: grayscale(1);
-}
-
-img.cover-logo {
-  height: 85px ;
-}
-
-figcaption {
-	opacity: 0.65;
-	font-style: italic;
-}
-
-.bibliography {
-  list-style: none;
-	padding-left: 0rem;
-
-	li {
-		margin: 1.2em 0 ;
-	}
-}
-
-sup {
-  line-height: 0 ;
-}
-
-.footnotes p {
-  margin-top: 0em ;
-  margin-bottom: 0em ;
-  line-height: 1.5em ;
-}
-
-a.reversefootnote {
-  visibility: hidden ;
-}
-
-.footnotes ol {
-  margin-left: 0 ;
-  padding-left: 0 ;
-}
-
-.cover h1 {
-  font-size: 2.5em ;
-  margin-bottom: 0 ;
-  margin-top: 2.5em ;
-}
-
-.cover h2 {
-  font-size: 2.5em ;
-  margin-top: 0.5em ;
-}
-
-.cover h3 {
-  font-size: 1.7em ;
-  margin-top: 2em ;
-  margin-bottom: 4em ;
-}
-
-.cover p, .resume p {
-  line-height: 1.5em ;
-}
-
-.resume p {
-  font-size: 0.9em ;
-}
-
-.resume h1 {
-  margin-bottom: 0em ;
-  margin-top: 0em ;
 }

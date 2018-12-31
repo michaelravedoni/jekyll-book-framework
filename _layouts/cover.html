@@ -1,7 +1,5 @@
----
-layout: microtypo
----
 <!DOCTYPE html>
+{% include metadata %}
 {% include head.html %}
 
 <body>
@@ -9,8 +7,8 @@ layout: microtypo
 
   <section class="main">
     <div class="page-cover">
-      <h2>{{ site.bookTitle }}</h2>
-      <h3>{% for creator in site.creators %}{{creator.firstName}} {{creator.lastName}}{% if forloop.last == true %}{% else %}, {% endif %}{% endfor %}</h3>
+      <h2>{{ title }}</h2>
+      <h3>{% for creator in creators %}{{creator.firstName}} {{creator.lastName}}{% if forloop.last == true %}{% else %}, {% endif %}{% endfor %}</h3>
       <p><a href="{{site.book.first.url}}">Read the book</a></p>
     </div>
     <article class="content cover-content">

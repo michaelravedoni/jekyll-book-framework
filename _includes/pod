@@ -1,0 +1,12 @@
+{% comment %}
+Get the file metadata.
+{% endcomment %}
+{% include metadata %}
+
+<div class="pod-formats">
+{% for f in work.products.pod.formats %}
+  <div class="pod-format-item">
+    <strong>{{f.name}}</strong> ({{f.size}}-{{f.color}}) &rarr; <a href="{{f.url}}">{{f.provider}}</a> for {{f.price}}
+  </div>
+{% endfor %}
+</div>

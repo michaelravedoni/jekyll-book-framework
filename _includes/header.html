@@ -1,11 +1,22 @@
+{% include metadata %}
 
 <header>
   <h1>
-    <a href="{{ site.baseurl }}/">{{ site.title }}</a>
+    <a href="{{ site.baseurl }}/">{{project-name}}</a>
     <button type="button" class="open-nav" id="open-nav"></button>
   </h1>
 
   <nav {% if site.show_full_navigation %}class="full-navigation"{% endif %}>
+
+    <div class="nav-item nav-languages">
+      {% if translations %}
+      <a class="nav-language" href="{{ work-url-contents-directory }}/{{work.products.web['start-page']}}">{{work.language}}</a>
+      {% for t in translations %}
+      <a class="nav-language" href="{{ work-url }}/{{ t.language }}{{work.contents_directory}}/{{t.products.web['start-page']}}">{{t.language}}</a>
+      {% endfor %}
+      {% endif %}
+    </div>
+
     <ul>
       <li class="nav-item top-level {% if page.url == '/' %}current{% endif %}">
         {% assign home = site.html_pages | where: 'url', '/' | first %}
@@ -13,35 +24,37 @@
       </li>
     </ul>
 
-    <ul>
-      {% assign grouped = site.book | group_by: 'category' %}
-      {% for group in grouped %}
-      <li class="nav-item top-level {% if group.name == page.category %}current{% endif %}">
-        {% assign items = group.items | sort: 'order' %}
-        <a href="{{ site.baseurl }}{{ items.first.url }}">{{ group.name }}</a>
-        <ul>
-          {% for item in items %}
-          <li class="nav-item {% if item.url == page.url %}current{% endif %}"><a href="{{ site.baseurl }}{{ item.url }}">{{ item.title }}</a></li>
-          {% endfor %}
-        </ul>
-      </li>
-      {% endfor %}
-    </ul>
+    {% include nav-list %}
 
-    {% if page.url != '/' %}
     <ul>
+      <li class="nav-item top-level {% if page.url contains about-page %}current{% endif %}">
+        <a href="{{ work-url-about-page }}">About</a>
+      </li>
       <li class="nav-item top-level {% if page.url == '/search/' %}current{% endif %}">
         {% assign search = site.html_pages | where: 'url', '/search/' | first %}
         <a href="{{ site.baseurl }}/search/">{{ search.title }}</a>
       </li>
     </ul>
-    {% endif %}
 
     <ul>
       <li class="nav-item top-level">
-        <a class="" href="{{ site.baseurl }}{{site.aboutUrl}}#downloads">Download and print</a>
+        <a onclick="addActive(this)">Download and print</a>
+        <ul>
+          <li class="nav-item">
+              {% if work.products['print-pdf'] %}<li class="nav-item"><a href="{{ work-url-translation }}/pdf"><i class="fas fa-file-pdf"></i> Printable version</a></li>{% endif %}
+              {% if work.products['paged-view'] %}<li class="nav-item"><a href="{{ work-url-translation }}/paged"><i class="far fa-eye"></i> Paged view</a></li>{% endif %}
+              {% if work.products['epub'] %}<li class="nav-item"><a href="{{ work-url-translation }}/epub"><i class="fas fa-book-open"></i> EPUB version</a></li>{% endif %}
+              {% if work.products.pod %}<li class="nav-item"><a href="{{ work-url-translation }}/pod"><i class="fas fa-book"></i> Print-on-demand version</a></li>{% endif %}
+          </li>
+        </ul>
       </li>
     </ul>
 
   </nav>
 </header>
+
+<script>
+  function addActive(element){
+   element.parentElement.classList.toggle('current');
+}
+</script>

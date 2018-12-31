@@ -290,6 +290,16 @@ nav > ul {
 	}
 }
 
+.nav-languages {
+	padding-top: 10px;
+	padding-left: 30px;
+}
+.nav-languages .nav-language {
+	margin-right: 10px;
+	display: inline;
+	padding: 0;
+}
+
 .nav-item {
 	display: block;
 	font-family: "Fira Mono", monospace;

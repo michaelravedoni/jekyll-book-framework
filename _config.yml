@@ -3,7 +3,6 @@
 
 title               : "Site title"
 url                 : ""
-baseurl             : "" # does not include hostname
 google_analytics_key: ""
 show_full_navigation: false
 
@@ -36,7 +35,7 @@ publisher           : Publisher
 cc                  : CC-BY # Choose a Creative Commons license (https://creativecommons.org/choose/)
 date                : 2018-01-01
 pdf                 : #"/doc/book.pdf" # If different from generated
-paperback           : # Paperback version
+pod           : # Print-on-demand version
 markdownD           : #todo
 epub                : #todo
 mobi                : #todo
@@ -66,6 +65,65 @@ aboutUrl            : /8-about/
 # Logo and image
 
 logo                : assets/icon/favicon.png
+
+# Language
+# --------
+# The primary language used in this project. You can set the language
+# for each book individually below at 'defaults'.
+# To understand what language tags to use, read:
+# http://www.w3.org/International/articles/language-tags/
+# For the registry of tags:
+# http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
+# Useful lookup tool: http://r12a.github.io/apps/subtags/
+language: en
+
+# Gem-based theme
+# ---------------
+# Are you importing a gem-based theme? By default we do not.
+# If you are, remove the # before `theme:` and enter your theme's gem name.
+# If you're using GitHub Pages, note that it may not support your theme.
+# theme: your-theme-gem-name-here
+
+# Custom-edition variable
+# -----------------------
+# Which edition are we creating? You can leave this as `default`.
+# This can be used to create different editions of a book using
+# Liquid control-flow tags, e.g. in includes, layouts and file-list
+edition: "default"
+
+# Canonical URL
+# -------------
+# To make absolute links work, e.g. in canonical links in <head>,
+# include the url where this site will live when it's live (production).
+# E.g. canonical-url: "http://example.com"
+canonical-url: "http://example.com"
+
+# Base URL
+# --------
+# If you're using GitHub Pages without a custom domain, make this
+# the name of your repo, e.g. /electric-book
+# It must start with a slash. Otherwise you can leave it blank. See:
+# http://downtothewire.io/2015/08/15/configuring-jekyll-for-user-and-project-github-pages/
+baseurl: ""
+
+# GitHub Pages repository
+# -----------------------
+# If you're publishing a website on GitHub Pages
+# and want to ensure you're using a compatible setup,
+# add username/repository here and uncomment/enable
+# gem 'github-pages', group: :jekyll_plugins
+# in this project's Gemfile.
+repository: ""
+
+# Navigation
+# ----------
+# Web navigation source: select either files or nav
+# files: navigation will be taken from the web files list in `meta.yml`
+# nav: navigation will be taken from the web nav tree in `meta.yml`.
+# nav is more powerful, and allows submenu nesting;
+# files is quicker, because you don't have to create nav yaml,
+# only a files list.
+nav-source: nav
 
 # -----
 # Metadata
@@ -107,7 +165,7 @@ exclude:
 
 collections:
   book:
-    title: Documentation
+    title: Book
     permalink: /:path/
     output: true
 

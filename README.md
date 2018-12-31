@@ -32,6 +32,7 @@
 - [Introduction](#introduction)
 - [Features](#features)
 - [Usage](#usage)
+- [Deployment](#deployment)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [Release History](#release-history)
@@ -103,10 +104,33 @@ To build the component for production, run:
 ```bash
 npm run build
 ```
+## Deployment
 
-### Deploy
-#### Via FTP (RSync)
-For deploying the site via FTP (RSync), follow this instructions. In the main project folder `/`, run (if not already done) :
+At some point you will probably want to publish what you have built so that it can be shared with the wider world. The projects currently supports three methods of deployment: Netlify, Github Pages and Rsync.
+
+### Netlify
+
+Assuming you have created a repository for this project on GitHub, sign up or log in to [Netlify](https://www.netlify.com/) using your GitHub account.
+
+1. Click the big button labeled *new site from Git*
+2. Select your repository
+3. Configure the basic build settings: choose appropriate branch (`master` by default)
+4. You can set the default build command to `jekyll` and the publish directory to `_site/`, but this is not necessare since the `netlify.toml` file has all the information pre-configured.
+5. Netlify will auto-generate a site URL for you, or you can set it yourself. The default example uses `http://JEKYLL-BOOK-NAME.netlify.com`. Set this as your `baseurl` in `_config.yml`.
+6. Now, every time you push up a commit to `master` on GitHub, Netlify will automatically rebuild your site using the settings in `netlify.toml`. Pretty cool!
+
+### GitHub Pages
+
+Unlike Netlify, GitHub Pages does not support continuous deployment for Hugo/Quire websites. This means you will need to manually deploy the site by running a script provided in `bin/deploy.sh` in the project folder.
+
+1. In `_config-github.yml`, set the `baseurl` in the format that GitHub Pages expects (https://yourusername.github.io/JEKYLL-BOOK-NAME for most sites).
+2. Finally, you will need to remove the `_site/` directory from your `.gitignore` file so that you can check built files into version control.
+3. At this point you can run `bin/deploy.sh` and everything will be pushed up to GitHub on the `gh-pages` branch. It may take a few moments for everything to become visible online.
+
+If you get git errors when deploying because of upstream changes, you can always delete the `gh-pages` branch on GitHub and re-run the deploy script.
+
+### Via FTP (RSync)
+Any web server capable of hosting static files will work (S3, FTP server, etc.). For deploying the site via FTP (RSync), follow this instructions. In the main project folder `/`, run (if not already done) :
 ```bash
 npm install
 ```
@@ -136,17 +160,19 @@ git remote add origin https://github.com/username-or-organization-name/JEKYLL-BO
 
 ### Architecture
 
-- `_book`: Contains all the contents of the book in markdown
+- `book`: Contains all the contents of the book. `book/text` contains all the markdown files. If you have a translation, `book/fr` contains the translated book.
 
-- `_index.md`: Cover of the book (editable)
+- `index.md`: Home page of the book (editable)
 
 - `_bibliography`: Contains the bibliographys in BibTex format (.bib file) necessary for the [jekyll-scholar](https://github.com/inukshuk/jekyll-scholar) plugin
 
-- `_materials`: Folder containing all the files (image, text, media) and drafts of the book for discussion
+- `materials`: Directory containing all the files (image, text, media) and drafts of the book for discussion
 
-- `_doc` and `images`: Folders containing the files and images necessary for the book
+- `images`: Directory containing the files and images necessary for the book
 
-- `__includes`, `_layouts`, `_sass`, `_plugins` and others: Files necessary for the working of Jekyll
+- `output` : Directory containing the output formats of the book
+
+- `_includes`, `_layouts`, `_sass`, `_plugins` and others: Files necessary for the working of Jekyll
 
 All the files and directories can be modified for customization and your own needs.
 
@@ -191,6 +217,9 @@ You will find the releases history in the [release](https://github.com/michaelra
 * **Antoine Fauchié** - *Inspirated work and [project](https://gitlab.com/antoinentl/systeme-modulaire-de-publication)* - [antoinentl](https://gitlab.com/antoinentl)
 
 See also the list of [contributors](https://github.com/michaelravedoni/jekyll-book-framework/contributors) who participated in this project.
+
+* **[electric-book](https://github.com/electricbookworks/electric-book)** - *Inspiration* - [Electric Book Works](https://electricbookworks.com/)
+* **[Quire](https://github.com/gettypubs/quire)** - *Inspiration* - [Getty Publications](https://github.com/gettypubs)
 
 ## License
 

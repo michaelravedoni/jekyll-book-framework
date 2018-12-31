@@ -2,6 +2,7 @@
 layout: microtypo
 ---
 <!DOCTYPE html>
+{% include metadata %}
 {% include head.html %}
 <body>
 {% include header.html %}
@@ -9,7 +10,7 @@ layout: microtypo
 		<section class="main">
 			<div class="page-header">
 				<h2>{% if page.category %}{{ page.category }}{% else %}{{ site.title }}{% endif %}</h2>
-				<h3>{{ page.title }}</h3>
+				<h1>{{ page.title }}</h1>
 			</div>
 			<article class="content no-counter">
 				{{ content }}

@@ -19,7 +19,7 @@ Any revisions or corrections made to this publication after the first edition da
 {% if site.mobi %}[MOBI/KINDLE]({{site.mobi}})<br>{% endif %}
 {% if site.pdf %}[PDF]({{site.url}}{{site.baseurl}}{{site.pdf}})<br>{% else %}[Printable version]({{site.url}}{{site.baseurl}}/print)<br>{% endif %}
 {% if site.markdownD %}[Markdown]({{site.markdown}})<br>{% endif %}
-{% if site.paperback %}[Paperback]({{site.paperback}}){% endif %}
+{% if site.pod %}[Print-on-demand]({{site.pod}}){% endif %}
 
 
 ## Licence
