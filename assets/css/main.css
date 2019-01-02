@@ -584,32 +584,32 @@ th {
 
 @font-face {
   font-family: 'Fira Mono';
-  src: url("/assets/fonts/FiraMono-Regular.woff2") format("woff2"), url("/assets/fonts/FiraMono-Regular.woff") format("woff");
+  src: url("/jekyll-book-framework/assets/fonts/FiraMono-Regular.woff2") format("woff2"), url("/jekyll-book-framework/assets/fonts/FiraMono-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal; }
 @font-face {
   font-family: 'Fira Mono Bold';
-  src: url("/assets/fonts/FiraMono-Bold.woff2") format("woff2"), url("/assets/fonts/FiraMono-Bold.woff") format("woff");
+  src: url("/jekyll-book-framework/assets/fonts/FiraMono-Bold.woff2") format("woff2"), url("/jekyll-book-framework/assets/fonts/FiraMono-Bold.woff") format("woff");
   font-weight: 500;
   font-style: normal; }
 @font-face {
   font-family: 'Fira Sans';
-  src: url("/assets/fonts/FiraSans-Regular.woff2") format("woff2"), url("/assets/fonts/FiraSans-Regular.woff") format("woff");
+  src: url("/jekyll-book-framework/assets/fonts/FiraSans-Regular.woff2") format("woff2"), url("/jekyll-book-framework/assets/fonts/FiraSans-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal; }
 @font-face {
   font-family: 'Fira Sans';
-  src: url("/assets/fonts/FiraSans-Italic.woff2") format("woff2"), url("/assets/fonts/FiraSans-Italic.woff") format("woff");
+  src: url("/jekyll-book-framework/assets/fonts/FiraSans-Italic.woff2") format("woff2"), url("/jekyll-book-framework/assets/fonts/FiraSans-Italic.woff") format("woff");
   font-weight: 400;
   font-style: italic; }
 @font-face {
   font-family: 'Fira Sans';
-  src: url("/assets/fonts/FiraSans-SemiBold.woff2") format("woff2"), url("/assets/fonts/FiraSans-SemiBold.woff") format("woff");
+  src: url("/jekyll-book-framework/assets/fonts/FiraSans-SemiBold.woff2") format("woff2"), url("/jekyll-book-framework/assets/fonts/FiraSans-SemiBold.woff") format("woff");
   font-weight: 500;
   font-style: normal; }
 @font-face {
   font-family: 'Fira Sans';
-  src: url("/assets/fonts/FiraSans-SemiBoldItalic.woff2") format("woff2"), url("/assets/fonts/FiraSans-SemiBoldItalic.woff") format("woff");
+  src: url("/jekyll-book-framework/assets/fonts/FiraSans-SemiBoldItalic.woff2") format("woff2"), url("/jekyll-book-framework/assets/fonts/FiraSans-SemiBoldItalic.woff") format("woff");
   font-weight: 500;
   font-style: italic; }
 html {
