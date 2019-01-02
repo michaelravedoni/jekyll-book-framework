@@ -1,6 +1,6 @@
 ---
-layout: defaultn
-title: "Thanks"
+title: Remerciements
+type: acknowledgements
 ---
 A page of acknowledgements is usually included at the beginning of a Final Year Project, immediately after the Table of Contents.
 

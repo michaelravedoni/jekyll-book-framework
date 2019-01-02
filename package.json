@@ -17,6 +17,7 @@
     "run-run": "^1.1.0"
   },
   "scripts": {
+    "github-deploy": "chmod +x ./bin/github-deploy.sh && ./bin/github-deploy.sh",
     "build": "bundle exec jekyll build --config _config.yml,_config-stage.yml",
     "dev": "bundle exec jekyll serve --watch",
     "stage": "cat env.json | run-run -- 'npm run build && rsync -e ssh -avzuhcp _site/ {FTP_HOST_STAGING} --exclude-from 'rsync-ignore.txt' --delete'",

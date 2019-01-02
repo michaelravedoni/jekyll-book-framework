@@ -13,7 +13,7 @@
   <h3>
     <a href="#documentation">Documentation</a>
     <span> | </span>
-    <a href="https://ravedoni.com/test/jekyll-book-framework/">Demo</a>
+    <a href="https://michaelravedoni.github.io/jekyll-book-framework/">Demo</a>
     <span> | </span>
     <a href="#contributing">Contributing</a>
   </h3>
@@ -43,7 +43,7 @@
 
 This tool is inspired by [Antoine Fauchié](https://gitlab.com/antoinentl)'s excellent [thesis](https://memoire.quaternum.net/) (_Vers un système modulaire de publication : éditer avec le numérique_). The [project](https://gitlab.com/antoinentl/systeme-modulaire-de-publication) on which his thesis was based served as the basis for the development of `jekyll-book-framework`.
 
-To get an idea, you can see the [demo of this project](https://ravedoni.com/test/jekyll-book-framework/).
+To get an idea, you can see the [demo of this project](https://michaelravedoni.github.io/jekyll-book-framework/).
 
 ## Features
 
@@ -121,13 +121,18 @@ Assuming you have created a repository for this project on GitHub, sign up or lo
 
 ### GitHub Pages
 
-Unlike Netlify, GitHub Pages does not support continuous deployment for Hugo/Quire websites. This means you will need to manually deploy the site by running a script provided in `bin/deploy.sh` in the project folder.
+Unlike Netlify, GitHub Pages does not support continuous deployment. This means you will need to manually deploy the site by running a script provided in `bin/github-deploy.sh` in the project folder.
 
 1. In `_config-github.yml`, set the `baseurl` in the format that GitHub Pages expects (https://yourusername.github.io/JEKYLL-BOOK-NAME for most sites).
-2. Finally, you will need to remove the `_site/` directory from your `.gitignore` file so that you can check built files into version control.
-3. At this point you can run `bin/deploy.sh` and everything will be pushed up to GitHub on the `gh-pages` branch. It may take a few moments for everything to become visible online.
+2. At this point you can run `bin/github-deploy.sh` and everything will be pushed up to GitHub on the `gh-pages` branch:
 
-If you get git errors when deploying because of upstream changes, you can always delete the `gh-pages` branch on GitHub and re-run the deploy script.
+```bash
+npm run github-deploy
+```
+
+It may take a few moments for everything to become visible online. If you get git errors when deploying because of upstream changes, you can always delete the `gh-pages` branch on GitHub and re-run the deploy script.
+
+If you want, you can remove the `_site` directory from your `.gitignore` file so that you can check built files into version control.
 
 ### Via FTP (RSync)
 Any web server capable of hosting static files will work (S3, FTP server, etc.). For deploying the site via FTP (RSync), follow this instructions. In the main project folder `/`, run (if not already done) :
@@ -147,13 +152,6 @@ npm run stage-dry  #If you want to run a dry test
 
 npm run deploy     #For the production server
 npm run deploy-dry #If you want to run a dry test
-```
-### Via Git
-Initialize your site directory as a Git repository (and connect your remote repository to your local repository) if you want it to be online available.
-
-```bash
-git init
-git remote add origin https://github.com/username-or-organization-name/JEKYLL-BOOK-NAME
 ```
 
 ## Documentation
@@ -209,6 +207,7 @@ You will find the releases history in the [release](https://github.com/michaelra
 
 - Styles and css restructuration
 - i18n
+- auto pdf genarator
 - epub, mobi and markdown export
 
 ## Authors and acknowledgment

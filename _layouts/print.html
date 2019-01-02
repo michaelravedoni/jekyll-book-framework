@@ -16,6 +16,42 @@ layout: microtypo
 		<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/icons/touch-icon.png" sizes="192x192">
 		<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/icons/favicon.png">
 
+		<script>
+      window.PagedConfig = {
+        after: (flow) => {
+					console.log(flow);
+					/*if (flow.rendered) {
+						window.print();
+					}*/
+				}
+      }
+    </script>
+		<script src="https://unpkg.com/pagedjs/dist/paged.polyfill.js"></script>
+		<script>
+			function getUrlVars() {
+				var vars = {};
+				var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+					vars[key] = value;
+				});
+				return vars;
+			}
+			let width = getUrlVars()["width"];
+			let height = getUrlVars()["height"];
+			let pageSize = getUrlVars()["pageSize"];
+			let marginTop = getUrlVars()["marginTop"];
+			let marginBottom = getUrlVars()["marginBottom"];
+			let marginLeft = getUrlVars()["marginLeft"];
+			let marginRight = getUrlVars()["marginRight"];
+
+			if (width != undefined) {document.documentElement.style.setProperty('--width', width);}
+			if (height != undefined) {document.documentElement.style.setProperty('--height', height);}
+			if (pageSize != undefined) {document.documentElement.style.setProperty('--page-size', pageSize);}
+			if (marginTop != undefined) {document.documentElement.style.setProperty('--margin-top', marginTop);}
+			if (marginBottom != undefined) {document.documentElement.style.setProperty('--margin-bottom', marginBottom);}
+			if (marginLeft != undefined) {document.documentElement.style.setProperty('--margin-left', marginLeft);}
+			if (marginRight != undefined) {document.documentElement.style.setProperty('--margin-right', marginRight);}
+		</script>
+
 		<script src="{{ site.baseurl }}/assets/js/orderedList.js" type="text/javascript"></script>
 	  <script>
 	    // waiting for the before everything hook for that one

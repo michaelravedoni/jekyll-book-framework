@@ -1,8 +1,5 @@
 ---
 title: "Introduction"
-category: 1. Chapter
-partiep_link: /0-introduction/
-parties_link: /1-chapter/1-1-p2p/
 ---
 Le militaire regagna sa voiture et la barrière s’ouvrit. David regardait autour de lui, la base militaire où il avait passé dix mois de sa vie. Il n’y avait pas beaucoup de changement. L’herbe toujours aussi bien tondue, les allées toujours aussi propres. Les mêmes bâtiments. Juste les décors avaient changés. Il s’agissait de chars. C’étaient les chars que David avait eu l’occasion de voir fonctionner et qui, maintenant, avaient remplacés les vieux chars qui servaient de décors. Cela fit sourire David.
 

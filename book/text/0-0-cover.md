@@ -6,10 +6,10 @@ type: cover
 
 <div class="cover-header">
 	<div class="cover-creators">{% for creator in creators %}{{creator.firstName}} {{creator.lastName}}{% if forloop.last == true %}{% else %}, {% endif %}{% endfor %}</div>
-	<h1 class="cover-book-title">{{title}}</h1>
-	<h2 class="cover-book-subtitle">{{subtitle}}</h2>
+	<div class="cover-book-title">{{title}}</div>
+	<div class="cover-book-subtitle">{{subtitle}}</div>
 </div>
-<img class="cover-image" src="{{ site.baseurl }}/images/{{work.cover_image.image}}">
+<div class="cover-image-container"><img class="cover-image" src="{{ site.baseurl }}/images/{{work.cover_image.image}}" alt="Book image cover"></div>
 <div class="cover-meta">
 	<div class="cover-date">{{work.date|date: '%Y'}}</div>
 	<div class="cover-publisher">{{work.publisher.name}}</div>

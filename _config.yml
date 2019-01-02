@@ -163,11 +163,6 @@ exclude:
   - env.json
   - env-model.json
 
-collections:
-  book:
-    title: Book
-    permalink: /:path/
-    output: true
 
 defaults:
   -
@@ -175,13 +170,6 @@ defaults:
       path: ""
     values:
       layout: default
-  -
-    scope:
-      path: ""
-      type: "book"
-    values:
-      seo:
-        type: Book
 
 # --------------
 # Jekyll Scholar

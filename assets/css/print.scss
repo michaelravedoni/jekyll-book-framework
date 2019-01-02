@@ -238,6 +238,7 @@ section[data-type="bibliography"],
 section[data-type="glossary"],
 section[data-type="index"] {
 	break-before: right;
+  break-after: avoid;
 }
 
 section[data-type="dedication"],
@@ -261,6 +262,8 @@ section[data-type="back-cover"] {
 	page: back-cover ;
 }
 @page back-cover {
+	--margin-left: 14mm;
+  --margin-right: 14mm;
 	background: var(--color-primary);
   color: white;
 	@top-right {content: none;}
@@ -299,11 +302,20 @@ p {
   margin-top: 2rem;
   margin-bottom: 10px;
 }
-.cover-image {
-	width: 100%;
-	position: absolute;
-	bottom: 0;
+.cover-image-container {
+  overflow: hidden;
+  max-width: 100%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
   left: 0;
+  max-height: calc(100% - 250px);
+}
+.cover-image {
+	width: auto;
+	max-width: 100%;
+  object-fit: cover;
+  object-position: left bottom;
 }
 .cover-meta {
 	text-align: right;
@@ -359,7 +371,7 @@ section[data-type="colophon"] {
 .colophon-history-heading,
 .colophon-citation-heading,
 .colophon-cover-heading {
-	font-weight: bold;
+	font-weight: 500;
 }
 .colophon-cip,
 .colophon-contributors,
@@ -431,7 +443,7 @@ section[data-type="dedication"] .dedication-text {
 }
 .preface-author {
 	margin-left:1em;
-	font-weight:bold;
+	font-weight:500;
 }
 
 /* toc */
@@ -446,7 +458,7 @@ section[data-type="dedication"] .dedication-text {
   line-height: 2 ;
 }
 .toc-1 {
-  font-weight: 700;
+  font-weight: 500;
   margin-top: 1em ;
 }
 .toc-2 {
@@ -457,6 +469,116 @@ section[data-type="dedication"] .dedication-text {
 }
 .toc-4 {
   margin-left: 3em ;
+}
+
+/* Back-cover */
+.back-cover-creators {
+	font-size: 1.5em;
+	margin-bottom: .5em;
+}
+.back-cover-title {
+	font-size: 2em;
+}
+.back-cover-subtitle {
+	font-size: 1.2em;
+	padding-bottom: .5em;
+	border-bottom: solid 4px var(--color-secondary);
+}
+.back-cover-text {
+	font-size: .85em;
+	line-height: 1.4em;
+	margin-top: 2em;
+}
+.back-cover-text p,
+.back-cover-text-plus p {
+	margin-top: .2em;
+  margin-bottom: 0;
+	text-align: justify;
+}
+.back-cover-text-plus {
+	font-size: .8em;
+	line-height: 1.4em;
+	margin-top: 2em;
+}
+.back-cover-quote {
+	margin-top: 1em;
+	display: block;
+}
+.back-cover-quote q {
+	quotes: "„" "“" "‚" "‘";
+	display: block;
+	text-align: center;
+}
+.back-cover-quote q::before {
+  content: open-quote;
+}
+.back-cover-quote q:after {
+  content: close-quote;
+}
+.back-cover-quote span {
+  display: block;
+	text-align: right;
+}
+.back-cover-quote span::before {
+  content: "—";
+}
+.back-cover-creator {
+  display: block;
+	font-size: .85em;
+	line-height: 1.4em;
+}
+.back-cover-creator-name {
+	font-weight: 500;
+}
+.back-cover-bottom {
+	position: absolute;
+	display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 6px;
+	width: 100%;
+	text-align: center;
+	bottom: calc((var(--margin-bottom) - 15px) *-1);
+}
+.back-cover-isbn {
+	width: 100%;
+}
+.back-cover-isbn-text {
+	font-size: .75em;
+	line-height: 1.4em;
+}
+.back-cover-isbn-image {
+	align-self: center;
+	max-height: 50px;
+  max-width: 100%;
+}
+.back-cover-publisher {
+	width: 100%;
+	align-self: center;
+}
+.back-cover-publisher-text {
+	font-size: .75em;
+	line-height: 1.4em;
+}
+.back-cover-publisher-logo {
+  max-width: 100%;
+	max-height: 50px;
+	margin-top: .5em;
+	align-self: center;
+}
+.back-cover-qr {
+	align-self: center;
+	font-size: .75em;
+	line-height: 1.4em;
+	text-align:right;
+}
+.back-cover-qr img {
+	max-width: 100%;
+	max-height: 60px;
+}
+.back-cover-meta {
+  font-size: .55em;
+  line-height: 1.4em;
+	margin-top: 1em;
 }
 
 /* Link */

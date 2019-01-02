@@ -1,3 +1,6 @@
+---
+layout: compress
+---
 <!DOCTYPE html>
 {% include metadata %}
 {% include head.html %}
@@ -5,11 +8,11 @@
 <body>
   {% include header.html %}
 
-  <section class="main">
+  <section class="main home">
     {% if work %}
     <div class="page-cover">
-      <h1>{{ title }}</h1>
-      <h3>{{creators-line}}</h3>
+      <h1 class="home-heading-title">{{ title }}</h1>
+      <div class="home-heading-creators">{{creators-line}}</div>
       <p><a href="{{work-url-contents-directory}}/{{web-start-page}}">Read the book</a></p>
     </div>
     <article class="content cover-content">
@@ -22,7 +25,7 @@
       </div>
       {% if translations %}
       <div>
-        <h3>Translations</h3>
+        <h2>Translations</h2>
         {% for t in translations %}
           {{t.language}} - <a href="{{ site.baseurl }}/{{work.directory}}/{{ t.language }}{{work.contents_directory}}/{{t.products.web['start-page']}}">{{t.title}}</a>
           - {% if t.products['print-pdf'] %}print-pdf{% endif %} {% if t.products['paged-view'] %}paged-view{% endif %} {% if t.products['epub'] %}epub{% endif %}
@@ -36,7 +39,7 @@
     {% else %}
     <div class="page-cover">
       <h1>{{ project-name }}</h1>
-      <h2>{{ project-description }}</h2>
+      <div>{{ project-description }}</div>
     </div>
 
     <article class="content cover-content">

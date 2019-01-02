@@ -40,12 +40,10 @@
       <li class="nav-item top-level">
         <a onclick="addActive(this)">Download and print</a>
         <ul>
-          <li class="nav-item">
               {% if work.products['print-pdf'] %}<li class="nav-item"><a href="{{ work-url-translation }}/pdf"><i class="fas fa-file-pdf"></i> Printable version</a></li>{% endif %}
               {% if work.products['paged-view'] %}<li class="nav-item"><a href="{{ work-url-translation }}/paged"><i class="far fa-eye"></i> Paged view</a></li>{% endif %}
               {% if work.products['epub'] %}<li class="nav-item"><a href="{{ work-url-translation }}/epub"><i class="fas fa-book-open"></i> EPUB version</a></li>{% endif %}
               {% if work.products.pod %}<li class="nav-item"><a href="{{ work-url-translation }}/pod"><i class="fas fa-book"></i> Print-on-demand version</a></li>{% endif %}
-          </li>
         </ul>
       </li>
     </ul>

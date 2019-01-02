@@ -1,6 +1,5 @@
 ---
 title: "Introduction"
-parties_link: /01-chapter/1-0-introduction/
 ---
 
 David se rappelle y avoir fait un séjour alors qu’il avait vingt-quatre ans. Il avait fait tout son possible pour éviter le service militaire, encore en vogue à l’époque, mais lorsqu’on lui avait proposé de travailler sur des projets informatiques secret défense, il n’avait pas su résister. Non pas que c’était passionnant, mais au moins, il ne faisait pas trop de sortie et il était tranquillement installé dans un bureau avec le matériel dont il rêvait.

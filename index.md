@@ -5,11 +5,13 @@ layout: home
 {% include metadata %}
 
 <section class="home-cover">
-		{% for page in site.pages %}
-			{% if page.type == 'cover' %}
+{% for page in site.pages %}
+  {% assign cover_name = paged-view-file-list.cover %}
+  {% capture cover_url %}{{work-url-contents-directory}}/{{ cover_name | split: "." | first }}/{% endcapture %}
+  {% if cover_url == page.url %}
 {{page.content|markdownify}}
-			{% endif %}
-		{% endfor %}
+  {% endif %}
+{% endfor %}
 </section>
 
 ## Abstract
@@ -71,103 +73,3 @@ Published by {{work.publisher.name}}, {{work.publisher.location}}
 <div class="colophon-cover-heading">On the front cover</div>
 <div class="colophon-cover-item">{{work.cover_image.title}}{% if work.cover_image.date %}. {{work.cover_image.date}}{% endif %}{% if work.cover_image.creator %}. {{work.cover_image.creator}}{% endif %}.{% if work.cover_image.text %} <span class="colophon-cover-text">{{work.cover_image.text}}</span>{% endif %} {% if work.cover_image.text %} <span class="colophon-cover-source">{{work.cover_image.license}} from <a href="{{work.cover_image.source_url}}">{{work.cover_image.source}}</a></span>.{% endif %}</div>
 </div>
-
-<style media="screen">
-  img {
-    width: 100%;
-  }
-  /* Cover */
-  .home-cover {
-    font-size:75%;
-  	max-width:600px;
-    margin-top:6em;
-    margin-bottom: 6em;
-    -webkit-box-shadow: 1px 10px 100px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 1px 10px 100px 0px rgba(0,0,0,0.75);
-    box-shadow: 1px 10px 100px 0px rgba(0,0,0,0.75);
-  }
-  .cover-header,
-  .cover-meta {
-  	margin-left: 2rem;
-  	line-height: initial;
-  }
-  .cover-book-title {
-  	background-color: var(--color-secondary);
-    font-size: 4em;
-  	margin-top: 0;
-  	margin-bottom: 0;
-    text-align: left;
-    }
-  .cover-book-subtitle {
-  	background-color: var(--color-secondary);
-    font-size: 2em;
-  	margin-top: 0;
-    text-align: left;
-    }
-  .cover-creators {
-  	font-size: 3em;
-    padding-top: 2em;
-    margin-bottom: 10px;
-  }
-  .cover-meta {
-  	text-align: right;
-  	margin-right: 2em;
-    padding-bottom: 2em;
-  }
-  .cover-meta div {
-     margin-bottom: 0;
-     line-height: 1;
-  }
-  .home-creators {
-    margin-top:2em;
-    margin-bottom:2em;
-  }
-  .home-creator-name {
-   font-weight: bold;
-   border-bottom: solid 1px black;
-  }
-  .home-creator-links {
-    font-weight: normal;
-    font-size: 75%;
-    margin-left: 2.5rem;
-  }
-  .home-creator-card {
-    display: flex;
-    flex-direction: row;
-  }
-  .home-creator-bio {
-    padding: 1.5rem;
-    flex-grow: 1;
-  }
-  .home-creator-pic {
-    display: block;
-    width: 100px;
-	  padding: 2px;
-  }
-  /* Colophon */
-
-  .colophon-license-image {
-  	margin-bottom: 1em;
-  }
-  .colophon-history-item,
-  .colophon-contributors-item,
-  .colophon-citation-item {
-  	margin-left:2em;
-  }
-  .colophon-license-exceptions,
-  .colophon-license,
-  .colophon-disclaimers {
-  	margin-bottom: .8em;
-  }
-  .colophon-contributors-role {
-  	width: 6rem;
-    display: inline-block;
-  }
-  .colophon-cover-text,
-  .colophon-cover-source {
-  	font-size:85%;
-  }
-  .colophon-cover-heading {
-  	font-weight: bold;
-  }
-</style>
