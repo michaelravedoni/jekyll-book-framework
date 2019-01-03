@@ -1,6 +1,6 @@
 ---
 title: Copyright
-style: copyright-page
+type: copyright
 
 # The Liquid tags here fetch metadata
 # from this book's YML file in _data

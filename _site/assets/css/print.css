@@ -1,0 +1,589 @@
+@charset "UTF-8";
+/* Fonts */
+@font-face {
+  font-family: 'Fira Mono';
+  src: url("/assets/fonts/FiraMono-Regular.woff2") format("woff2"), url("/assets/fonts/FiraMono-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal; }
+@font-face {
+  font-family: 'Fira Mono Bold';
+  src: url("/assets/fonts/FiraMono-Bold.woff2") format("woff2"), url("/assets/fonts/FiraMono-Bold.woff") format("woff");
+  font-weight: 500;
+  font-style: normal; }
+@font-face {
+  font-family: 'Fira Sans';
+  src: url("/assets/fonts/FiraSans-Regular.woff2") format("woff2"), url("/assets/fonts/FiraSans-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal; }
+@font-face {
+  font-family: 'Fira Sans';
+  src: url("/assets/fonts/FiraSans-Italic.woff2") format("woff2"), url("/assets/fonts/FiraSans-Italic.woff") format("woff");
+  font-weight: 400;
+  font-style: italic; }
+@font-face {
+  font-family: 'Fira Sans';
+  src: url("/assets/fonts/FiraSans-SemiBold.woff2") format("woff2"), url("/assets/fonts/FiraSans-SemiBold.woff") format("woff");
+  font-weight: 500;
+  font-style: normal; }
+@font-face {
+  font-family: 'Fira Sans';
+  src: url("/assets/fonts/FiraSans-SemiBoldItalic.woff2") format("woff2"), url("/assets/fonts/FiraSans-SemiBoldItalic.woff") format("woff");
+  font-weight: 500;
+  font-style: italic; }
+/* Variables */
+:root {
+  /* margin for the interface */
+  --margin: 4px;
+  /* color for the interface */
+  --color-background: whitesmoke;
+  --color-marginBox: transparent;
+  --color-pageBox: rgba(0,0,0,0.2);
+  --color-paper: white;
+  /* color used for the baseline */
+  --color-baseline: transparent; }
+
+/* Interface */
+/* To define how the book look on the screen: */
+@media screen {
+  body {
+    background-color: var(--color-background); }
+
+  .pagedjs_pages {
+    display: flex;
+    width: calc(var(--width) * 2);
+    flex: 0;
+    flex-wrap: wrap;
+    margin: 0 auto; }
+
+  .pagedjs_page {
+    background-color: var(--color-paper);
+    box-shadow: 0 0 0 1px var(--color-pageBox);
+    margin: 0;
+    flex-shrink: 0;
+    flex-grow: 0;
+    margin-top: 10mm; }
+
+  .pagedjs_first_page {
+    margin-left: var(--width); }
+
+  /* show the margin-box */
+  .pagedjs_margin-content {
+    box-shadow: 0 0 0 1px inset var(--color-marginBox); }
+
+  /* uncomment for recto/verso book.
+  --------------------------------------------------- */
+    /*
+    .pagedjs_pages {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .pagedjs_first_page {
+        margin-left: 0;
+    }
+
+    .pagedjs_page {
+        margin: 0 auto;
+        margin-top: 10mm;
+    }
+    */ }
+/* print css that's being rendered on screen */
+/* variable used for the book */
+:root {
+  --margin-top: 73px;
+  --margin-bottom: 73px;
+  --color-primary: teal;
+  --color-secondary: indianred;
+  --color-bg-chapter: whitesmoke;
+  --font-size-base: 16px; }
+
+@page {
+  size: A5 portrait;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-base);
+  line-height: 27px; }
+@page :blank {
+  @top-left-corner {
+    content: none; }
+  @top-left {
+    content: none; }
+  @top-center {
+    content: none; }
+  @top-right {
+    content: none; }
+  @top-right-corner {
+    content: none; }
+  @right-top {
+    content: none; }
+  @right-middle {
+    content: none; }
+  @right-bottom {
+    content: none; }
+  @bottom-right-corner {
+    content: none; }
+  @bottom-right {
+    content: none; }
+  @bottom-center {
+    content: none; }
+  @bottom-left {
+    content: none; }
+  @bottom-left-corner {
+    content: none; }
+  @left-bottom {
+    content: none; }
+  @left-middle {
+    content: none; }
+  @left-top {
+    content: none; } }
+@page :left {
+  --margin-left: 28mm;
+  --margin-right: 14mm;
+  @top-left-corner {
+    content: counter(page);
+    padding-right: 3ch; }
+  @top-left {
+    content: string(chaptertitle); } }
+@page :right {
+  --margin-left: 14mm;
+  --margin-right: 28mm;
+  @top-right {
+    content: string(booktitle); }
+  @top-right-corner {
+    content: counter(page);
+    padding-left: 3ch; } }
+section[data-type="cover"] {
+  page: cover; }
+
+@page cover {
+  --margin-left: 0;
+  --margin-right: 0;
+  display: block;
+  background-color: var(--color-primary);
+  color: white;
+  break-after: right;
+  margin-top: 0;
+  margin-bottom: 0;
+  @top-right {
+    content: none; }
+  @top-right-corner {
+    content: none; }
+  @top-left-corner {
+    content: none; } }
+section.front-matter {
+  page: front-matter; }
+
+@page front-matter {
+  @top-right {
+    content: none; }
+  @top-right-corner {
+    content: none; }
+  @top-left-corner {
+    content: none; } }
+.chapter-title {
+  string-set: chaptertitle content(text); }
+
+.cover-book-title {
+  string-set: booktitle content(text); }
+
+section.chapter,
+section[data-type="half-title"],
+section[data-type="toc"],
+section[data-type="colophon"],
+section[data-type="dedication"],
+section[data-type="epigraph"],
+section[data-type="forewords"],
+section[data-type="preface"] {
+  break-before: page;
+  break-after: right; }
+
+section[data-type="appendix"],
+section[data-type="bibliography"],
+section[data-type="glossary"],
+section[data-type="index"] {
+  break-before: right;
+  break-after: avoid; }
+
+section[data-type="dedication"],
+section[data-type="epigraph"] {
+  break-after: always; }
+
+section.chapter {
+  page: chapter;
+  break-before: right; }
+
+@page chapter :first {
+  background-color: var(--color-bg-chapter);
+  @top-right {
+    content: none; }
+  @top-right-corner {
+    content: none; }
+  @top-left-corner {
+    content: none; } }
+section[data-type="back-cover"] {
+  break-after: avoid;
+  page: back-cover; }
+
+@page back-cover {
+  --margin-left: 14mm;
+  --margin-right: 14mm;
+  background: var(--color-primary);
+  color: white;
+  @top-right {
+    content: none; }
+  @top-right-corner {
+    content: none; }
+  @top-left-corner {
+    content: none; } }
+p {
+  text-align: justify; }
+
+/* Cover */
+.cover-header,
+.cover-meta {
+  margin-left: 2rem;
+  line-height: initial; }
+
+.cover-book-title {
+  background-color: var(--color-secondary);
+  font-size: 48px;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: white;
+  text-align: left; }
+
+.cover-book-subtitle {
+  background-color: var(--color-secondary);
+  font-size: 24px;
+  margin-top: 0;
+  color: white;
+  text-align: left; }
+
+.cover-creators {
+  font-size: 36px;
+  color: white;
+  margin-top: 2rem;
+  margin-bottom: 10px; }
+
+.cover-image-container {
+  overflow: hidden;
+  max-width: 100%;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  max-height: calc(100% - 250px); }
+
+.cover-image {
+  width: auto;
+  max-width: 100%;
+  object-fit: cover;
+  object-position: left bottom; }
+
+.cover-meta {
+  text-align: right;
+  margin-right: 2rem; }
+
+/* Half-title */
+.half-title-title {
+  text-align: center;
+  margin-bottom: 4em;
+  font-size: 2.75em;
+  line-height: 1.25em; }
+
+/* Title-page */
+.title-page-title {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 2em;
+  line-height: 1.25em; }
+
+.title-page-creators {
+  text-align: center;
+  margin-bottom: 4em;
+  font-size: 1.75em;
+  line-height: 1em; }
+
+.title-page-bottom-wrapper {
+  position: absolute;
+  bottom: 10px;
+  margin: auto;
+  width: 100%; }
+
+.title-page-publisher,
+.title-page-date {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 1em;
+  line-height: 1em; }
+
+.title-page-publisher-logo {
+  display: block;
+  margin: auto;
+  width: 100px; }
+
+/* Colophon */
+section[data-type="colophon"] {
+  font-size: 75%;
+  line-height: initial; }
+
+.colophon-title,
+.colophon-history-heading,
+.colophon-citation-heading,
+.colophon-cover-heading {
+  font-weight: 500; }
+
+.colophon-cip,
+.colophon-contributors,
+.colophon-citation,
+.colophon-history,
+.colophon-licenses,
+.colophon-cover {
+  margin-top: 2em;
+  margin-bottom: 1em; }
+
+.colophon-license-image {
+  margin-bottom: 1em; }
+
+.colophon-cip-text {
+  color: gray;
+  margin-bottom: .8em; }
+
+.colophon-history-item,
+.colophon-contributors-item,
+.colophon-citation-item {
+  margin-left: 2em; }
+
+.colophon-license-exceptions,
+.colophon-license,
+.colophon-disclaimers {
+  margin-bottom: .8em; }
+
+.colophon-contributors-role {
+  width: 6rem;
+  display: inline-block; }
+
+.colophon-cover-text,
+.colophon-cover-source {
+  font-size: 85%; }
+
+/* Dedication */
+section[data-type="dedication"] .dedication-text {
+  margin-top: 200px;
+  margin-left: 100px;
+  text-align: right;
+  font-style: italic;
+  orphans: 2;
+  widows: 2; }
+
+/* Epigraph */
+.epigraph-citation {
+  margin-top: 200px;
+  margin-left: 100px;
+  text-align: right;
+  font-style: italic;
+  orphans: 2;
+  widows: 2; }
+
+.epigraph-author {
+  margin-left: 100px;
+  text-align: right;
+  font-variant: small-caps; }
+
+/* Preface */
+.toc h1,
+.forewords-title,
+.preface-title {
+  font-size: 1.75em;
+  line-height: 1em;
+  margin-bottom: 0; }
+
+.preface-author {
+  margin-left: 1em;
+  font-weight: 500; }
+
+/* toc */
+.toc a::after {
+  content: target-counter(attr(href), page);
+  float: right; }
+
+.toc ul {
+  list-style: none;
+  margin: 3em 0 0 0;
+  padding: 0;
+  line-height: 2; }
+
+.toc-1 {
+  font-weight: 500;
+  margin-top: 1em; }
+
+.toc-2 {
+  margin-left: 1em; }
+
+.toc-3 {
+  margin-left: 2em; }
+
+.toc-4 {
+  margin-left: 3em; }
+
+/* Back-cover */
+.back-cover-creators {
+  font-size: 1.5em;
+  margin-bottom: .5em; }
+
+.back-cover-title {
+  font-size: 2em; }
+
+.back-cover-subtitle {
+  font-size: 1.2em;
+  padding-bottom: .5em;
+  border-bottom: solid 4px var(--color-secondary); }
+
+.back-cover-text {
+  font-size: .85em;
+  line-height: 1.4em;
+  margin-top: 2em; }
+
+.back-cover-text p,
+.back-cover-text-plus p {
+  margin-top: .2em;
+  margin-bottom: 0;
+  text-align: justify; }
+
+.back-cover-text-plus {
+  font-size: .8em;
+  line-height: 1.4em;
+  margin-top: 2em; }
+
+.back-cover-quote {
+  margin-top: 1em;
+  display: block; }
+
+.back-cover-quote q {
+  quotes: "„" "“" "‚" "‘";
+  display: block;
+  text-align: center; }
+
+.back-cover-quote q::before {
+  content: open-quote; }
+
+.back-cover-quote q:after {
+  content: close-quote; }
+
+.back-cover-quote span {
+  display: block;
+  text-align: right; }
+
+.back-cover-quote span::before {
+  content: "—"; }
+
+.back-cover-creator {
+  display: block;
+  font-size: .85em;
+  line-height: 1.4em; }
+
+.back-cover-creator-name {
+  font-weight: 500; }
+
+.back-cover-bottom {
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 6px;
+  width: 100%;
+  text-align: center;
+  bottom: calc((var(--margin-bottom) - 15px) *-1); }
+
+.back-cover-isbn {
+  width: 100%; }
+
+.back-cover-isbn-text {
+  font-size: .75em;
+  line-height: 1.4em; }
+
+.back-cover-isbn-image {
+  align-self: center;
+  max-height: 50px;
+  max-width: 100%; }
+
+.back-cover-publisher {
+  width: 100%;
+  align-self: center; }
+
+.back-cover-publisher-text {
+  font-size: .75em;
+  line-height: 1.4em; }
+
+.back-cover-publisher-logo {
+  max-width: 100%;
+  max-height: 50px;
+  margin-top: .5em;
+  align-self: center; }
+
+.back-cover-qr {
+  align-self: center;
+  font-size: .75em;
+  line-height: 1.4em;
+  text-align: right; }
+
+.back-cover-qr img {
+  max-width: 100%;
+  max-height: 60px; }
+
+.back-cover-meta {
+  font-size: .55em;
+  line-height: 1.4em;
+  margin-top: 1em; }
+
+/* Link */
+a {
+  text-decoration: none;
+  color: #000; }
+
+a:over, a:active {
+  text-decoration: underline; }
+
+/* Headings */
+.toc h1,
+.forewords-title {
+  font-size: 1.75em;
+  line-height: 1em;
+  margin-bottom: 1.5em; }
+
+h1.chapter,
+.chapter-title,
+h1.glossary,
+h1.index,
+h1.bibliography {
+  font-size: 2.75em;
+  line-height: 1.25em;
+  margin-bottom: 2em; }
+
+h1.sub-chapter,
+h1.section,
+h2 {
+  font-size: 2em;
+  line-height: 1em; }
+
+.biblio h2 {
+  font-size: 1.25em;
+  line-height: 1em; }
+
+/* Bibliography */
+.biblio ul {
+  list-style: none; }
+
+.biblio li {
+  font-size: .8em;
+  line-height: 1.1em;
+  text-indent: -1.5em; }
+
+/* Hack */
+/* here come some simple hacks for features that are not yet in paged js */
+/* simple break solution  */
+.page-break {
+  break-after: page; }
+
+.image-grey {
+  height: 250px;
+  filter: grayscale(1); }

@@ -21,7 +21,53 @@ layout: microtypo
         after: (flow) => {
 					console.log(flow);
 					/*if (flow.rendered) {
-						window.print();
+						//window.print();
+						let elementHtml = flow.pagesArea;
+						let htmlBody = document.documentElement.outerHTML;
+						let optionsData = {
+							// Either "pdf" or "screenshot"
+							output: "pdf",
+							// HTML content to render. Either url or html is required
+							html: htmlBody.toString(),
+							// If we should emulate @media screen instead of print
+							emulateScreenMedia: false,
+							// If we should ignore HTTPS errors
+							ignoreHttpsErrors: true,
+							// If true, page is scrolled to the end before rendering
+							// Note: this makes rendering a bit slower
+							scrollPage: false,
+							// Passed to Puppeteer page.waitFor()
+							//waitFor: "networkidle2",
+							// Passed to Puppeteer page.pdf()
+							//pdf: {}
+						};
+						let optionsDataURI = encodeURIComponent(JSON.stringify(optionsData));
+						var xmlhttp = new XMLHttpRequest();
+						xmlhttp.open("POST", "https://cors-anywhere.herokuapp.com/https://numenpdf.herokuapp.com/api/render");
+						xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+						//xmlhttp.setRequestHeader('x-api-key', 'foobar');
+						xmlhttp.responseType = "blob";
+						xmlhttp.send(JSON.stringify(optionsData));
+						xmlhttp.onreadystatechange = function() {
+							if (xmlhttp.readyState === 4) {
+								console.log(xmlhttp.response);
+								if (typeof window.navigator.msSaveBlob === 'function') {
+									window.navigator.msSaveBlob(xmlhttp.response, "PdfName-" + new Date().getTime() + ".pdf");
+								} else {
+									var blob = xmlhttp.response;
+									var link = document.createElement('a');
+									link.href = window.URL.createObjectURL(blob);
+									link.download = "PdfName-" + new Date().getTime() + ".pdf";
+
+									// append the link to the document body
+
+									document.body.appendChild(link);
+
+									link.click();
+								}
+							}
+						}
+						console.log(optionsData);
 					}*/
 				}
       }
@@ -37,7 +83,7 @@ layout: microtypo
 			}
 			let width = getUrlVars()["width"];
 			let height = getUrlVars()["height"];
-			let pageSize = getUrlVars()["pageSize"];
+			let orientation = getUrlVars()["orientation"];
 			let marginTop = getUrlVars()["marginTop"];
 			let marginBottom = getUrlVars()["marginBottom"];
 			let marginLeft = getUrlVars()["marginLeft"];
@@ -45,7 +91,7 @@ layout: microtypo
 
 			if (width != undefined) {document.documentElement.style.setProperty('--width', width);}
 			if (height != undefined) {document.documentElement.style.setProperty('--height', height);}
-			if (pageSize != undefined) {document.documentElement.style.setProperty('--page-size', pageSize);}
+			if (orientation != undefined) {document.documentElement.style.setProperty('--orientation', orientation);}
 			if (marginTop != undefined) {document.documentElement.style.setProperty('--margin-top', marginTop);}
 			if (marginBottom != undefined) {document.documentElement.style.setProperty('--margin-bottom', marginBottom);}
 			if (marginLeft != undefined) {document.documentElement.style.setProperty('--margin-left', marginLeft);}
@@ -59,7 +105,7 @@ layout: microtypo
 	      noteNumbering();
 
 	      /* render pagedjs after a first render in the browser (need to calculate the computed line-height and font-metrics */
-	      setTimeout(pagedjs, 3000);
+	      //setTimeout(pagedjs, 3000);
 	      setTimeout(addingNumToOl, 20000);
 
 	    }

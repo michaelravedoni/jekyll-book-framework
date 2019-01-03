@@ -131,11 +131,6 @@ nav-source: nav
 google_site_verification:
 schema:
   type              : Book # Required
-  links:
-    - https://gitlab.com/michaelravedoni/book/
-
-repo_url            : https://github.com/michaelravedoni/jekyll-book-framework/ # Required
-repo_branch         : master
 
 # -----
 # Build
@@ -155,13 +150,14 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
-  - LICENCE
+  - LICENSE
   - materials
   - package.json
   - package-lock.json
   - rsync-ignore.txt
   - env.json
   - env-model.json
+  - bin
 
 
 defaults:

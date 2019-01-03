@@ -294,27 +294,30 @@ work:
           - file: "105-back-cover"    # required. filename if the required file in the 'work/contents' (book/text) directory
             id: "back-cover"          # optional (for layout). We recommend to put the same value as the 'type' value in the md file
             class: "back-cover"       # optional (for layout).
-    print-pdf: # You have to transform the paged-view to pdf manually.
+    # Automatic pdf generation is not yet implemented. The technology is not
+    # yet mature enough to do this easily. In the meantime, you have to generate
+    # the pdf files manually. To go to the "/work/paged" page (e.g. "/book/paged"),
+    # wait until the work is fully loaded, print ('ctrl-p') and export to pdf
+    # from the dialog box.
+    print-pdf:
       format: "Print format" # e.g. Print-on-demand, Digital download, Digital online
+      # Formats not yet implemented
       formats:
         - name: A5
-          format: A5
-          size: 6x9in
-          size_in: 6in 9in
-          size_mm: 152mm 228mm
-          color: Color
-          media_type: application/pdf
-          link_relation: alternate
-          url: /output/book-a5.pdf
+          width: 6in
+          height: 9in
         - name: A4
-          format: A4
-          size: 14.8x21cm
-          size_in: 5.83in 8.27in
-          size_mm: 148mm 210mm
-          color: Color
-          media_type: application/pdf
-          link_relation: alternate
-          url: /output/book-a4.pdf
+          width: 148mm
+          height: 210mm
+      generated:
+        - name: "A5"
+          format: "a5"
+          size: "6x9in"
+          size_in: "6in 9in"
+          size_mm: "152mm 228mm"
+          color: "Color"
+          date: 2018-01-03
+          url: "/output/book-a5-20180103.pdf" # /output/work-format-yyyymmdd.pdf
     epub:
       date: "2016-05-07" # YYYY-MM-DD e.g. publication date or last revision
       format: "Digital download" # e.g. Print-on-demand, Digital download, Digital online

@@ -28,7 +28,10 @@ layout: compress
         <h2>Translations</h2>
         {% for t in translations %}
           {{t.language}} - <a href="{{ site.baseurl }}/{{work.directory}}/{{ t.language }}{{work.contents_directory}}/{{t.products.web['start-page']}}">{{t.title}}</a>
-          - {% if t.products['print-pdf'] %}print-pdf{% endif %} {% if t.products['paged-view'] %}paged-view{% endif %} {% if t.products['epub'] %}epub{% endif %}
+          - {% if t.products['print-pdf'] %}<a href="{{ work-url }}/{{ t.language }}/pdf"><i class="fas fa-file-pdf"></i> Printable version</a><br>{% endif %}
+          {% if t.products['paged-view'] %}<a href="{{ work-url }}/{{ t.language }}/paged"><i class="far fa-eye"></i> Paged view</a><br>{% endif %}
+          {% if t.products['epub'] %}<a href="{{ work-url }}/{{ t.language }}/epub"><i class="fas fa-book-open"></i> EPUB version</a><br>{% endif %}
+          {% if t.products.pod %}<a href="{{ work-url }}/{{ t.language }}/pod"><i class="fas fa-book"></i> Print-on-demand</a><br>{% endif %}
         {% endfor %}
       </div>
       {% endif %}
