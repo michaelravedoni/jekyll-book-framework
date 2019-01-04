@@ -584,32 +584,32 @@ th {
 
 @font-face {
   font-family: 'Fira Mono';
-  src: url("/assets/fonts/FiraMono-Regular.woff2") format("woff2"), url("/assets/fonts/FiraMono-Regular.woff") format("woff");
+  src: url("/jekyll-book-framework/assets/fonts/FiraMono-Regular.woff2") format("woff2"), url("/jekyll-book-framework/assets/fonts/FiraMono-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal; }
 @font-face {
   font-family: 'Fira Mono Bold';
-  src: url("/assets/fonts/FiraMono-Bold.woff2") format("woff2"), url("/assets/fonts/FiraMono-Bold.woff") format("woff");
+  src: url("/jekyll-book-framework/assets/fonts/FiraMono-Bold.woff2") format("woff2"), url("/jekyll-book-framework/assets/fonts/FiraMono-Bold.woff") format("woff");
   font-weight: 500;
   font-style: normal; }
 @font-face {
   font-family: 'Fira Sans';
-  src: url("/assets/fonts/FiraSans-Regular.woff2") format("woff2"), url("/assets/fonts/FiraSans-Regular.woff") format("woff");
+  src: url("/jekyll-book-framework/assets/fonts/FiraSans-Regular.woff2") format("woff2"), url("/jekyll-book-framework/assets/fonts/FiraSans-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal; }
 @font-face {
   font-family: 'Fira Sans';
-  src: url("/assets/fonts/FiraSans-Italic.woff2") format("woff2"), url("/assets/fonts/FiraSans-Italic.woff") format("woff");
+  src: url("/jekyll-book-framework/assets/fonts/FiraSans-Italic.woff2") format("woff2"), url("/jekyll-book-framework/assets/fonts/FiraSans-Italic.woff") format("woff");
   font-weight: 400;
   font-style: italic; }
 @font-face {
   font-family: 'Fira Sans';
-  src: url("/assets/fonts/FiraSans-SemiBold.woff2") format("woff2"), url("/assets/fonts/FiraSans-SemiBold.woff") format("woff");
+  src: url("/jekyll-book-framework/assets/fonts/FiraSans-SemiBold.woff2") format("woff2"), url("/jekyll-book-framework/assets/fonts/FiraSans-SemiBold.woff") format("woff");
   font-weight: 500;
   font-style: normal; }
 @font-face {
   font-family: 'Fira Sans';
-  src: url("/assets/fonts/FiraSans-SemiBoldItalic.woff2") format("woff2"), url("/assets/fonts/FiraSans-SemiBoldItalic.woff") format("woff");
+  src: url("/jekyll-book-framework/assets/fonts/FiraSans-SemiBoldItalic.woff2") format("woff2"), url("/jekyll-book-framework/assets/fonts/FiraSans-SemiBoldItalic.woff") format("woff");
   font-weight: 500;
   font-style: italic; }
 html {
@@ -1091,6 +1091,15 @@ nav > ul {
   nav > ul + ul {
     border-top: 1px solid rgba(0, 0, 0, 0.075); }
 
+.nav-languages {
+  padding-top: 10px;
+  padding-left: 30px; }
+
+.nav-languages .nav-language {
+  margin-right: 10px;
+  display: inline;
+  padding: 0; }
+
 .nav-item {
   display: block;
   font-family: "Fira Mono", monospace;
@@ -1394,3 +1403,100 @@ button {
 
 select {
   border: none; }
+
+/* Home page styles */
+home .cover-image {
+  width: 100%; }
+
+/* Cover */
+.home-cover {
+  font-size: 75%;
+  max-width: 600px;
+  margin-top: 6em;
+  margin-bottom: 6em;
+  -webkit-box-shadow: 1px 10px 100px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 10px 100px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 10px 100px 0px rgba(0, 0, 0, 0.75); }
+
+.cover-header,
+.cover-meta {
+  margin-left: 2rem;
+  line-height: initial; }
+
+.cover-book-title {
+  background-color: var(--color-secondary);
+  font-size: 4em;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-align: left; }
+
+.cover-book-subtitle {
+  background-color: var(--color-secondary);
+  font-size: 2em;
+  margin-top: 0;
+  text-align: left; }
+
+.cover-creators {
+  font-size: 3em;
+  padding-top: 2em;
+  margin-bottom: 10px; }
+
+.cover-meta {
+  text-align: right;
+  margin-right: 2em;
+  padding-bottom: 2em; }
+
+.cover-meta div {
+  margin-bottom: 0;
+  line-height: 1; }
+
+.home-creators {
+  margin-top: 2em;
+  margin-bottom: 2em; }
+
+.home-creator-name {
+  font-weight: bold;
+  border-bottom: solid 1px black; }
+
+.home-creator-links {
+  font-weight: normal;
+  font-size: 75%;
+  margin-left: 2.5rem; }
+
+.home-creator-card {
+  display: flex;
+  flex-direction: row; }
+
+.home-creator-bio {
+  padding: 1.5rem;
+  flex-grow: 1; }
+
+.home-creator-pic {
+  display: block;
+  width: 100px;
+  padding: 2px; }
+
+/* Colophon */
+.colophon-license-image {
+  margin-bottom: 1em; }
+
+.colophon-history-item,
+.colophon-contributors-item,
+.colophon-citation-item {
+  margin-left: 2em; }
+
+.colophon-license-exceptions,
+.colophon-license,
+.colophon-disclaimers {
+  margin-bottom: .8em; }
+
+.colophon-contributors-role {
+  width: 6rem;
+  display: inline-block; }
+
+.colophon-cover-text,
+.colophon-cover-source {
+  font-size: 85%; }
+
+.colophon-cover-heading {
+  font-weight: bold; }
