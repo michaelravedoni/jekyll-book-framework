@@ -1,0 +1,18 @@
+{%- include metadata -%}
+{%- if work.status != 'published' -%}
+<div class="jbf-status-bar jbf-status-bar-{{work.status}}" data-status="{{work.status}}">
+{% if work.status == 'draft' %}
+<p>This <strong>work is in progress</strong>. Its content is not definitive and may be modified. If you have any comments or suggestions, please feel free to share them with us: <a href="{{project-repository}}/issues/new">&rarr; <i class="fab fa-github"></i></a> <a href="mailto:{{project-email}}">&rarr; <i class="fas fa-at"></i></a>.</p>
+{% else if work.status == 'submitted' %}
+<p>This work is currently being <strong>submitted</strong> for peer review. Please feel free to participate, comment and propose modifications: <a href="{{project-repository}}/issues/new">&rarr; <i class="fab fa-github"></i></a> <a href="mailto:{{project-email}}">&rarr; <i class="fas fa-at"></i></a>.</p>
+{% else if work.status == 'reviewed' %}
+<p>This work is currently being <strong>reviewed</strong> to consider the pairs' proposals. Please feel free to participate, comment and propose modifications: <a href="{{project-repository}}/issues/new">&rarr; <i class="fab fa-github"></i></a> <a href="mailto:{{project-email}}">&rarr; <i class="fas fa-at"></i></a>.</p>
+{% else if work.status == 'revised' %}
+<p>This <strong>work is in progress</strong> for a new version. Its content is not definitive and may be modified. If you have any comments or suggestions, please feel free to share them with us: <a href="{{project-repository}}/issues/new">&rarr; <i class="fab fa-github"></i></a> <a href="mailto:{{project-email}}">&rarr; <i class="fas fa-at"></i></a>.</p>
+{% else if work.status == 'published' %}
+{{work.status}}
+{% else %}
+{{work.status}}
+{% endif %}
+</div>
+{%- endif -%}

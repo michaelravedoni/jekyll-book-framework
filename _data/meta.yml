@@ -48,7 +48,7 @@ work:
   title               : "Book title"      # e.g. The four seasons <Recording title proper (RDA 2.3.2)>
   subtitle            : "Book subtitle"   # e.g. the revenant <Recording other title information>
   edition             : "First edition"   # e.g. First edition, Revised <Recording edition statement (RDA 2.5)>
-  status              : draft             # draft, revised, published
+  status              : draft             # draft, submitted, reviewed, revised (new version), published
   version             : v1.0.0
   description:
     short             : The Book's short description.
