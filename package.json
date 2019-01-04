@@ -17,13 +17,14 @@
     "run-run": "^1.1.0"
   },
   "scripts": {
-    "github-deploy": "chmod +x ./bin/github-deploy.sh && ./bin/github-deploy.sh",
+    "deploy-github": "bundle exec jgd -c _config-github.yml",
+    "deploy-github-dev": "bundle exec jgd -c _config-github.yml -r dev",
     "build": "bundle exec jekyll build --config _config.yml,_config-stage.yml",
     "dev": "bundle exec jekyll serve --watch",
     "stage": "cat env.json | run-run -- 'npm run build && rsync -e ssh -avzuhcp _site/ {FTP_HOST_STAGING} --exclude-from 'rsync-ignore.txt' --delete'",
     "stage-dry": "cat env.json | run-run -- 'rsync -e ssh -avzuhcp _site/ {FTP_HOST_STAGING} --exclude-from 'rsync-ignore.txt' --dry-run --delete'",
-    "deploy": "cat env.json | run-run -- 'npm run build && rsync -e ssh -avzuhcp _site/ {FTP_HOST} --exclude-from 'rsync-ignore.txt' --delete'",
-    "deploy-dry": "cat env.json | run-run -- 'rsync -e ssh -avzuhcp _site/ {FTP_HOST} --exclude-from 'rsync-ignore.txt' --dry-run --delete'"
+    "deploy-rsync": "cat env.json | run-run -- 'npm run build && rsync -e ssh -avzuhcp _site/ {FTP_HOST} --exclude-from 'rsync-ignore.txt' --delete'",
+    "deploy-rsync-dry": "cat env.json | run-run -- 'rsync -e ssh -avzuhcp _site/ {FTP_HOST} --exclude-from 'rsync-ignore.txt' --dry-run --delete'"
   },
   "repository": {
     "type": "git",

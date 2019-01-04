@@ -127,7 +127,7 @@ Unlike Netlify, GitHub Pages does not support continuous deployment. This means 
 2. At this point you can run `bin/github-deploy.sh` and everything will be pushed up to GitHub on the `gh-pages` branch:
 
 ```bash
-npm run github-deploy
+npm run deploy-github
 ```
 
 It may take a few moments for everything to become visible online. If you get git errors when deploying because of upstream changes, you can always delete the `gh-pages` branch on GitHub and re-run the deploy script.
@@ -147,11 +147,11 @@ username_example@example.ftp.com:web/JEKYLL-BOOK-NAME/
 
 Then, to deploy the app, run :
 ```bash
-npm run stage      #For testing on your test server
-npm run stage-dry  #If you want to run a dry test
+npm run stage            #For testing on your test server
+npm run stage-dry        #If you want to run a dry test
 
-npm run deploy     #For the production server
-npm run deploy-dry #If you want to run a dry test
+npm run deploy-rsync     #For the production server
+npm run deploy-rsync-dry #If you want to run a dry test
 ```
 
 ## Documentation
