@@ -54,20 +54,19 @@ To get an idea, you can see the [demo of this project](https://michaelravedoni.g
 
 ## Usage
 
-### Download
-Download the project using git:
+**Clone** the project using git:
 
 ```bash
 git clone https://github.com/michaelravedoni/jekyll-book-framework.git
 cd jekyll-book-framework
 ```
 
-Or, manually :
-
-[Download](https://github.com/michaelravedoni/jekyll-book-framework/archive/master.zip) the project and unzip it.
-
-Then rename the folder with the name you want. For example: `my-book` (`JEKYLL-BOOK-NAME` in the following steps).
-
+Or, **download** manually : [Download](https://github.com/michaelravedoni/jekyll-book-framework/archive/master.zip) the project and unzip it. Once done:
+1. Rename the directory with the name you want. For example: `my-book` (`JEKYLL-BOOK-NAME` in the following steps).
+2. Edit the configuration file (`_data/meta.yml`) as needed.
+3. Edit the stylesheet variables located in `book/styles`.
+4. Edit the book/work content files located in `book/text`.
+5. Install the dependencies, start and deploy the project (see below).
 
 ### Install
 To run the project, you have to install [Jekyll](https://jekyllrb.com/docs/installation/) (and therefore [Ruby](https://www.ruby-lang.org/en/documentation/installation/)). Also install [npm](https://www.npmjs.com/get-npm) if you want to easily deploy the FTP life application (see [_deploy_](#deploy)) or to easily run the project.
@@ -211,6 +210,10 @@ You will find the releases history in the [release](https://github.com/michaelra
 - i18n
 - auto pdf genarator
 - epub, mobi and markdown export
+- create different work layouts
+- define a workflow (version, edition, translation)
+- create template for git issues (Github and GitLab)
+- create deploy command for GitLab
 
 ## Authors and acknowledgment
 
