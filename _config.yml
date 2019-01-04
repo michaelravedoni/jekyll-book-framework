@@ -1,70 +1,15 @@
-# ----
 # Site
-
+# -----------------------
 title               : "Site title"
 url                 : ""
 google_analytics_key: ""
-show_full_navigation: false
+google_site_verification: ""
 
 # Serving
+# -----------------------
 port                : 4000
 host                : 127.0.0.1
 show_dir_listing    : false
-
-# ----
-# Book
-
-bookTitle           : "Book title" # Required
-shortTitle          : "Short book title"
-description         : "Book short description"
-creators:
-  - lastName        : lastName
-    firstName       : firstName
-    affiliation     : affiliation
-    email           : authorname@domain.com
-    twitter         : "@authorname"
-    sameAs          :
-      - https://authorname.com/
-  - lastName        : lastName 2
-    firstName       : firstName 2
-    creatorType     : Directeur
-    affiliation     : affiliation 2
-    email           : authorname2@domain.com
-    twitter         : "@authorname2"
-publisher           : Publisher
-cc                  : CC-BY # Choose a Creative Commons license (https://creativecommons.org/choose/)
-date                : 2018-01-01
-pdf                 : #"/doc/book.pdf" # If different from generated
-pod           : # Print-on-demand version
-markdownD           : #todo
-epub                : #todo
-mobi                : #todo
-isbn                : 9780030426599
-lang                : fr
-isFamilyFriendly    : true
-genre               :
-funder              :
-
-abstract_locale: "David se rappelait de ce programme mélangeant deux anciennes technologies. Il s’en souvenait très bien, cinq années de travail acharné pour réaliser un vieux rêve d’enfant un peu solitaire. Il voulait un ami et il avait trouvé en l’informatique la possibilité d’avoir cet ami. Un ami capable de réfléchir vite, exempt de sentiment. C’est lui aussi qui était à la base du dernier processeur, le sphéro. Un processeur ayant une architecture en forme de sphère et capable de traiter les informations à une vitesse jamais atteinte. Tous les ordinateurs en étaient équipés. Le créateur officiel, le Dr. Stewart Davis, n’était bien sûr pas au courant de la présence de Prélude dans son projet. Prélude avait simplement suggéré légèrement au Dr. En modifiant légèrement ses documents."
-keywords_locale: "édition, livre, chaîne d'édition, chaîne de publication, traitement de texte, logiciel de publication assistée par ordinateur, livre numérique"
-
-abstract: "Encouraging others to adopt the same licensing practices meant closing off the escape hatch that had allowed privately owned versions of Emacs to emerge. To close that escape hatch, Stallman and his free software colleagues came up with a solution: users would be free to modify GNU Emacs just so long as they published their modifications. In addition, the resulting works would also have carry the same GNU Emacs License.
-The word is a weighted term in the Stallman lexicon. In a pointed swipe at his parents, Stallman, to this day, refuses to acknowledge any home before Currier House, the dorm he lived in during his days at Harvard. He has also been known to describe leaving that home in tragicomic terms. Once, while describing his years at Harvard, Stallman said his only regret was getting kicked out. It wasn't until I asked Stallman what precipitated his ouster, that I realized I had walked into a classic Stallman setup line."
-keywords: "publishing, book, publishing chain, word processor, desktop publishin software, ebook"
-
-status              : draft # draft, revised, published
-version             : v1.0
-versiondate         : 2018-11-20
-
-# -----
-# Book links
-
-aboutUrl            : /8-about/
-
-# -----
-# Logo and image
-
-logo                : assets/icon/favicon.png
 
 # Language
 # --------
@@ -75,7 +20,10 @@ logo                : assets/icon/favicon.png
 # For the registry of tags:
 # http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry
 # Useful lookup tool: http://r12a.github.io/apps/subtags/
-language: en
+language            : en
+locale              : fr
+encoding            : UTF-8
+timezone            : Etc/UTC
 
 # Gem-based theme
 # ---------------
@@ -89,57 +37,30 @@ language: en
 # Which edition are we creating? You can leave this as `default`.
 # This can be used to create different editions of a book using
 # Liquid control-flow tags, e.g. in includes, layouts and file-list
-edition: "default"
+edition             : "default"
 
 # Canonical URL
 # -------------
 # To make absolute links work, e.g. in canonical links in <head>,
 # include the url where this site will live when it's live (production).
 # E.g. canonical-url: "http://example.com"
-canonical-url: "http://example.com"
+# canonical-url: "http://example.com"
 
 # Base URL
 # --------
 # If you're using GitHub Pages without a custom domain, make this
-# the name of your repo, e.g. /electric-book
+# the name of your repo, e.g. /jekyll-book-framework
 # It must start with a slash. Otherwise you can leave it blank. See:
 # http://downtothewire.io/2015/08/15/configuring-jekyll-for-user-and-project-github-pages/
-baseurl: ""
-
-# GitHub Pages repository
-# -----------------------
-# If you're publishing a website on GitHub Pages
-# and want to ensure you're using a compatible setup,
-# add username/repository here and uncomment/enable
-# gem 'github-pages', group: :jekyll_plugins
-# in this project's Gemfile.
-repository: ""
+baseurl             : ""
 
 # Navigation
 # ----------
-# Web navigation source: select either files or nav
-# files: navigation will be taken from the web files list in `meta.yml`
-# nav: navigation will be taken from the web nav tree in `meta.yml`.
-# nav is more powerful, and allows submenu nesting;
-# files is quicker, because you don't have to create nav yaml,
-# only a files list.
-nav-source: nav
+# Show full navigation
+show_full_navigation: false
 
-# -----
-# Metadata
-
-google_site_verification:
-schema:
-  type              : Book # Required
-
-# -----
-# Build
-
-locale              : fr
-encoding            : UTF-8
-timezone            : Etc/UTC
-permalink           : pretty
-
+# Default page variables
+# ----------------------
 plugins:
   - jekyll-sitemap
   - jekyll-scholar
@@ -159,7 +80,11 @@ exclude:
   - env-model.json
   - bin
 
-
+# Default page variables
+# ----------------------
+# Set default values here for all documents/pages in this publication.
+# (For technical details, see http://jekyllrb.com/docs/configuration/#front-matter-defaults).
+# Store only site configurations here, and book metadata (title, author, ISBNs) in _data/meta.yml
 defaults:
   -
     scope:
@@ -167,9 +92,8 @@ defaults:
     values:
       layout: default
 
-# --------------
 # Jekyll Scholar
-
+# ----------------
 scholar:
   style             : american-political-science-association
   locale            : fr
@@ -179,8 +103,15 @@ scholar:
   sort_by           : author
   bibliography_list_tag : ul
 
-# --------------
 # Jekyll Microtypo
-
+# ----------------
 microtypo:
   median: true
+
+# HTML compression
+# ----------------
+# Configure HTML compression
+# These settings control how your output HTML is compressed.
+# See https://github.com/penibelst/jekyll-compress-html
+compress_html:
+  blanklines: true

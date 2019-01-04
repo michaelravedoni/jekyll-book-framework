@@ -74,7 +74,7 @@
 			"@context": "http://schema.org",
 			"@graph": [
 			{
-				"@type": "{{site.schema.type}}",
+				"@type": "{{work.type}}",
 				"name": "{{work.title | escape | strip_html}}{% if work.subtitle %}:{{work.subtitle | escape | strip_html}}{% endif %}",
 				{% if work.title %}"alternativeHeadline": "{{work.title | escape | strip_html}}",{% endif %}
 				{% if work.date %}"datePublished": "{{work.date | date: '%Y-%m-%d'}}",{% endif %}

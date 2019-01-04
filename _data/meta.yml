@@ -66,7 +66,7 @@ work:
   date_copyright      : "2018"            # e.g. YYYY <Copyright date (RDA 2.11)>
   #place               : "London"         # e.g. London <Place of Origin of the Work (RDA 6.5)>
   #serie               : ""               # e.g. Infinite scroll <Series Statement Transcription (RDA 2.12)>
-  type                : "Work Type"       # e.g. Novel, Poetry, Memoir
+  type                : "Book"            # Required. Article, Book, Course, Review, PublicationIssue, PublicationVolume
   source              : ""                # e.g. parent ISBN or ISTC
   language            : "en"              # use ISO 639-1, 639-2, or 639-3 codes (in that order of preference)
   relation            : ""                # e.g. other edition ISBN <http://dublincore.org/documents/dcmi-terms/#terms-relation>

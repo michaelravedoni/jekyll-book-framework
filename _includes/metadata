@@ -22,6 +22,8 @@ Assign project information to variables. This is the same for all books in the p
 These values can be overridden in _data/locales.yml for translations.
 {% endcomment %}
 
+{% assign project = site.data.meta.project %}
+
 {% capture project-organisation %}{{ site.data.meta.project.organisation }}{% endcapture %}
 {% capture project-url %}{{ site.data.meta.project.url }}{% endcapture %}
 {% capture project-email %}{{ site.data.meta.project.email }}{% endcapture %}
@@ -1013,12 +1015,19 @@ or parent-language overrides, if they exist. {% endcomment %}
     {% capture project-credit %}{{ locale.project.credit }}{% endcapture %}
 {% endif %}
 
-{% comment %}Get gloabal url.{% endcomment %}
+{% comment %}Get global url.{% endcomment %}
 {% capture work-url %}{{ site.baseurl }}/{{work.directory}}{% endcapture %}
 {% capture work-url-translation %}{{ work-url }}{% if is-book-subdirectory %}/{{ book-subdirectory }}{% endif %}{% if is-translation %}/{{ language }}{% endif %}{% endcapture %}
 {% capture work-url-contents-directory %}{{ work-url-translation }}{% if work.contents_directory %}{{ work.contents_directory }}{% endif %}{% endcapture %}
 {% capture work-url-about-page %}{{ work-url-contents-directory }}/{{web-about-page}}{% endcapture %}
 {% capture work-url-start-page %}{{ work-url-contents-directory }}/{{web-start-page}}{% endcapture %}
+
+{% comment %}Get global url without baseurl.{% endcomment %}
+{% capture work-url-nb %}/{{work.directory}}{% endcapture %}
+{% capture work-url-nb-translation %}{{ work-url-nb }}{% if is-book-subdirectory %}/{{ book-subdirectory }}{% endif %}{% if is-translation %}/{{ language }}{% endif %}{% endcapture %}
+{% capture work-url-nb-contents-directory %}{{ work-url-nb-translation }}{% if work.contents_directory %}{{ work.contents_directory }}{% endif %}{% endcapture %}
+{% capture work-url-nb-about-page %}{{ work-url-nb-contents-directory }}/{{web-about-page}}{% endcapture %}
+{% capture work-url-nb-start-page %}{{ work-url-nb-contents-directory }}/{{web-start-page}}{% endcapture %}
 
 {% comment %}End of entire metadata load.{% endcomment %}
 {% assign metadata-loaded = true %}
