@@ -158,6 +158,8 @@ npm run deploy-rsync-dry #If you want to run a dry test
 
 ### Architecture
 
+- `data/meta.yml`: Contains all the metadata of the project and the book. Change the variables on your needs.
+
 - `book`: Contains all the contents of the book. `book/text` contains all the markdown files. If you have a translation, `book/fr` contains the translated book.
 
 - `index.md`: Home page of the book (editable)
