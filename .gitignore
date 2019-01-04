@@ -2,8 +2,12 @@
 env.json
 
 ### Jekyll ###
-_site
+/_site/
 .sass-cache
+.jekyll-metadata
+_site/
+.sass-cache/
+.jekyll-cache/
 .jekyll-metadata
 Gemfile.lock
 

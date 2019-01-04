@@ -1,0 +1,22 @@
+{% comment %}
+Get the file metadata.
+{% endcomment %}
+{% include metadata %}
+
+<div class="pdf-generated">
+<h2>Generated</h2>
+{% for f in work.products['print-pdf'].generated %}
+  <div class="pdf-generated-item">
+    <strong>{{f.name}}</strong> <small>{{f.date|date: '%d.%m.%Y'}} ({{f.size}} - {{f.color}})</small> &rarr; <a href="{{site.url}}{{site.baseurl}}{{f.url}}">Get file</a>
+  </div>
+{% endfor %}
+</div>
+
+<!--<div class="pdf-formats">
+<h2>On the fly</h2>
+{% for f in work.products['print-pdf'].formats %}
+  <div class="pdf-format-item">
+    <strong>{{f.name}}</strong> ({{f.width}}x{{f.height}}) &rarr; <a href="{{work-url-translation}}/paged?width={{f.width}}&height={{f.height}}" target="_blank">Generate the file</a>
+  </div>
+{% endfor %}
+</div>-->

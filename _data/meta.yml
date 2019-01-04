@@ -1,0 +1,444 @@
+# ==============================================================================
+# Project
+# ------------------------------------------------------------------------------
+#
+# This file houses the info and general metadata for your project.
+
+project:
+  # The name of the organisation or entity that owns this project
+  organisation: "The organisation"
+  # A live web address for the organisation
+  url: "http://organisation.com/"
+  # The default contact email address
+  email: "support@organisation.com"
+  # The name of the project of books in this folder.
+  name: "The organisation project name"
+  # A one-liner about this project. Useful for Open Graph metadata.
+  description: "The organisation project description."
+  # The logo of the organisation, saved web-ready in /assets
+  logo: "logo-publisher.png"
+  # An image in /assets that stands for the project
+  image: "project-image.jpg"
+  # Credit line, by default in the footer, overidden in locales.yml
+  credit: "Built with [jekyll-book-framework](http://example.com)"
+  # Primary language code for this project as a whole
+  language: "en"
+  # App bundle ID unique across all app stores
+  app-id: com.example.myapp
+  # Version. You must change this with each app update
+  version: "1.0.0"
+  # Project's repository.
+  repository: https://github.com/michaelravedoni/jekyll-book-framework
+  repository_branch: master
+
+
+# ==============================================================================
+# Works
+# ------------------------------------------------------------------------------
+#
+# This file houses the bibliographic info and general metadata for your digital
+# publication.
+
+work:
+  directory           : "book"
+  contents_directory  : "/text" # Your contents directory, if you have one. Begin with a '/' or empty ''.
+# ------------------------------------------------------------------------------
+# Title & Description
+# ------------------------------------------------------------------------------
+  title               : "Book title"      # e.g. The four seasons <Recording title proper (RDA 2.3.2)>
+  subtitle            : "Book subtitle"   # e.g. the revenant <Recording other title information>
+  edition             : "First edition"   # e.g. First edition, Revised <Recording edition statement (RDA 2.5)>
+  status              : draft             # draft, revised, published
+  version             : v1.0.0
+  description:
+    short             : The Book's short description.
+    full: >-
+        The Book's long description.
+# ------------------------------------------------------------------------------
+# Publication Details
+# ------------------------------------------------------------------------------
+  publisher:                              # e.g. the publisher, imprint or brand name
+    name              : "The publisher name"
+    location          : "1200 Town, Earth, Galaxy"
+    url               : "http://example.com"
+    logo              : "logo-publisher.png"
+  date                : "2018-12-31"      # e.g. YYYY-MM-DD <Date of publication (RDA 2.8.6)/Date of Work (RDA 6.4))>
+  date_copyright      : "2018"            # e.g. YYYY <Copyright date (RDA 2.11)>
+  #place               : "London"         # e.g. London <Place of Origin of the Work (RDA 6.5)>
+  #serie               : ""               # e.g. Infinite scroll <Series Statement Transcription (RDA 2.12)>
+  type                : "Work Type"       # e.g. Novel, Poetry, Memoir
+  source              : ""                # e.g. parent ISBN or ISTC
+  language            : "en"              # use ISO 639-1, 639-2, or 639-3 codes (in that order of preference)
+  relation            : ""                # e.g. other edition ISBN <http://dublincore.org/documents/dcmi-terms/#terms-relation>
+  coverage            : ""                # e.g. geographical or temporal <http://dublincore.org/documents/dcmi-terms/#terms-coverage>
+                                          # <Coverage of the Content (RDA 7.3)>
+  cover_image:
+    image             : "image-cover.jpg"
+    creator           : "August Jernberg"
+    title             : "Die Besucher vor Rembrandts Nachtwache in Amsterdam"
+    date              : "1885"
+    text              : "The painting depicts a group of people in front of Rembrandt's famous painting <i>The Night Watch</i> at Treppenhuis, Holland. Exhibited at the Malmö Art Museum."
+    source            : "Wikimedia commons"
+    source_url        : "https://commons.wikimedia.org/wiki/File:August_Jernberg_-_Treppenhuis_-_Google_Art_Project.jpg"
+    license           : "Public domain"
+  identifiers:                            # e.g. <Identifier for the manifestation (RDA 2.15)>
+    #isbn              : ""
+    #issn              : ""
+    #doi               : ""
+    #pid               : ""
+  media_type           : "computer"        # e.g. computer (https://www.rdaregistry.info/termList/RDAMediaType/) <Media type (RDA 3.2)>
+  content_type         : "text"            # e.g. text (https://www.rdaregistry.info/termList/RDAContentType/) <Content type (RDA 6.9)>
+  isFamilyFriendly    : true
+  genre               : ""
+  funder              : ""
+  abstract            : "Abstract text."
+  keywords            : "publishing, book, publishing chain, word processor, desktop publishin software, ebook"
+  abstract_en         : "Abstract text in english."
+  keywords_en         : "publishing, book, publishing chain, word processor, desktop publishin software, ebook"
+# ------------------------------------------------------------------------------
+# Contributors <Creator of Work (RDA 19.2)>
+# ------------------------------------------------------------------------------
+  creators:
+    - firstName       : A. N.
+      lastName        : Author
+      affiliation     : Affiliation
+      email           : authorname@domain.com
+      twitter         : "@authorname"
+      #orcid           : ""
+      sameAs          :
+        - https://authorname.com/
+      bio             : "Creator biography"
+      url             : https://en.wikipedia.org/wiki/Rose_Valland
+      pic             : contributors/author.svg
+  contributors: # E.g. other contributors
+    - firstName       : A. N.
+      lastName        : Name
+      role            : Illustrator        # e.g. Illustrator (https://www.loc.gov/marc/relators/relaterm.html)
+      affiliation     : Affiliation
+      email           : authorname@domain.com
+      twitter         : "@authorname"
+      #orcid           : ""
+      sameAs          :
+        - https://authorname.com/
+      bio             : "Creator biography"
+      url             : https://en.wikipedia.org/wiki/Rose_Valland
+      pic             : contributors/author.svg
+# ------------------------------------------------------------------------------
+# Subjects
+# ------------------------------------------------------------------------------
+  subjects:
+    - type: LCSH
+      name: Gold mines and mining
+      identifer: http://id.loc.gov/authorities/subjects/sh85055733
+    - type: LCSH
+      name: British Columbia
+      identifier: http://id.loc.gov/authorities/subjects/sh2010007531
+# ------------------------------------------------------------------------------
+# Copright & License
+# ------------------------------------------------------------------------------
+  #rights: "© 2017 Publisher name" # e.g. a copyright statement
+  disclaimers: "While every precaution has been taken in the preparation of this book, the publisher and authors assume no responsibility for errors or omissions, or for damages resulting from the use of the information contained."
+  license:
+    name: Creative Commons Attribution 4.0 International License
+    abbreviation: CC-BY # CC-BY, CC-BY-SA, CC-BY-ND, CC-BY-NC, CC-BY-NC-ND, CC-zero, publicdomain
+    url: http://creativecommons.org/licenses/by/4.0/
+    full: "Except where otherwise noted, this work is licensed under a <i>Creative Commons Attribution 4.0 International License</i>. This means you are free to share (copy and redistribute the material in any medium or format) and adapt it (remix, transform, and build upon the material) for any purpose, even commercially, as long as you give appropriate credit, with a link to your source, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/4.0/."
+    short: >-
+      This work is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0 International License</a>.
+    some_exceptions: "The publisher logo are registered trademarks of The publisher."
+# ------------------------------------------------------------------------------
+# Revision History
+# ------------------------------------------------------------------------------
+  revision_history:
+    - date: 2018-01-01
+      summary: First edition
+# ------------------------------------------------------------------------------
+# Products
+# ------------------------------------------------------------------------------
+  products: # Metadata for each product for this title (only use values that override parent metadata)
+    web:
+      start-page: "0-6-foreword" # At which file should users start reading?
+      #contents-page: "0-3-contents" # Your contents-page file, if you have one.
+      about-page: "104-about" # Your about-page file, if you have one.
+      date: "2018-02-01" # YYYY-MM-DD e.g. publication date or last revision
+      format: "Digital online" # e.g. Print-on-demand, Digital download, Digital online
+      identifier: "" # e.g. ISBN or UUID
+      image: "cover.jpg"
+      nav: # For each menu item, include at least label and file. Optionally add id (for deep linking) and children.
+        - label: "Foreword"
+          file: "0-6-foreword"
+          id: "foreword"
+        - label: "Preface"
+          file: "0-7-preface"
+          id: "preface"
+        - label: "Introduction"
+          file: "00-introduction"
+          id: "00-introduction"
+        - label: "Chapter 1"
+          file: "01-00-chapter"
+          id: "01-chapter-1"
+          children:
+            - label: "Section 1"
+              file: "01-01-section-1"
+              id: "01-chapter-1-section-1"
+            - label: "Section 2"
+              file: "01-02-section-2"
+              id: "01-chapter-1-section-2"
+        - label: "Conclusion"
+          file: "05-conclusion"
+          id: "conclusion"
+        - label: "Appendix"
+          file: "06-00-appendix"
+          id: "appendix"
+          children:
+            - label: "Appendix 1"
+              file: "06-01-appendix-1"
+              id: "appendix-1"
+        - label: "Glossary"
+          file: "100-glossary"
+          id: "glossary"
+        - label: "Bibliography"
+          file: "102-bibliography"
+          id: "glossary"
+        - label: "Index"
+          file: "103-index"
+          id: "index"
+    paged-view:
+      date: "2016-05-07" # YYYY-MM-DD e.g. publication date or last revision
+      format: "Digital download" # e.g. Print-on-demand, Digital download, Digital online
+      identifier: "" # e.g. ISBN or UUID
+      image: "cover.jpg"
+      layout: book
+      files:
+        cover: "0-0-cover"
+        front_matter:
+          - file: "0-1-halftitle"     # required. filename if the required file in the 'work/contents' (book/text) directory
+            id: "halftitle"           # optional (for layout). We recommend to put the same value as the 'type' value in the md file
+            class: "halftitle"        # optional (for layout).
+          - file: "0-1-titlepage"
+            id: "titlepage"
+            class: "titlepage"
+          - file: "0-2-colophon"
+            id: "colophon"
+            class: "colophon"
+          - file: "0-3-dedication"
+            id: "dedication"
+            class: "dedication"
+          - file: "0-4-epigraph"
+            id: "epigraph"
+            class: "epigraph"
+          - file: "0-5-toc"
+            id: "toc"
+            class: "toc"
+          - file: "0-6-foreword"
+            id: "foreword"
+            class: "foreword"
+          - file: "0-7-preface"
+            id: "preface"
+            class: "preface"
+          - file: "0-6-acknowledgements"
+            id: "acknowledgements"
+            class: "acknowledgements"
+        body_matter:
+          - file: "00-introduction"   # required. filename if the required file in the 'work/contents' (book/text) directory
+            label: "Introduction"     # optional. label to display
+            id: "introduction"        # required. id for the toc
+            class: "chapter"          # required (for the layout). part, chapter, section, sub-section, glossary, biblio or index
+            level: 1                  # required (integer). level for the toc. 1, 2, 3, 4, etc.
+          - file: "01-00-chapter"
+            label: "1. Chapter 1"
+            id: "chapter-1"
+            class: "chapter"
+            level: 1
+          - file: "01-01-section-1"
+            label: "1.1 Section 1"
+            id: "section-1"
+            class: "section"
+            level: 2
+          - file: "01-02-section-2"
+            label: "1.2 Section 2"
+            id: "section-2"
+            class: "section"
+            level: 2
+          - file: "05-conclusion"
+            label: "Conclusion"
+            id: "conclusion"
+            class: "chapter"
+            level: 1
+          - file: "06-00-appendix"
+            label: "Appendix"
+            id: "a"
+            class: "chapter"
+            level: 1
+          - file: "06-01-appendix-1"
+            label: "Appendix 1"
+            id: "a-1"
+            class: "section"
+            level: 1
+          - file: "100-glossary"
+            label: Glossary
+            id: glossary
+            class: glossary
+            level: 1
+          - file: "102-bibliography"
+            label: Bibliography
+            id: bibliography
+            class: biblio
+            level: 1
+          - file: "103-index"
+            label: Index
+            id: index
+            class: index
+            level: 1
+        back_matter:
+          - file: "105-back-cover"    # required. filename if the required file in the 'work/contents' (book/text) directory
+            id: "back-cover"          # optional (for layout). We recommend to put the same value as the 'type' value in the md file
+            class: "back-cover"       # optional (for layout).
+    # Automatic pdf generation is not yet implemented. The technology is not
+    # yet mature enough to do this easily. In the meantime, you have to generate
+    # the pdf files manually. To go to the "/work/paged" page (e.g. "/book/paged"),
+    # wait until the work is fully loaded, print ('ctrl-p') and export to pdf
+    # from the dialog box.
+    print-pdf:
+      format: "Print format" # e.g. Print-on-demand, Digital download, Digital online
+      # Formats not yet implemented
+      formats:
+        - name: A5
+          width: 6in
+          height: 9in
+        - name: A4
+          width: 148mm
+          height: 210mm
+      generated:
+        - name: "A5"
+          format: "a5"
+          size: "6x9in"
+          size_in: "6in 9in"
+          size_mm: "152mm 228mm"
+          color: "Color"
+          date: 2018-01-03
+          url: "/output/book-a5-20180103.pdf" # /output/work-format-yyyymmdd.pdf
+    epub:
+      date: "2016-05-07" # YYYY-MM-DD e.g. publication date or last revision
+      format: "Digital download" # e.g. Print-on-demand, Digital download, Digital online
+      #identifier: "9780000000000" # e.g. ISBN or UUID
+      image: "cover.jpg"
+      start-page: "0-3-contents"
+      contents-page: "0-3-contents"
+      files: # add a value to any file to set any of the guide types listed in http://www.idpf.org/epub/20/spec/OPF_2.0.1_draft.htm#Section2.6
+        - "0-0-cover": "cover"
+        - "0-1-titlepage": "title-page"
+        - "0-2-copyright": "copyright-page"
+        - "0-3-contents": "toc"
+        - "01": "text"
+        - "02"
+      toc: # For each menu item, include at least label and file (epub requires file). Optionally add id (for deep linking) and children.
+        - label: "Cover"
+          file: "0-0-cover"
+        - label: "Title page"
+          file: "0-1-titlepage"
+        - label: "Copyright"
+          file: "0-2-copyright"
+        - label: "Contents"
+          file: "0-3-contents"
+        - label: "Introduction"
+          file: "00-introduction"
+          id: "introduction"
+        - label: "Chapter 1"
+          file: "01-00-chapter"
+          id: "chapter-1"
+          children:
+            - label: "Subsection"
+              file: "01-01-section-1"
+              id: "sub-section"
+    pod: # Print-on-demand.
+      formats:
+        - name: US Trade
+          size: 6x9in
+          size_in: 6in 9in
+          size_mm: 152mm 228mm
+          color: B&W
+          provider: Lulu
+          url: https://example.com
+          price: 20$
+        - name: Paperback
+          format: A5
+          size: 14.8x21cm
+          size_in: 5.83in 8.27in
+          size_mm: 148mm 210mm
+          color: B&W
+          provider: Lulu
+          url: https://example.com
+          price: 10$
+  translations: # Inside translations, include the same structure as in 'works'. Include only items that override the parent work's equivalents.
+    - directory: "fr"
+      contents_directory  : "/text" # Your contents directory, if you have one. Begin with a '/' or empty ''.
+      language: "fr"
+      title: "Titre du livre"
+      subtitle: "Sous-titre du livre"
+      description:
+        short: "Description du livre"
+      products:
+        web:
+          start-page: "00-introduction" # At which file should users start reading?
+          about-page: "104-about" # Your about-page file, if you have one.
+          nav: # For each menu item, include at least label and file. Optionally add id (for deep linking) and children.
+            - label: "Introduction"
+              file: "00-introduction"
+              id: "00-introduction"
+            - label: "Chapitre 1"
+              file: "01-00-chapter"
+              id: "01-chapitre-1"
+              children:
+                - label: "Section 1"
+                  file: "01-01-section-1"
+                  id: "01-chapter-1-section-1"
+                - label: "Section 2"
+                  file: "01-02-section-2"
+                  id: "01-chapter-1-section-2"
+            - label: "Conclusion"
+              file: "05-conclusion"
+              id: "conclusion"
+        paged-view:
+          date: "2016-05-07" # YYYY-MM-DD e.g. publication date or last revision
+          format: "Digital download" # e.g. Print-on-demand, Digital download, Digital online
+          layout: book
+          files:
+            cover: "0-0-cover"
+            front_matter:
+              - file: "0-1-titlepage"
+                id: "titlepage"
+                class: "titlepage"
+              - file: "0-4-toc"
+                id: "toc"
+                class: "toc"
+            body_matter:
+              - file: "00-introduction"
+                label: "Introduction"
+                id: "introduction"
+                class: "chapter"
+                level: 1
+              - file: "01-00-chapter"
+                label: "1. Chapter 1"
+                id: "chapter-1"
+                class: "chapter"
+                level: 1
+              - file: "01-01-section-1"
+                label: "1.1 Section 1"
+                id: "section-1"
+                class: "section"
+                level: 2
+              - file: "01-02-section-2"
+                label: "1.2 Section 2"
+                id: "section-2"
+                class: "section"
+                level: 2
+              - file: "05-conclusion"
+                label: "Conclusion"
+                id: "conclusion"
+                class: "chapter"
+                level: 1
+            back_matter:
+              - file: "105-back-cover"
+                id: "back-cover"
+                class: "back-cover"

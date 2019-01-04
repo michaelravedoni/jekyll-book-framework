@@ -1,0 +1,55 @@
+---
+# This minimal layout presents only the content,
+# and does not use the compress layout,
+# e.g. in file-list, where we don't want to lose
+# line breaks between file names.
+---
+<link rel="stylesheet" href="https://cdn.staticaly.com/gh/matejlatin/Gutenberg/25ba8707/src/style/gutenberg.css">
+<div>
+{{ content }}
+</div>
+
+<style media="screen">
+  img {
+    width: 100%;
+  }
+  /* Cover */
+  .cover {
+    margin-top:25px;
+    -webkit-box-shadow: 1px 10px 100px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 1px 10px 100px 0px rgba(0,0,0,0.75);
+    box-shadow: 1px 10px 100px 0px rgba(0,0,0,0.75);
+  }
+  .cover-header,
+  .cover-meta {
+  	margin-left: 2rem;
+  	line-height: initial;
+  }
+  .cover-book-title {
+  	background-color: var(--color-secondary);
+    font-size: 48px;
+  	margin-top: 0;
+  	margin-bottom: 0;
+    text-align: left;
+    }
+  .cover-book-subtitle {
+  	background-color: var(--color-secondary);
+    font-size: 24px;
+  	margin-top: 0;
+    text-align: left;
+    }
+  .cover-creators {
+  	font-size: 36px;
+    padding-top: 2rem;
+    margin-bottom: 10px;
+  }
+  .cover-meta {
+  	text-align: right;
+  	margin-right: 2rem;
+    padding-bottom: 2rem;
+  }
+  .cover-meta div {
+     margin-bottom: 0;
+     line-height: 1;
+   }
+</style>

@@ -1,0 +1,146 @@
+{% comment %}
+Get the file metadata.
+{% endcomment %}
+{% include metadata %}
+
+{% comment %}
+Now check which output format we're creating, and capture its toc.
+Fall back to print-pdf toc, then web nav list.
+{% endcomment %}
+
+{% if site.output == "print-pdf" %}
+    {% if print-pdf-toc != nil %}
+        {% assign toc = print-pdf-toc %}
+    {% elsif web-nav-tree != nil %}
+        {% assign toc = web-nav-tree %}
+    {% else %}
+        Please define a TOC or web nav in meta.yml.
+    {% endif %}
+
+{% elsif site.output == "paged-view" %}
+    {% if paged-view-toc != nil %}
+        {% assign toc = paged-view-toc %}
+    {% elsif print-pdf-toc != nil %}
+        {% assign toc = print-pdf-toc %}
+    {% elsif web-nav-tree != nil %}
+        {% assign toc = web-nav-tree %}
+    {% else %}
+        Please define a TOC or web nav in meta.yml.
+    {% endif %}
+
+{% elsif site.output == "epub" %}
+    {% if epub-toc != nil %}
+        {% assign toc = epub-toc %}
+    {% elsif print-pdf-toc != nil %}
+        {% assign toc = print-pdf-toc %}
+    {% elsif web-nav-tree != nil %}
+        {% assign toc = web-nav-tree %}
+    {% else %}
+        Please define a TOC or web nav in meta.yml.
+    {% endif %}
+
+{% elsif site.output == "web" %}
+    {% if web-toc != nil %}
+        {% assign toc = web-toc %}
+    {% elsif web-nav-tree != nil %}
+        {% assign toc = web-nav-tree %}
+    {% elsif print-pdf-toc != nil %}
+        {% assign toc = print-pdf-toc %}
+    {% else %}
+        Please define a TOC or web nav in meta.yml.
+    {% endif %}
+
+{% elsif site.output == "app" %}
+    {% if app-toc != nil %}
+        {% assign toc = app-toc %}
+    {% elsif app-nav-tree != nil %}
+        {% assign toc = app-nav-tree %}
+    {% elsif web-toc != nil %}
+        {% assign toc = web-toc %}
+    {% elsif web-nav-tree != nil %}
+        {% assign toc = web-nav-tree %}
+    {% elsif print-pdf-toc != nil %}
+        {% assign toc = print-pdf-toc %}
+    {% else %}
+        Please define a TOC or web nav in meta.yml.
+    {% endif %}
+
+{% else %}
+    {% if web-nav-tree != nil %}
+        {% assign toc = web-nav-tree %}
+    {% elsif print-pdf-toc != nil %}
+        {% assign toc = print-pdf-toc %}
+    {% else %}
+        Please define a TOC or web nav in meta.yml.
+    {% endif %}
+
+{% endif %}
+
+{% comment %}
+If the file that called this include didn't specify a start parameter, then
+it must be the calling entire toc from the top. If so, then
+we want the toc-branch to include the entire site.output-specific toc defined above.
+Otherwise, the toc-branch should be the children called by this include recursively.
+{% endcomment %}
+
+{% assign toc-branch = include.start %}
+
+{% if toc-branch == nil %}
+    {% assign toc-branch = toc %}
+{% endif %}
+
+{% comment %}
+Now we'll use all that to output the toc list.
+{% endcomment %}
+
+{% comment %}If we're making an epub, and we're starting
+at the top of the toc, put this in a nav element.{% endcomment %}
+{% if site.output == "epub" and toc-branch == epub-toc or toc-branch == print-pdf-toc or toc-branch == web-nav-tree %}
+<nav epub:type="toc" id="toc"{% if site.data.settings.epub.hide-nav == true %} hidden=""{% endif %}>
+{% endif %}
+
+<ol class="toc-list {% if toc-branch contains current-file %}active{% endif %}">
+{% for item in toc-branch | sort: "order" %}
+
+    {% comment %}Assume we will use every item in the toc-branch{% endcomment %}
+    {% assign include-in-toc = true %}
+
+    {% comment %}If we're outputting a variant, check if a variant toc
+    has been specified. If it has, then it replaced the default toc tree.
+    If we are outputting a variant, and a variant toc is not specified,
+    check which variants, if any, this particular TOC item has specified.
+    Include the item in the TOC only if it is specified in the TOC item's
+    variants list.{% endcomment %}
+    {% if variant and variant-toc == false %}
+        {% assign toc-variants = item.variants | remove: " " | split: "," %}
+        {% for toc-variant in toc-variants %}
+            {% if toc-variant == variant %}
+                {% assign include-in-toc = true %}
+                {% break %}
+            {% else %}
+                {% assign include-in-toc = false %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if include-in-toc == true %}
+
+        <li class="toc-entry-title{% if page.url contains item.url %} active{% endif %}{% if item.class != nil %} {{ item.class }}{% endif %}">
+            {% if item.url != nil %}<a href="{{ item.url }}.html{% if item.id and item.id != "" %}#{{ item.id }}{% endif %}"
+               {% if page.url contains item.url %}class="active"{% endif %}>{% endif %}
+                <span class="toc-entry-text">{{ item.label | markdownify | remove: '<p>' | remove: '</p>' | strip_newlines }}</span>
+            {% if item.url != nil %}</a>{% endif %}
+            {% if item.children != nil %}
+                {% include toc start=item.children %}
+            {% endif %}
+        </li>
+
+    {% endif %}
+
+{% endfor %}
+</ol>
+
+{% comment %}If we're making an epub, close the nav element{% endcomment %}
+{% if site.output == "epub" and toc-branch == epub-toc or toc-branch == print-pdf-toc or toc-branch == web-nav-tree %}
+</nav>
+{% endif %}

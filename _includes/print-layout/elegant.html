@@ -1,0 +1,89 @@
+{% include metadata %}
+<section class="first-pages">
+	<section class="cover-book">
+		<section class="cover">
+			<h1>{{title}}</h1>
+			<h2>{{subtitle}}</h2>
+			<h3>{% for creator in creators %}{{creator.firstName}} {{creator.lastName}}{% if forloop.last == true %}{% else %}, {% endif %}{% endfor %}</h3>
+			<p>{{work.description.full}}</p>
+			<p>{{work.date|date: '%Y'}} — {{work.publisher.name}}<br>{{work.status}} – {{ work.version}}</p>
+			<img class="cover-logo" src="{{ site.baseurl }}/images/logo-cover.png">
+		</section>
+		<div class="break"></div>
+		<section class="resume">
+		<p>
+		<strong>{{title}}</strong><br />
+		by {% for creator in creators %}{{creator.firstName}} {{creator.lastName}}{% if forloop.last == true %}{% else %}, {% endif %}{% endfor %}</p>
+		<p>
+		{{work.rights}}<br />
+		Printed in the Universe.<br />
+		Published by {{work.publisher.name}}, {{work.publisher.location}}
+		</p>
+
+		<div>{% for contributor in work.contributors %}{{contributor.role}}: {{contributor.firstName}} {{creator.lastName}}{% if forloop.last == true %}{% else %}<br>{% endif %}{% endfor %}</div>
+
+		<p><strong>History</strong>:<br />
+		{% for r in work.revision_history %}
+		{{r.date|date: '%d.%m.%Y'}}: {{r.summary}}{% if forloop.last == true %}{% else %}<br>{% endif %}
+		{% endfor %}
+		</p>
+
+		<p>{{work.license.some_exceptions}}</p>
+
+		<p>{{work.license.full}}</p>
+
+		<p>{{work.disclaimers}}</p>
+
+		<p>
+		{% if isbn != nil %}ISBN: {{isbn}}{% endif %}
+		{% if issn != nil %}ISSN: {{issn}}{% endif %}
+		{% if doi != nil %}DOI: {{doi}}{% endif %}
+		{% if pid != nil %}{{pid}}{% endif %}
+		</p>
+		</section>
+		<div class="break"></div>
+		<section class="resume">
+			<h1>Résumé</h1>
+			<p>{{ work.abstract }}</p>
+			<p><strong>Mots-clés :</strong> {{ work.keywords }}</p>
+			<h1>Abstract</h1>
+			<p>{{ work.abstract_en }}</p>
+			<p><strong>Keywords :</strong> {{ work.keywords_en }}</p>
+		</section>
+		<div class="break"></div>
+		<section class="merci">
+			<h1>Acknowledgements</h1>
+			<p>A page of acknowledgements is usually included at the beginning of a Final Year Project, immediately after the Table of Contents.</p>
+			<p>Acknowledgements enable you to thank all those who have helped in carrying out the research. Careful thought needs to be given concerning those whose help should be acknowledged and in what order. The general advice is to express your appreciation in a concise manner and to avoid strong emotive language.</p>
+		</section>
+		<section class="toc">
+		<h1>Table of contents</h1>
+		<nav>
+			<ul>
+				{% for file in site.data.meta.work.products['paged-view'].body_matter %}
+				{% if file.level != nil %}
+				<li class="toc-{{file.level}}">
+					<a href="#{{file.id}}">{{file.label}}</a>
+				</li>
+				{% endif %}
+				{% endfor %}
+			</ul>
+		</nav>
+		</section>
+	</section>
+</section>
+<article class="content">
+	{% comment %}Get an array of all the pages we've output to check against{% endcomment %}
+	{% assign screen_pdf_page_list = "" | split: "|" %}
+	{% for page in site.pages %}
+		{% for file in site.data.meta.work.products['paged-view'].body_matter %}
+		{% capture file_url %}/{{book-directory}}{% if is-book-subdirectory %}/{{book-subdirectory}}{% endif %}{{work.contents_directory}}/{{ file.file | split: "." | first }}/{% endcapture %}
+		{% if file_url == page.url %}
+	<h1 class="{{file.class}}" id="{{file.id}}">{{file.label}}</h1>
+	{{page.content}}
+			{% assign screen_pdf_page_list = screen_pdf_page_list | push: page.content %}
+		{% endif %}
+		{% endfor %}
+	{% endfor %}
+	{{ content }}
+</article>

@@ -1,0 +1,50 @@
+{% include metadata %}
+
+<section class="cover" id="cover" data-type="cover">
+		{% for page in site.pages %}
+			{% assign cover_name = paged-view-file-list.cover %}
+			{% capture cover_url %}{{work-url-contents-directory}}/{{ cover_name | split: "." | first }}/{% endcapture %}
+			{% if cover_url == page.url %}
+{{page.content|markdownify}}
+			{% endif %}
+		{% endfor %}
+</section>
+
+<!--front-matter-->
+<section class="front-matter">
+		{% for page in site.pages %}
+			{% for file in paged-view-file-list.front_matter %}
+			{% capture file_url %}{{work-url-contents-directory}}/{{ file.file | split: "." | first }}/{% endcapture %}
+			{% if file_url == page.url %}
+		<section class="{{file.class}}" id="{{file.id}}" data-type="{{page.type}}">
+{{page.content|markdownify}}
+		</section>
+			{% endif %}
+			{% endfor %}
+		{% endfor %}
+</section>
+
+<!--body-matter-->
+	{% for page in site.pages %}
+		{% for file in paged-view-file-list.body_matter %}
+		{% capture file_url %}{{work-url-contents-directory}}/{{ file.file | split: "." | first }}/{% endcapture %}
+		{% if file_url == page.url %}
+<section class="{{file.class}}" id="{{file.id}}" data-type="{{page.type}}">
+	<h1 class="{{file.class}} {% if file.level == 1 %}chapter-title{% endif %}" id="{{file.id}}">{{file.label}}</h1>
+{{page.content|markdownify}}
+</section>
+		{% endif %}
+		{% endfor %}
+	{% endfor %}
+
+<!--back-matter-->
+	{% for page in site.pages %}
+		{% for file in paged-view-file-list.back_matter %}
+		{% capture file_url %}{{work-url-contents-directory}}/{{ file.file | split: "." | first }}/{% endcapture %}
+		{% if file_url == page.url %}
+<section class="{{file.class}}" id="{{file.id}}" data-type="{{page.type}}">
+{{page.content|markdownify}}
+</section>
+		{% endif %}
+		{% endfor %}
+	{% endfor %}

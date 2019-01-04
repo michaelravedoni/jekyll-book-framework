@@ -1,0 +1,29 @@
+# Live website build config
+# Use this to override defaults in _config.yml
+
+# This is the live build
+build: live
+
+# Canonical URL
+# -------------
+# To make absolute links work, e.g. in canonical links in <head>,
+# include the url where this site will live when it's live (production).
+# E.g. canonical-url: "http://example.com"
+canonical-url: ""
+
+# Base URL
+# --------
+# If you're using GitHub Pages without a custom domain, make this
+# the name of your repo, e.g. /electric-book
+# It must start with a slash. Otherwise you can leave it blank. See:
+# http://downtothewire.io/2015/08/15/configuring-jekyll-for-user-and-project-github-pages/
+baseurl: "/jekyll-book-framework"
+
+# GitHub Pages repository
+# -----------------------
+# If you're publishing a website on GitHub Pages
+# and want to ensure you're using a compatible setup,
+# add username/repository here and uncomment/enable
+# gem 'github-pages', group: :jekyll_plugins
+# in this project's Gemfile.
+repository: ""

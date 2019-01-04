@@ -1,0 +1,1025 @@
+{% comment %}
+Loop through meta.yml and return this project's metadata
+as a set of Liquid variables that we can use on pages
+as output tags, e.g. {{ title }} for the current
+project's title.
+{% endcomment %}
+
+{% comment %}Don't do all this work if metadata
+is already loaded on this page.{% endcomment %}
+{% if metadata-loaded %}
+{% else %}
+
+{% assign build = "development" %}
+{% if site.build and site.build != "" %}
+    {% assign build = site.build %}
+{% endif %}
+
+{% capture output-format %}web{% endcapture %}
+
+{% comment %}
+Assign project information to variables. This is the same for all books in the project.
+These values can be overridden in _data/locales.yml for translations.
+{% endcomment %}
+
+{% capture project-organisation %}{{ site.data.meta.project.organisation }}{% endcapture %}
+{% capture project-url %}{{ site.data.meta.project.url }}{% endcapture %}
+{% capture project-email %}{{ site.data.meta.project.email }}{% endcapture %}
+{% capture project-name %}{{ site.data.meta.project.name }}{% endcapture %}
+{% capture project-description %}{{ site.data.meta.project.description }}{% endcapture %}
+{% capture project-logo %}{{ site.data.meta.project.logo }}{% endcapture %}
+{% capture project-image %}{{ site.data.meta.project.image }}{% endcapture %}
+{% capture project-credit %}{{ site.data.meta.project.credit }}{% endcapture %}
+{% capture project-language %}{{ site.data.meta.project.language }}{% endcapture %}
+{% capture project-app-id %}{{ site.data.meta.project.app-id }}{% endcapture %}
+{% capture project-version %}{{ site.data.meta.project.version }}{% endcapture %}
+{% capture project-repository %}{{ site.data.meta.project.repository }}{% endcapture %}
+{% capture project-repository-branch %}{{ site.data.meta.project.repository_branch }}{% endcapture %}
+
+{% comment %}Also use project language as default, fallback language,
+which will be overridden below if we're on book pages...{% endcomment %}
+{% capture language %}{{ site.data.meta.project.language }}{% endcapture %}
+
+{% comment %}
+...But if a build-language is set in _config, that takes precedence
+and overrides the project language in meta.yml as the default.
+{% endcomment %}
+{% if site.build-language and site.build-language != "" %}
+    {% capture language %}{{ site.build-language }}{% endcapture %}
+{% endif %}
+
+{% comment %}
+It's useful to know how many books are in this project
+{% endcomment %}
+{% assign number-of-works = site.data.meta.works | size %}
+
+{% comment %}Get an array of the book directories.
+Useful for checking whether we're in a real book directory.{% endcomment %}
+{% assign book-directory-array = site.data.meta.work.directory %}
+
+{% comment %}
+Get the directory for this book only
+We'll rewrite this later if we're in a translation
+{% endcomment %}
+
+{% capture book-directory %}{{ page.path | replace: "/", " " | truncatewords: 1, "" }}{% endcapture %}
+
+{% comment %}Are we really in a listed book directory, or a directory
+in the root that isn't really a listed book?{% endcomment %}
+{% for directory in book-directory-array %}
+    {% if book-directory == directory %}
+        {% assign is-book-directory = true %}
+    {% elsif book-directory == "_items" %}
+        {% assign is-book-directory = false %}
+        {% assign is-items-directory = true %}
+    {% else %}
+        {% assign is-book-directory = false %}
+    {% endif %}
+{% endfor %}
+
+{% comment %} If this is an _items directory, we need info specific to that,
+because we can't get the usual book-related metadata for items. {% endcomment %}
+{% if is-items-directory %}
+
+    {% comment %} Are we in the main _items/text directory,
+    or a subdirectory like _items/fr/text? {% endcomment %}
+    {% assign items-folder-depth = page.path | split: "/" | size %}
+    {% if items-folder-depth > 3 %}
+        {% assign is-items-subdirectory = true %}
+        {% assign items-subdirectory = page.path | split: "/" | pop | pop | last %}
+
+        {% comment %} Get a list of languages in this repo. {% endcomment %}
+        {% assign item-folder-possible-languages = "" | split: "|" %}
+        {% for work in site.data.meta.works %}
+            {% for translation in work.translations %}
+                {% assign item-folder-possible-languages = item-folder-possible-languages | push: translation.language %}
+            {% endfor %}
+        {% endfor %}
+
+        {% if item-folder-possible-languages contains items-subdirectory %}
+            {% assign is-translation = true %}
+            {% assign language = items-subdirectory %}
+        {% endif %}
+
+    {% endif %}
+
+{% endif %}
+
+
+{% comment %}Get the current directory name.{% endcomment %}
+
+{% comment %} If the page is an index.html page, we need to add 'index',
+because Jekyll's page.url for index.html is / {% endcomment %}
+{% if page.url contains ".html" %}
+    {% capture page-url %}{{ page.url }}{% endcapture %}
+{% else %}
+    {% capture page-url %}{{ page.url }}index.html{% endcapture %}
+{% endif %}
+{% comment %}Remove any file extensions, then create an array of what's left{% endcomment %}
+{% assign url-as-array = page-url | split: "." %}
+{% assign url-as-array = url-as-array | first | remove_first: "/" | split: "/" %}
+{% assign url-as-array-size = url-as-array | size %}
+
+{% if url-as-array-size == 1 %}
+    {% capture current-directory %}{% endcapture %}
+{% else %}
+    {% capture current-directory %}{{ url-as-array[-2] }}{% endcapture %}
+{% endif %}
+
+{% comment %}
+Get the current file's name
+{% endcomment %}
+
+{% capture current-file %}{{ url-as-array.last }}{% endcapture %}
+{% if current-file == "" %}
+    {% capture current-file %}index{% endcapture %}
+{% endif %}
+
+{% comment %}
+Get this file's folder depth
+(The minus 1 avoids counting the file itself)
+{% endcomment %}
+{% assign folder-depth = page.path | split: "/" | size | minus: 1 %}
+
+{% comment %}
+If the folder depth is more than 2, this is a subdirectory of `text`
+{% endcomment %}
+{% assign is-book-subsubdirectory = false %}
+{% if folder-depth > 2 %}
+    {% assign is-book-subsubdirectory = true %}
+{% endif %}
+
+{% comment %}
+Check whether we're in a subdirectory of `text`
+{% endcomment %}
+{% capture book-subdirectory %}{{ page.path | replace: "/", " " | truncatewords: 2, "" | split: " " | last }}{% endcapture %}
+{% comment %}Discard that if it's a filename, like search.md.{% endcomment %}
+{% if book-subdirectory contains "." %}
+    {% capture book-subdirectory %}{% endcapture %}
+{% endif %}
+{% assign is-book-subdirectory = false %}
+{% if book-directory-array contains book-directory and page.path contains book-directory and page.path contains book-subdirectory and page.path contains "/text/" and page.path contains current-file %}
+    {% assign is-book-subdirectory = true %}
+{% endif %}
+
+{% comment %}
+If this file is in a book-subsubdirectory, get its name
+{% endcomment %}
+{% if is-book-subsubdirectory %}
+    {% capture book-subsubdirectory %}{{ page.path | replace: "/", " " | truncatewords: 3, "" | split: " " | last }}{% endcapture %}
+{% endif %}
+
+{% comment %}Set default stylesheets{% endcomment %}
+{% capture print-pdf-stylesheet %}print-pdf.css{% endcapture %}
+{% capture paged-view-stylesheet %}paged-view.css{% endcapture %}
+{% capture web-stylesheet %}web.css{% endcapture %}
+{% capture epub-stylesheet %}epub.css{% endcapture %}
+{% capture app-stylesheet %}app.css{% endcapture %}
+
+{% comment %}
+From meta.yml, get only the values where the work.directory matches the current book-directory
+{% endcomment %}
+
+{% assign works = site.data.meta.works | where: "directory", book-directory %}
+{% assign work = site.data.meta.work %}
+
+{% comment %}
+Now capture each metadata value as a Liquid variable, to be used in HTML
+and book content as a Liquid output tag e.g. {{ title }}
+{% endcomment %}
+
+
+    {% capture book-directory %}{{ work.directory }}{% endcapture %}
+    {% assign title = work.title %}
+    {% assign subtitle = work.subtitle %}
+    {% assign creators = work.creators %}
+    {% capture creators-line %}{% for creator in work.creators %}{{creator.firstName}} {{creator.lastName}}{% if forloop.last == true %}{% else %}, {% endif %}{% endfor %}{% endcapture %}
+    {% assign contributors = work.contributors %}
+    {% assign subjects = work.subjects %}
+    {% assign description = work.description.short %}
+    {% capture description-short %}{{ work.description.short }}{% endcapture %}
+    {% assign publisher = work.publisher %}
+    {% assign date = work.date %}
+    {% capture modified %}{{ work.revision_history[0].date }}{% endcapture %}
+    {% capture type %}{{ work.type }}{% endcapture %}
+    {% assign identifiers = work.identifiers %}
+    {% assign isbn = work.identifiers.isbn %}
+    {% assign issn = work.identifiers.issn %}
+    {% assign doi = work.identifiers.doi %}
+    {% assign pid = work.identifiers.pid %}
+    {% assign source = work.source %}
+    {% assign language = work.language %}
+    {% capture parent-language %}{{ work.language }}{% endcapture %}
+    {% assign relation = work.relation %}
+    {% assign coverage = work.coverage %}
+    {% assign rights = work.rights %}
+    {% assign license = work.license %}
+    {% assign version = work.version %}
+    {% assign image = work.image %}
+    {% assign funder = work.funder %}
+    {% assign genre = work.genre %}
+    {% assign abstract = work.abstract %}
+    {% assign keywords = work.keywords %}
+    {% assign revision_history = work.revision_history %}
+
+    {% capture print-pdf-date %}{{ work.products.print-pdf.date }}{% endcapture %}
+    {% capture print-pdf-format %}{{ work.products.print-pdf.format }}{% endcapture %}
+    {% capture print-pdf-identifier %}{{ work.products.print-pdf.identifier }}{% endcapture %}
+    {% capture print-pdf-image %}{{ work.products.print-pdf.image }}{% endcapture %}
+    {% assign print-pdf-file-list = work.products.print-pdf.files %}
+    {% assign print-pdf-toc = work.products.print-pdf.toc %}
+
+    {% capture web-date %}{{ work.products.web.date }}{% endcapture %}
+    {% capture web-format %}{{ work.products.web.format }}{% endcapture %}
+    {% capture web-identifier %}{{ work.products.web.identifier }}{% endcapture %}
+    {% capture web-image %}{{ work.products.web.image }}{% endcapture %}
+    {% capture web-start-page %}{{ work.products.web['start-page'] }}{% endcapture %}
+    {% capture web-contents-page %}{{ work.products.web['contents-page'] }}{% endcapture %}
+    {% capture web-about-page %}{{ work.products.web['about-page'] }}{% endcapture %}
+    {% assign web-file-list = work.products.web.files %}
+    {% assign web-nav-tree = work.products.web.nav %}
+    {% assign web-toc = work.products.web.toc %}
+
+    {% capture epub-date %}{{ work.products.epub.date }}{% endcapture %}
+    {% capture epub-format %}{{ work.products.epub.format }}{% endcapture %}
+    {% capture epub-identifier %}{{ work.products.epub.identifier }}{% endcapture %}
+    {% capture epub-image %}{{ work.products.epub.image }}{% endcapture %}
+    {% assign epub-file-list = work.products.epub.files %}
+    {% assign epub-toc = work.products.epub.toc %}
+    {% capture epub-contents-page %}{{ work.products.epub.contents-page }}{% endcapture %}
+    {% capture epub-language %}{{ work.products.epub.language }}{% endcapture %}
+
+    {% capture paged-view-date %}{{ work.products.paged-view.date }}{% endcapture %}
+    {% capture paged-view-format %}{{ work.products.paged-view.format }}{% endcapture %}
+    {% capture paged-view-identifier %}{{ work.products.paged-view.identifier }}{% endcapture %}
+    {% capture paged-view-image %}{{ work.products.paged-view.image }}{% endcapture %}
+    {% assign paged-view-file-list = work.products.paged-view.files %}
+    {% assign paged-view-toc = work.products.paged-view.toc %}
+
+    {% comment %}App metadata inherits web metadata if not specified{% endcomment %}
+    {% if work.products.app.date %}
+        {% capture app-date %}{{ work.products.app.date }}{% endcapture %}
+    {% else %}
+        {% capture app-date %}{{ web-date }}{% endcapture %}
+    {% endif %}
+
+    {% if work.products.app.format %}
+        {% capture app-format %}{{ work.products.app.format }}{% endcapture %}
+    {% else %}
+        {% capture app-format %}{{ web-format }}{% endcapture %}
+    {% endif %}
+
+    {% if work.products.app.identifier %}
+        {% capture app-identifier %}{{ work.products.app.identifier }}{% endcapture %}
+    {% else %}
+        {% capture app-identifier %}{{ web-identifier }}{% endcapture %}
+    {% endif %}
+
+    {% if work.products.app.image %}
+        {% capture app-image %}{{ work.products.app.image }}{% endcapture %}
+    {% else %}
+        {% capture app-image %}{{ web-image }}{% endcapture %}
+    {% endif %}
+
+    {% if work.products.app.start-page %}
+        {% capture app-start-page %}{{ work.products.app.start-page }}{% endcapture %}
+    {% else %}
+        {% capture app-start-page %}{{ web-start-page }}{% endcapture %}
+    {% endif %}
+
+    {% if work.products.app.contents-page %}
+        {% capture app-contents-page %}{{ work.products.app.contents-page }}{% endcapture %}
+    {% else %}
+        {% capture app-contents-page %}{{ web-contents-page }}{% endcapture %}
+    {% endif %}
+
+    {% if work.products.app.files %}
+        {% assign app-file-list = work.products.app.files %}
+    {% else %}
+        {% assign app-file-list = web-file-list %}
+    {% endif %}
+
+    {% if work.products.app.nav %}
+        {% assign app-nav-tree = work.products.app.nav %}
+    {% else %}
+        {% assign app-nav-tree = web-nav-tree %}
+    {% endif %}
+
+    {% if work.products.app.toc %}
+        {% assign app-toc = work.products.app.toc %}
+    {% else %}
+        {% assign app-toc = web-toc %}
+    {% endif %}
+
+    {% assign variants = work.variants %}
+
+    {% assign translations = work.translations %}
+
+
+{% comment %}
+Look through the translations list. If this file is in a book-subdirectory
+that matches a translation language, set is-translation to true, and change
+the `language` variable, which we captured above, to the translation language.
+{% endcomment %}
+{% for translation in translations %}
+    {% if book-subdirectory == translation.directory and translation.directory != "" %}
+        {% assign is-translation = true %}
+        {% capture language %}{{ translation.language }}{% endcapture %}
+    {% endif %}
+{% endfor %}
+
+{% comment %}
+If we are in a translation, rewrite book metadata where it's been
+defined in meta.yml for the given translation.
+{% endcomment %}
+
+{% if is-translation == true %}
+
+    {% for work in translations %}
+
+        {% if work.directory == language %}
+
+            {% comment %}Note that we don't overwrite book-directory for translations{% endcomment %}
+            {% if work.title %}{% assign title = work.title %}{% endif %}
+            {% if work.subtitle %}{% assign subtitle = work.subtitle %}{% endif %}
+            {% if work.creators %}{% assign creators = work.creators %}{% endif %}
+            {% if work.creators %}{% capture creators-line %}{% for creator in work.creators %}{{creator.firstName}} {{creator.lastName}}{% if forloop.last == true %}{% else %}, {% endif %}{% endfor %}{% endcapture %}{% endif %}
+            {% if work.contributors %}{% assign contributors = work.contributors %}{% endif %}
+            {% if work.contributors %}{% capture contributors-line %}{% for contributor in work.contributors %}{{contributor.firstName}} {{contributor.lastName}}{% if forloop.last == true %}{% else %}, {% endif %}{% endfor %}{% endcapture %}{% endif %}
+            {% if work.subjects %}{% assign subjects = work.subjects %}{% endif %}
+            {% if work.description %}{% assign description = work.description.short %}{% endif %}
+            {% if work.description %}{% capture description-short %}{{ work.description.short }}{% endcapture %}{% endif %}
+            {% if work.publisher %}{% assign publisher = work.publisher %}{% endif %}
+            {% if work.date %}{% assign date = work.date %}{% endif %}
+            {% if work.revision_history %}{% capture modified %}{{ work.revision_history[0].date }}{% endcapture %}{% endif %}
+            {% if work.type %}{% capture type %}{{ work.type }}{% endcapture %}{% endif %}
+            {% if work.identifiers %}{% assign identifiers = work.identifiers %}{% endif %}
+            {% if work.identifiers.isbn %}{% assign isbn = work.identifiers.isbn %}{% endif %}
+            {% if work.identifiers.issn %}{% assign issn = work.identifiers.issn %}{% endif %}
+            {% if work.identifiers.doi %}{% assign doi = work.identifiers.doi %}{% endif %}
+            {% if work.identifiers.pid %}{% assign pid = work.identifiers.pid %}{% endif %}
+            {% if work.source %}{% assign source = work.source %}{% endif %}
+            {% if work.language %}{% assign language = work.language %}{% endif %}
+            {% if work.language %}{% capture parent-language %}{{ work.language }}{% endcapture %}{% endif %}
+            {% if work.relation %}{% assign relation = work.relation %}{% endif %}
+            {% if work.coverage %}{% assign coverage = work.coverage %}{% endif %}
+            {% if work.rights %}{% assign rights = work.rights %}{% endif %}
+            {% if work.license %}{% assign license = work.license %}{% endif %}
+            {% if work.version %}{% assign version = work.version %}{% endif %}
+            {% if work.image %}{% assign image = work.image %}{% endif %}
+            {% if work.funder %}{% assign funder = work.funder %}{% endif %}
+            {% if work.genre %}{% assign genre = work.genre %}{% endif %}
+            {% if work.abstract %}{% assign abstract = work.abstract %}{% endif %}
+            {% if work.keywords %}{% assign keywords = work.keywords %}{% endif %}
+            {% if work.revision_history %}{% assign revision_history = work.revision_history %}{% endif %}
+
+
+            {% if work.products.print-pdf.date %}{% capture print-pdf-date %}{{ work.products.print-pdf.date }}{% endcapture %}{% endif %}
+            {% if work.products.print-pdf.format %}{% capture print-pdf-format %}{{ work.products.print-pdf.format }}{% endcapture %}{% endif %}
+            {% if work.products.print-pdf.identifier %}{% capture print-pdf-identifier %}{{ work.products.print-pdf.identifier }}{% endcapture %}{% endif %}
+            {% if work.products.print-pdf.image %}{% capture print-pdf-image %}{{ work.products.print-pdf.image }}{% endcapture %}{% endif %}
+            {% if work.products.print-pdf.files %}{% assign print-pdf-file-list = work.products.print-pdf.files %}{% endif %}
+            {% if work.products.print-pdf.toc %}{% assign print-pdf-toc = work.products.print-pdf.toc %}{% endif %}
+
+            {% if work.products.web.date %}{% capture web-date %}{{ work.products.web.date }}{% endcapture %}{% endif %}
+            {% if work.products.web.format %}{% capture web-format %}{{ work.products.web.format }}{% endcapture %}{% endif %}
+            {% if work.products.web.identifier %}{% capture web-identifier %}{{ work.products.web.identifier }}{% endcapture %}{% endif %}
+            {% if work.products.web.image %}{% capture web-image %}{{ work.products.web.image }}{% endcapture %}{% endif %}
+            {% if work.products.web.start-page %}{% capture web-start-page %}{{ work.products.web.start-page }}{% endcapture %}{% endif %}
+            {% if work.products.web.contents-page %}{% capture web-contents-page %}{{ work.products.web.contents-page }}{% endcapture %}{% endif %}
+            {% if work.products.web.files %}{% assign web-file-list = work.products.web.files %}{% endif %}
+            {% if work.products.web.nav %}{% assign web-nav-tree = work.products.web.nav %}{% endif %}
+            {% if work.products.web.toc %}{% assign web-toc = work.products.web.toc %}{% endif %}
+
+            {% if work.products.epub.date %}{% capture epub-date %}{{ work.products.epub.date }}{% endcapture %}{% endif %}
+            {% if work.products.epub.format %}{% capture epub-format %}{{ work.products.epub.format }}{% endcapture %}{% endif %}
+            {% if work.products.epub.identifier %}{% capture epub-identifier %}{{ work.products.epub.identifier }}{% endcapture %}{% endif %}
+            {% if work.products.epub.image %}{% capture epub-image %}{{ work.products.epub.image }}{% endcapture %}{% endif %}
+            {% if work.products.epub.files %}{% assign epub-file-list = work.products.epub.files %}{% endif %}
+            {% if work.products.epub.toc %}{% assign epub-toc = work.products.epub.toc %}{% endif %}
+            {% if work.products.epub.contents-page %}{% capture epub-contents-page %}{{ work.products.epub.contents-page }}{% endcapture %}{% endif %}
+            {% if work.products.epub.language %}{% capture epub-language %}{{ work.products.epub.language }}{% endcapture %}{% endif %}
+
+            {% if work.products.paged-view.date %}{% capture paged-view-date %}{{ work.products.paged-view.date }}{% endcapture %}{% endif %}
+            {% if work.products.paged-view.format %}{% capture paged-view-format %}{{ work.products.paged-view.format }}{% endcapture %}{% endif %}
+            {% if work.products.paged-view.identifier %}{% capture paged-view-identifier %}{{ work.products.paged-view.identifier }}{% endcapture %}{% endif %}
+            {% if work.products.paged-view.image %}{% capture paged-view-image %}{{ work.products.paged-view.image }}{% endcapture %}{% endif %}
+            {% if work.products.paged-view.files %}{% assign paged-view-file-list = work.products.paged-view.files %}{% endif %}
+            {% if work.products.paged-view.toc %}{% assign paged-view-toc = work.products.paged-view.toc %}{% endif %}
+
+            {% if work.products.app.date %}
+                {% capture app-date %}{{ work.products.app.date }}{% endcapture %}
+            {% else %}
+                {% capture app-date %}{{ web-date }}{% endcapture %}
+            {% endif %}
+            {% if work.products.app.format %}
+                {% capture app-format %}{{ work.products.app.format }}{% endcapture %}
+            {% else %}
+                {% capture app-format %}{{ web-format }}{% endcapture %}
+            {% endif %}
+            {% if work.products.app.identifier %}
+                {% capture app-identifier %}{{ work.products.app.identifier }}{% endcapture %}
+            {% else %}
+                {% capture app-identifier %}{{ web-identifier }}{% endcapture %}
+            {% endif %}
+            {% if work.products.app.image %}
+                {% capture app-image %}{{ work.products.app.image }}{% endcapture %}
+            {% else %}
+                {% capture app-image %}{{ web-image }}{% endcapture %}
+            {% endif %}
+            {% if work.products.app.start-page %}
+                {% capture app-start-page %}{{ work.products.app.start-page }}{% endcapture %}
+            {% else %}
+                {% capture app-start-page %}{{ web-start-page }}{% endcapture %}
+            {% endif %}
+            {% if work.products.app.contents-page %}
+                {% capture app-contents-page %}{{ work.products.app.contents-page }}{% endcapture %}
+            {% else %}
+                {% capture app-contents-page %}{{ web-contents-page }}{% endcapture %}
+            {% endif %}
+            {% if work.products.app.files %}
+                {% assign app-file-list = work.products.app.files %}
+            {% else %}
+                {% assign app-file-list = web-file-list %}
+            {% endif %}
+            {% if work.products.app.nav %}
+                {% assign app-nav-tree = work.products.app.nav %}
+            {% else %}
+                {% assign app-nav-tree = web-nav-tree %}
+            {% endif %}
+            {% if work.products.app.toc %}
+                {% assign app-toc = work.products.app.toc %}
+            {% else %}
+                {% assign app-toc = web-toc %}
+            {% endif %}
+
+            {% if work.variants %}
+                {% assign variants = work.variants %}
+            {% endif %}
+
+        {% endif %}
+
+    {% endfor %}
+
+{% endif %}
+
+{% comment %}If a variant is enabled in settings,
+override any metadata set for that variant.{% endcomment %}
+
+{% comment %}First, though, set variant-toc to false as default{% endcomment %}
+{% assign variant-toc = false %}
+
+{% if site.data.settings.active-variant and site.data.settings.active-variant != "" %}
+
+    {% capture variant %}{{ site.data.settings.active-variant }}{% endcapture %}
+
+    {% for data in variants %}
+
+        {% if data.variant == variant %}
+
+            {% comment %}Note that we don't overwrite book-directory for variants{% endcomment %}
+            {% if data.title %}{% capture title %}{{ data.title }}{% endcapture %}{% endif %}
+            {% if data.subtitle %}{% capture subtitle %}{{ data.subtitle }}{% endcapture %}{% endif %}
+            {% if data.creators %}{% capture creators %}{{ data.creators }}{% endcapture %}{% endif %}
+            {% if data.contributors %}{% capture contributors %}{{ data.contributors }}{% endcapture %}{% endif %}
+            {% if data.subjects %}{% capture subjects %}{{ data.subjects }}{% endcapture %}{% endif %}
+            {% if data.description %}{% capture description %}{{ data.description.short }}{% endcapture %}{% endif %}
+            {% if data.publisher %}{% capture publisher %}{{ data.publisher }}{% endcapture %}{% endif %}
+            {% if data.publisher-url %}{% capture publisher-url %}{{ data.publisher-url }}{% endcapture %}{% endif %}
+            {% if data.date %}{% capture date %}{{ data.date }}{% endcapture %}{% endif %}
+            {% if data.modified %}{% capture modified %}{{ data.revision_history[0].date }}{% endcapture %}{% endif %}
+            {% if data.type %}{% capture type %}{{ data.type }}{% endcapture %}{% endif %}
+            {% if data.identifiers %}{% capture identifiers %}{{ data.identifiers }}{% endcapture %}{% endif %}
+            {% if data.isbn %}{% capture isbn %}{{ data.identifiers.isbn }}{% endcapture %}{% endif %}
+            {% if data.issn %}{% capture issn %}{{ data.identifiers.issn }}{% endcapture %}{% endif %}
+            {% if data.doi %}{% capture doi %}{{ data.identifiers.doi }}{% endcapture %}{% endif %}
+            {% if data.pid %}{% capture pid %}{{ data.identifiers.pid }}{% endcapture %}{% endif %}
+            {% if data.source %}{% capture source %}{{ data.source }}{% endcapture %}{% endif %}
+            {% if data.language %}{% capture language %}{{ data.language }}{% endcapture %}{% endif %}
+            {% if data.relation %}{% capture relation %}{{ data.relation }}{% endcapture %}{% endif %}
+            {% if data.coverage %}{% capture coverage %}{{ data.coverage }}{% endcapture %}{% endif %}
+            {% if data.rights %}{% capture rights %}{{ data.rights }}{% endcapture %}{% endif %}
+            {% if data.license %}{% capture license %}{{ data.license }}{% endcapture %}{% endif %}
+            {% if data.revision_history %}{% capture revision-history %}{{ data.revision_history }}{% endcapture %}{% endif %}
+            {% if data.image %}{% capture image %}{{ data.image }}{% endcapture %}{% endif %}
+            {% if data.funder %}{% capture funder %}{{ data.funder }}{% endcapture %}{% endif %}
+            {% if data.genre %}{% capture genre %}{{ data.genre }}{% endcapture %}{% endif %}
+            {% if data.abstract %}{% capture abstract %}{{ data.abstract }}{% endcapture %}{% endif %}
+            {% if data.keywords %}{% capture keywords %}{{ data.keywords }}{% endcapture %}{% endif %}
+
+            {% if data.title %}{% assign title = data.title %}{% endif %}
+            {% if data.subtitle %}{% assign subtitle = data.subtitle %}{% endif %}
+            {% if data.creators %}{% assign creators = data.creators %}{% endif %}
+            {% if data.contributors %}{% assign contributors = data.contributors %}{% endif %}
+            {% if data.subjects %}{% assign subjects = data.subjects %}{% endif %}
+            {% if data.description %}{% assign description = data.description.short %}{% endif %}
+            {% if data.description %}{% capture description-short %}{{ data.description.short }}{% endcapture %}{% endif %}
+            {% if data.publisher %}{% assign publisher = data.publisher %}{% endif %}
+            {% if data.date %}{% assign date = data.date %}{% endif %}
+            {% if data.revision_history %}{% capture modified %}{{ data.revision_history[0].date }}{% endcapture %}{% endif %}
+            {% if data.type %}{% capture type %}{{ data.type }}{% endcapture %}{% endif %}
+            {% if data.identifiers %}{% assign identifiers = data.identifiers %}{% endif %}
+            {% if data.identifiers.isbn %}{% assign isbn = data.identifiers.isbn %}{% endif %}
+            {% if data.identifiers.issn %}{% assign issn = data.identifiers.issn %}{% endif %}
+            {% if data.identifiers.doi %}{% assign doi = data.identifiers.doi %}{% endif %}
+            {% if data.identifiers.pid %}{% assign pid = data.identifiers.pid %}{% endif %}
+            {% if data.source %}{% assign source = data.source %}{% endif %}
+            {% if data.language %}{% assign language = data.language %}{% endif %}
+            {% if data.language %}{% capture parent-language %}{{ data.language }}{% endcapture %}{% endif %}
+            {% if data.relation %}{% assign relation = data.relation %}{% endif %}
+            {% if data.coverage %}{% assign coverage = data.coverage %}{% endif %}
+            {% if data.rights %}{% assign rights = data.rights %}{% endif %}
+            {% if data.license %}{% assign license = data.license %}{% endif %}
+            {% if data.version %}{% assign version = data.version %}{% endif %}
+            {% if data.image %}{% assign image = data.image %}{% endif %}
+            {% if data.funder %}{% assign funder = data.funder %}{% endif %}
+            {% if data.genre %}{% assign genre = data.genre %}{% endif %}
+            {% if data.abstract %}{% assign abstract = data.abstract %}{% endif %}
+            {% if data.keywords %}{% assign keywords = data.keywords %}{% endif %}
+            {% if data.revision_history %}{% assign revision_history = data.revision_history %}{% endif %}
+
+            {% if data.products.print-pdf.date %}{% capture print-pdf-date %}{{ data.products.print-pdf.date }}{% endcapture %}{% endif %}
+            {% if data.products.print-pdf.format %}{% capture print-pdf-format %}{{ data.products.print-pdf.format }}{% endcapture %}{% endif %}
+            {% if data.products.print-pdf.identifier %}{% capture print-pdf-identifier %}{{ data.products.print-pdf.identifier }}{% endcapture %}{% endif %}
+            {% if data.products.print-pdf.image %}{% capture print-pdf-image %}{{ data.products.print-pdf.image }}{% endcapture %}{% endif %}
+            {% if data.products.print-pdf.files %}{% assign print-pdf-file-list = data.products.print-pdf.files %}{% endif %}
+            {% if data.products.print-pdf.toc %}
+                {% assign print-pdf-toc = data.products.print-pdf.toc %}
+                {% if site.output == "print-pdf" %}
+                    {% assign variant-toc = true %}
+                {% endif %}
+            {% endif %}
+
+            {% if data.products.web.date %}{% capture web-date %}{{ data.products.web.date }}{% endcapture %}{% endif %}
+            {% if data.products.web.format %}{% capture web-format %}{{ data.products.web.format }}{% endcapture %}{% endif %}
+            {% if data.products.web.identifier %}{% capture web-identifier %}{{ data.products.web.identifier }}{% endcapture %}{% endif %}
+            {% if data.products.web.image %}{% capture web-image %}{{ data.products.web.image }}{% endcapture %}{% endif %}
+            {% if data.products.web.start-page %}{% capture web-start-page %}{{ data.products.web.start-page }}{% endcapture %}{% endif %}
+            {% if data.products.web.contents-page %}{% capture web-contents-page %}{{ data.products.web.contents-page }}{% endcapture %}{% endif %}
+            {% if data.products.web.files %}{% assign web-file-list = data.products.web.files %}{% endif %}
+            {% if data.products.web.nav %}{% assign web-nav-tree = data.products.web.nav %}{% endif %}
+            {% if data.products.web.toc %}
+                {% assign web-toc = data.products.web.toc %}
+                {% if site.output == "web" %}
+                    {% assign variant-toc = true %}
+                {% endif %}
+            {% endif %}
+
+            {% if data.products.epub.date %}{% capture epub-date %}{{ data.products.epub.date }}{% endcapture %}{% endif %}
+            {% if data.products.epub.format %}{% capture epub-format %}{{ data.products.epub.format }}{% endcapture %}{% endif %}
+            {% if data.products.epub.identifier %}{% capture epub-identifier %}{{ data.products.epub.identifier }}{% endcapture %}{% endif %}
+            {% if data.products.epub.image %}{% capture epub-image %}{{ data.products.epub.image }}{% endcapture %}{% endif %}
+            {% if data.products.epub.files %}{% assign epub-file-list = data.products.epub.files %}{% endif %}
+            {% if data.products.epub.contents-page %}{% capture epub-contents-page %}{{ work.products.epub.contents-page }}{% endcapture %}{% endif %}
+            {% if data.products.epub.language %}{% capture epub-language %}{{ work.products.epub.language }}{% endcapture %}{% endif %}
+            {% if data.products.epub.toc %}
+                {% assign epub-toc = data.products.epub.toc %}
+                {% if site.output == "epub" %}
+                    {% assign variant-toc = true %}
+                {% endif %}
+            {% endif %}
+
+            {% if data.products.paged-view.date %}{% capture paged-view-date %}{{ data.products.paged-view.date }}{% endcapture %}{% endif %}
+            {% if data.products.paged-view.format %}{% capture paged-view-format %}{{ data.products.paged-view.format }}{% endcapture %}{% endif %}
+            {% if data.products.paged-view.identifier %}{% capture paged-view-identifier %}{{ data.products.paged-view.identifier }}{% endcapture %}{% endif %}
+            {% if data.products.paged-view.image %}{% capture paged-view-image %}{{ data.products.paged-view.image }}{% endcapture %}{% endif %}
+            {% if data.products.paged-view.files %}{% assign paged-view-file-list = data.products.paged-view.files %}{% endif %}
+            {% if data.products.paged-view.toc %}
+                {% assign paged-view-toc = data.products.paged-view.toc %}
+                {% if site.output == "paged-view" %}
+                    {% assign variant-toc = true %}
+                {% endif %}
+            {% endif %}
+
+            {% if data.products.app.date %}
+                {% capture app-date %}{{ data.products.app.date }}{% endcapture %}
+            {% else %}
+                {% capture app-date %}{{ web-date }}{% endcapture %}
+            {% endif %}
+            {% if data.products.app.format %}
+                {% capture app-format %}{{ data.products.app.format }}{% endcapture %}
+            {% else %}
+                {% capture app-format %}{{ web-format }}{% endcapture %}
+            {% endif %}
+            {% if data.products.app.identifier %}
+                {% capture app-identifier %}{{ data.products.app.identifier }}{% endcapture %}
+            {% else %}
+                {% capture app-identifier %}{{ web-identifier }}{% endcapture %}
+            {% endif %}
+            {% if data.products.app.image %}
+                {% capture app-image %}{{ data.products.app.image }}{% endcapture %}
+            {% else %}
+                {% capture app-image %}{{ web-image }}{% endcapture %}
+            {% endif %}
+            {% if data.products.app.start-page %}
+                {% capture app-start-page %}{{ data.products.app.start-page }}{% endcapture %}
+            {% else %}
+                {% capture app-start-page %}{{ web-start-page }}{% endcapture %}
+            {% endif %}
+            {% if data.products.app.contents-page %}
+                {% capture app-contents-page %}{{ data.products.app.contents-page }}{% endcapture %}
+            {% else %}
+                {% capture app-contents-page %}{{ web-contents-page }}{% endcapture %}
+            {% endif %}
+            {% if data.products.app.files %}
+                {% assign app-file-list = data.products.app.files %}
+            {% else %}
+                {% assign app-file-list = web-file-list %}
+            {% endif %}
+            {% if data.products.app.nav %}
+                {% assign app-nav-tree = data.products.app.nav %}
+            {% else %}
+                {% assign app-nav-tree = web-nav-tree %}
+            {% endif %}
+            {% if data.products.app.toc %}
+                {% assign app-toc = data.products.app.toc %}
+                {% if site.output == "app" %}
+                    {% assign variant-toc = true %}
+                {% endif %}
+            {% else %}
+                {% assign app-toc = web-toc %}
+                {% if site.output == "app" %}
+                    {% assign variant-toc = true %}
+                {% endif %}
+            {% endif %}
+
+        {% endif %}
+
+    {% endfor %}
+
+    {% comment %}Get variant settings from settings{% endcomment %}
+    {% assign variant-settings = site.data.settings.variants | where: "variant", variant %}
+    {% for setting in variant-settings %}
+        {% capture print-pdf-stylesheet %}{{ setting.print-pdf-stylesheet }}{% endcapture %}
+        {% capture paged-view-stylesheet %}{{ setting.paged-view-stylesheet }}{% endcapture %}
+        {% capture web-stylesheet %}{{ setting.web-stylesheet }}{% endcapture %}
+        {% capture epub-stylesheet %}{{ setting.epub-stylesheet }}{% endcapture %}
+        {% capture app-stylesheet %}{{ setting.app-stylesheet }}{% endcapture %}
+    {% endfor %}
+
+{% endif %}
+
+{% comment %} Generate a file-list for the current output. {% endcomment %}
+{% capture file-list-name %}{{ site.output }}-file-list{% endcapture %}
+
+{% comment %} Don't indent. We don't want indents in file lists. {% endcomment %}
+{% capture file-list %}
+{% for file in [file-list-name] %}
+{% for file-title in file %}
+{% if file-title[0] %}
+{{ file-title[0] }}.html
+{% else %}
+{{ file-title }}.html
+{% endif %}
+{% endfor %}
+{% endfor %}
+{% endcapture %}
+
+{% comment %}
+Check if we're on the project homepage:
+* Get a slugified version of the page URL, without hyphens, to compare to
+  a slugified version of the baseurl. We slugify to remove slashes, which
+  may differ between the two.
+* Then we can compare them to test if we're on the project home page.
+* If we are, they will match. Hopefully.
+{% endcomment %}
+{% capture pageurl-slug %}{{ site.baseurl | slugify | remove: "-" }}{{ page.url | slugify | remove: "-" }}{% endcapture %}
+{% capture baseurl-slug %}{{ site.baseurl | slugify | remove: "-" }}{% endcapture %}
+
+{% assign is-homepage = false %}
+{% if pageurl-slug == baseurl-slug %}
+    {% assign is-homepage = true %}
+{% endif %}
+
+{% comment %}
+Check if we're on the search pages.
+{% endcomment %}
+{% capture project-search-url %}{{ site.baseurl }}/search.html{% endcapture %}
+{% unless is-homepage %}
+    {% capture book-search-url %}{{ site.baseurl }}/{{ book-directory }}/text/search.html{% endcapture %}
+{% endunless %}
+{% capture project-search-url-slug %}{{ project-search-url | slugify | remove: "-" }}{% endcapture %}
+{% capture book-search-url-slug %}{{ book-search-url | slugify | remove: "-" }}{% endcapture %}
+
+{% assign is-search = false %}
+{% if page.url contains "/search.html" %}
+    {% assign is-search = true %}
+{% endif %}
+
+{% assign is-project-search = false %}
+{% if pageurl-slug == project-search-url-slug %}
+    {% assign is-project-search = true %}
+{% endif %}
+
+{% assign is-book-search = false %}
+{% if pageurl-slug == book-search-url-slug and is-homepage != true %}
+    {% assign is-book-search = true %}
+{% endif %}
+
+{% comment %}
+On homepage and project-search we are not in a book-directory,
+so make the book-directory variable nil. If we don't,
+then on these pages any links that use {{ book-directory }} will be broken
+{% endcomment %}
+{% if is-homepage == true or is-project-search == true %}
+    {% assign book-directory = nil %}
+{% endif %}
+
+{% comment %}
+Create an empty array for the breadcrumbs include to start with
+(thanks https://talk.jekyllrb.com/t/how-do-you-add-items-to-an-array-in-jekyll/324/4)
+{% endcomment %}
+{% assign crumbs-array = "" | split: "|" %}
+
+{% comment %}
+Get relative paths to other book-asset folders, even if we're in a book-subsubdirectory
+{% endcomment %}
+
+{% comment %}First, for pages not in a book directory, set the path as
+the first book-directory listed in meta.yml{% endcomment %}
+{% capture path-to-book-directory %}{{ site.data.meta.works.[0].directory }}/{% endcapture %}
+
+{% comment %}Then, for all pages in a text directory, create a relative path to the book-directory{% endcomment %}
+{% if is-book-subdirectory %}
+    {% if is-book-subsubdirectory != true %}
+        {% capture path-to-book-directory %}../{% endcapture %}
+    {% else %}
+        {% capture path-to-book-directory %}
+            {% for i in (2..folder-depth) %}../{% endfor %}
+        {% endcapture %}
+    {% endif %}
+
+    {% capture path-to-book-directory %}{{ path-to-book-directory | strip_newlines | strip }}{% endcapture %}
+{% endif %}
+
+{% comment %}Then set a path to the root directory.{% endcomment %}
+
+{% capture path-to-root-directory %}
+    {% for i in (1..folder-depth) %}../{% endfor %}
+{% endcapture %}
+{% capture path-to-root-directory %}{{ path-to-root-directory | strip_newlines | strip }}{% endcapture %}
+
+{% comment %}If we're in the root directory, then the path is the baseurl.
+If we're on the web, we need a trailing slash on the baseurl, to
+be sure we're pointing to the webserver root.{% endcomment %}
+{% if path-to-root-directory == "" %}
+{% assign is-root-directory = true %}
+{% capture path-to-root-directory %}{{ site.baseurl }}{% endcapture %}
+    {% if site.output == "web" %}
+        {% capture path-to-root-directory %}{{ site.baseurl }}/{% endcapture %}
+    {% endif %}
+{% endif %}
+
+{% comment %}Create a short tag for the path to images.{% endcomment %}
+{% capture images %}{{ path-to-book-directory }}{{ site.image-set }}{% endcapture %}
+
+{% comment %}
+If site.build-language is defined, and matches a translation directory,
+include the translation directory in the default images path.
+This is especially useful for setting the images path on non-book pages,
+such as the home and search pages, when building a single-language site or app.
+{% endcomment %}
+{% for translation in translations %}
+    {% if site.build-language == translation %}
+        {% assign build-language-is-translation = true %}
+    {% endif %}
+{% endfor %}
+{% if site.build-language and site.build-language != "" and build-language-is-translation == true %}
+    {% capture images %}{{ path-to-book-directory }}{{ site.build-language }}/{{ site.image-set }}{% endcapture %}
+{% endif %}
+
+{% comment %}If this is a translation, and a language subfolder of images exists,
+the {{ images }} path should include the language subdirectory.{% endcomment %}
+{% if is-translation %}
+    {% capture path-to-translation-images-directory %}/{{ book-directory }}/{{ book-subdirectory }}/images/{{ site.output }}/{% endcapture %}
+    {% assign translated-images = site.static_files | where_exp: "file", "file.path contains path-to-translation-images-directory" %}
+    {% assign translated-images-number = translated-images | size %}
+
+    {% assign translated-images-exist = false %}
+    {% if translated-images-number > 0 %}
+        {% assign translated-images-exist = true %}
+    {% endif %}
+
+    {% comment %}If we are using external-media, we can't know
+    if translated images exist, so let's assume that they do.{% endcomment %}
+    {% if site.data.settings.local-media.[build] and site.data.settings.local-media.[build] != "" %}
+        {% assign translated-images-exist = true %}
+    {% elsif site.data.settings.remote-media.[build] and site.data.settings.remote-media.[build] != "" %}
+        {% assign translated-images-exist = true %}
+    {% endif %}
+
+    {% if translated-images-exist == true %}
+        {% capture images %}{{ path-to-book-directory }}{{ book-subdirectory }}/{{ site.image-set }}{% endcapture %}
+    {% endif %}
+{% endif %}
+
+{% comment %} Create an image path for items in the items directory.
+This path must be relative to the text files in which the item
+might be included, and not to the item file itself.{% endcomment %}
+
+{% comment %} Test for the existence of translated images in items. {% endcomment %}
+{% assign items-translated-images-exist = false %}
+{% capture path-to-items-translation-images-directory %}_items/{{ language }}/{{ site.image-set }}/{% endcapture %}
+{% assign items-collection = site.collections | where_exp: "collection", "collection.label == 'items'" %}
+{% for collection in items-collection %}
+    {% assign items-image-files = collection.files | where_exp: "file", "file.path contains path-to-items-translation-images-directory" %}
+    {% assign items-image-files-size = items-image-files | size %}
+    {% if items-image-files.size > 0 %}
+        {% assign items-translated-images-exist = true %}
+    {% endif %}
+{% endfor %}
+
+{% if is-items-directory %}
+    {% capture images %}../../items/{{ site.image-set }}{% endcapture %}
+
+    {% comment %} Epub has no book or root directory, so the path is shallower,
+    given how we structure our epubs. {% endcomment %}
+    {% if site.output == "epub" %}
+        {% capture images %}../items/{{ site.image-set }}{% endcapture %}
+    {% endif %}
+
+    {% comment %} Rewrite images path for translations. {% endcomment %}
+    {% if is-translation and items-translated-images-exist == true %}
+        {% capture images %}../../items/{{ language }}/{{ site.image-set }}{% endcapture %}
+    {% endif %}
+{% endif %}
+
+{% comment %}For PDF and web outputs, check if we are using external-media,
+and if we are, get the relevant path as `external-media`, defaulting to
+remote-media for web and local-media for PDF.{% endcomment %}
+{% if site.output == "print-pdf" or site.output == "paged-view" %}
+    {% if site.data.settings.local-media.[build] and site.data.settings.local-media.[build] != "" %}
+        {% capture external-media %}{% unless site.data.settings.local-media.[build] contains "http" %}{{ path-to-root-directory }}{% endunless %}{{ site.data.settings.local-media.[build] }}{% endcapture %}
+    {% elsif site.data.settings.remote-media.[build] and site.data.settings.remote-media.[build] != "" %}
+        {% capture external-media %}{{ site.data.settings.remote-media.[build] }}{% endcapture %}
+    {% endif %}
+{% endif %}
+{% if site.output == "web" %}
+    {% if site.data.settings.remote-media.[build] and site.data.settings.remote-media.[build] != "" %}
+        {% capture external-media %}{{ site.data.settings.remote-media.[build] }}{% endcapture %}
+    {% elsif site.data.settings.local-media.[build] and site.data.settings.local-media.[build] != "" %}
+        {% capture external-media %}{% unless site.data.settings.local-media.[build] contains "http" %}{{ path-to-root-directory }}{% endunless %}{{ site.data.settings.local-media.[build] }}{% endcapture %}
+    {% endif %}
+{% endif %}
+
+{% comment %}If we're using external media, set `images` accordingly.{% endcomment %}
+{% if external-media and external-media != "" %}
+    {% capture images %}{{ external-media }}/{{ book-directory }}/{{ site.image-set }}{% endcapture %}
+    {% if is-translation %}
+        {% capture images %}{{ external-media }}/{{ book-directory }}/{{ book-subdirectory }}/{{ site.image-set }}{% endcapture %}
+    {% endif %}
+    {% if is-items-directory %}
+        {% capture images %}{{ external-media }}/items/{{ site.image-set }}{% endcapture %}
+        {% if is-translation %}
+            {% capture images %}{{ external-media }}/items/{{ language }}/{{ site.image-set }}{% endcapture %}
+        {% endif %}
+    {% endif %}
+    {% comment %}If we are not in a book directory, use the images
+    from the first book in the project.{% endcomment %}
+    {% if is-root-directory == true %}
+        {% capture images %}{{ external-media }}/{{ site.data.meta.works.[0].directory }}/{{ site.image-set }}{% endcapture %}
+    {% endif %}
+{% endif %}
+
+{% comment %}If using a Google Play expansion file for images,
+and this is an app output, rewrite the images path accordingly{% endcomment %}
+{% assign google-play-expansion-file-enabled = false %}
+{% if site.data.settings.app.google-play-expansion-file-enabled == true and site.output == "app" %}
+    {% assign google-play-expansion-file-enabled = true %}
+    {% capture images %}content://{{ project-app-id }}{% if site.build-language and site.build-language != "" %}.{{ site.build-language }}{% endif %}.expansion{% endcapture %}
+{% endif %}
+
+{% comment %}Create a tag for the path to stylesheets.
+First, the default. Then if a translation, the translation's.{% endcomment %}
+{% capture path-to-styles-directory %}{{ path-to-book-directory }}styles{% endcapture %}
+
+{% if is-translation %}
+    {% if site.output == "print-pdf" %}
+        {% capture path-to-translation-stylesheet %}/{{ book-directory }}/{{ book-subdirectory }}/styles/{{ print-pdf-stylesheet }}{% endcapture %}
+    {% elsif site.output == "paged-view" %}
+        {% capture path-to-translation-stylesheet %}/{{ book-directory }}/{{ book-subdirectory }}/styles/{{ paged-view-stylesheet }}{% endcapture %}
+    {% elsif site.output == "epub" %}
+        {% capture path-to-translation-stylesheet %}/{{ book-directory }}/{{ book-subdirectory }}/styles/{{ epub-stylesheet }}{% endcapture %}
+    {% elsif site.output == "app" %}
+        {% capture path-to-translation-stylesheet %}/{{ book-directory }}/{{ book-subdirectory }}/styles/{{ app-stylesheet }}{% endcapture %}
+    {% else %}
+        {% capture path-to-translation-stylesheet %}/{{ book-directory }}/{{ book-subdirectory }}/styles/{{ web-stylesheet }}{% endcapture %}
+    {% endif %}
+    {% assign translation-styles = site.pages | where_exp: "file", "file.url contains path-to-translation-stylesheet" %}
+    {% assign translation-styles-number = translation-styles | size %}
+
+    {% assign translation-styles-exist = false %}
+    {% if translation-styles-number > 0 %}
+        {% assign translation-styles-exist = true %}
+    {% endif %}
+
+    {% if translation-styles-exist == true %}
+        {% capture path-to-parent-styles-directory %}{{ path-to-styles-directory }}{% endcapture %}
+        {% capture path-to-styles-directory %}{{ path-to-book-directory }}{{ book-subdirectory }}/styles{% endcapture %}
+    {% endif %}
+{% endif %}
+
+{% comment %}Create a tag for the path to fonts.{% endcomment %}
+{% capture path-to-fonts-directory %}{{ path-to-book-directory }}fonts{% endcapture %}
+
+{% if is-translation %}
+    {% capture path-to-translation-fonts-directory %}/{{ book-directory }}/{{ book-subdirectory }}/fonts{% endcapture %}
+    {% assign translation-fonts = site.static_files | where_exp: "file", "file.path contains path-to-translation-fonts-directory" %}
+    {% assign translation-fonts-number = translation-fonts | size %}
+
+    {% assign translation-fonts-exist = false %}
+    {% if translation-fonts-number > 0 %}
+        {% assign translation-fonts-exist = true %}
+    {% endif %}
+
+    {% if translation-fonts-exist == true %}
+        {% capture path-to-fonts-directory %}{{ path-to-book-directory }}{{ book-subdirectory }}/fonts{% endcapture %}
+    {% endif %}
+{% endif %}
+
+{% comment %}Are we outputting the docs?{% endcomment %}
+{% for coll in site.collections %}
+  {% if coll.output == true and coll.label == "docs" %}
+    {% assign output-docs = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% comment %}Is the template in its new state?
+Let's check a bunch of things that, in combination, should
+guarantee that the template is in a new state.{% endcomment %}
+{% if output-docs == true and number-of-works == 2 and site.data.meta.works[0].title == "Template" and site.data.meta.works[0].directory == "book" and site.data.meta.works[1].directory == "samples" %}
+  {% assign is-new-template = true %}
+{% endif %}
+
+{% comment %}Are we on a docs page?{% endcomment %}
+{% assign is-docs-page = false %}
+{% if page.collection == "docs" %}
+  {% assign is-docs-page = true %}
+{% endif %}
+
+{% comment %}Check for existence of scripts in _epub/js.
+Note that we can't do this for fonts, because fonts are not
+processed as documents by Jekyll, and aren't accessible that way.{% endcomment %}
+{% assign epub-scripts-exist = false %}
+{% for file in site.epub %}
+  {% if file.path contains "_epub/js/" %}
+    {% assign epub-scripts-exist = true %}
+  {% endif %}
+  {% break %}
+{% endfor %}
+
+{% comment %} Localisation {% endcomment %}
+
+{% if translations %}
+
+    {% comment %} Get an array of all languages listed
+    as translations in meta.yml, plus the parent language {% endcomment %}
+    {% assign languages = parent-language | split: "," %}
+    {% for translation in translations %}
+        {% assign languages = languages | push: translation.language | uniq %}
+    {% endfor %}
+
+{% endif %}
+
+{% comment %} Get the locales {% endcomment %}
+{% assign locales = site.data.locales %}
+
+{% comment %} Put this page's particular language
+in a locale variable {% endcomment %}
+{% assign locale = locales[language] %}
+
+{% comment %} Override project metadata with locale translations,
+or parent-language overrides, if they exist. {% endcomment %}
+{% if locale.project.organisation and locale.project.organisation != "" %}
+    {% capture project-organisation %}{{ locale.project.organisation }}{% endcapture %}
+{% endif %}
+{% if locale.project.url and locale.project.url != "" %}
+    {% capture project-url %}{{ locale.project.url }}{% endcapture %}
+{% endif %}
+{% if locale.project.email and locale.project.email != "" %}
+    {% capture project-email %}{{ locale.project.email }}{% endcapture %}
+{% endif %}
+{% if locale.project.name and locale.project.name != "" %}
+    {% capture project-name %}{{ locale.project.name }}{% endcapture %}
+{% endif %}
+{% if locale.project.description and locale.project.description != "" %}
+    {% capture project-description %}{{ locale.project.description }}{% endcapture %}
+{% endif %}
+{% if locale.project.image and locale.project.image != "" %}
+    {% capture project-image %}{{ locale.project.image }}{% endcapture %}
+{% endif %}
+{% if locale.project.credit and locale.project.credit != "" %}
+    {% capture project-credit %}{{ locale.project.credit }}{% endcapture %}
+{% endif %}
+
+{% comment %}Get gloabal url.{% endcomment %}
+{% capture work-url %}{{ site.baseurl }}/{{work.directory}}{% endcapture %}
+{% capture work-url-translation %}{{ work-url }}{% if is-book-subdirectory %}/{{ book-subdirectory }}{% endif %}{% if is-translation %}/{{ language }}{% endif %}{% endcapture %}
+{% capture work-url-contents-directory %}{{ work-url-translation }}{% if work.contents_directory %}{{ work.contents_directory }}{% endif %}{% endcapture %}
+{% capture work-url-about-page %}{{ work-url-contents-directory }}/{{web-about-page}}{% endcapture %}
+{% capture work-url-start-page %}{{ work-url-contents-directory }}/{{web-start-page}}{% endcapture %}
+
+{% comment %}End of entire metadata load.{% endcomment %}
+{% assign metadata-loaded = true %}
+{% endif %}

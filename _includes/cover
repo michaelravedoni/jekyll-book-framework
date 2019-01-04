@@ -1,0 +1,45 @@
+{% include metadata %}
+
+{% comment %}Assign the default image filename to image{% endcomment %}
+{% assign image = "cover.jpg" %}
+
+{% comment %}Let the user specify a different image file{% endcomment %}
+{% if include.image %}
+    {% capture image %}{{ include.image }}{% endcapture %}
+{% endif %}
+
+{% comment %}
+Adjust HTML based on output format.
+* For web, link the cover to the start page.
+* For other outputs use just the image.
+{% endcomment %}
+
+{% if site.output == "web" %}
+
+{% assign image-filetype = image | split: "." %}
+{% assign image-without-filetype = image | replace: image-filetype[1], "" | replace: ".", "" %}
+
+<p class="cover"><a href="{{ web-start-page }}{% unless web-start-page contains ".html" %}.html{% endunless %}"><img src="{{ images }}/{{ image }}"{% if site.output == "web" %} srcset="{{ images }}/{{ image-without-filetype }}-320.{{ image-filetype[1] }} 320w, {{ images }}/{{ image-without-filetype }}-640.{{ image-filetype[1] }} 640w, {{ images }}/{{ image-without-filetype }}-1024.{{ image-filetype[1] }} 1024w, {{ images }}/{{ image-without-filetype }}.{{ image-filetype[1] }} 1280w" sizes="(min-width: 40em) 40em, 100vw" {% endif %}alt="{{ title }}" class="cover"></a></p>
+
+{% elsif site.output == "paged-view" %}
+
+{% comment %}Add the cover to the PDF bookmarks without displaying it{% endcomment %}
+<h1 style="position: absolute; z-index: -1">Cover</h1>
+
+<p class="cover">
+	<img src="{{ images }}/{{ image }}" class="cover">
+</p>
+
+{% elsif site.output == "app" %}
+
+<p class="cover">
+	<a href="{{ app-start-page }}{% unless app-start-page contains ".html" %}.html{% endunless %}">
+		<img src="{{ images }}/{{ image }}" alt="{{ title }}" class="cover">
+	</a>
+</p>
+
+{% else %}
+
+<p class="cover"><img src="{{ images }}/{{ image }}" alt="{{ title }}" class="cover"></p>
+
+{% endif %}

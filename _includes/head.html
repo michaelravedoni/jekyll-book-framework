@@ -1,34 +1,49 @@
-<html lang="fr">
+{%- include metadata -%}
+<html lang="{{ language }}" xml:lang="{{ language }}"{% if site.data.locales[language].direction %} dir="{{ site.data.locales[language].direction }}"{% endif %}>
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="generator" content="Jekyll https://jekyllrb.com/">
-		<meta name="description" content="{{site.description | escape | strip_html}}" />
-		<meta name="keywords" content="{{ site.keywords_locale }}" />
-		{% if page.layout == "cover" %}<title>{{site.bookTitle | escape | strip_html}} – {% for creator in site.creators %}{{creator.firstName}} {{creator.lastName}}{% if forloop.last == true %}{% else %}, {% endif %}{% endfor %}</title>{% else %}<title>{{page.title}} – {{ site.title }}</title>{% endif %}
+		<meta name="description" content="{{project-description | escape | strip_html}}" />
+		<meta name="keywords" content="{{ work.keywords }}" />
+		<title>{% if title %}{{ title }}{% if page.title %}: {{ page.title }}{% endif %}{% else %}{{ project-name }}{% if page.title %}: {{ page.title }}{% endif %}{% endif %}</title>
+
 		<link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
 		<link rel="apple-touch-icon" href="{{ site.baseurl }}/assets/icons/apple-touch-icon.png">
 		<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/icons/touch-icon.png" sizes="192x192">
 		<link rel="icon" type="image/png" href="{{ site.baseurl }}/assets/icons/favicon.png">
 		{% if site.google_site_verification %}<meta name="google-site-verification" content="{{site.google_site_verification}}" />{% endif %}
 
+		{% if site.canonical-url and site.canonical-url != "" %}
+    	<link rel="canonical" href="{{ site.canonical-url }}">
+    {% endif %}
+
 		<!-- DC -->
-		<link rel="schema.dc" href="https://purl.org/dc/elements/1.1/">
-		{% for creator in site.creators %}
-		<meta name="dc.creator" content="{{creator.lastName}}, {{creator.firstName}}" />
+		<link rel="schema.dcterms" href="https://purl.org/dc/elements/1.1/">
+		{% for creator in work.creators %}
+		<meta name="dcterms.creator" content="{{creator.lastName}}, {{creator.firstName}}" />
 		{% endfor %}
-		<meta name="dc.publisher" content="{{site.publisher}}" />
-		<meta name="dc.language" content="{{site.lang}}" />
-		<meta name="dc.title" content="{{site.bookTitle | escape | strip_html}}" />
-		<meta name="dc.description" content="{{site.description | escape | strip_html}}" />
-		<meta name="dc.rights" content="{{site.cc}}" />
-		<meta name="dc.date" content="{{ site.date }}" />
-		<meta name="dc.issued" content="{{site.date | date: "%Y/%m/%d"}}" />
-		<meta name="dc.date" content="{{site.date | date: "%Y/%m/%d"}}" />
-		<meta name="dc.identifier" content="{{site.url}}/{{page.url}}" />
+		{% for contributor in work.contributors %}
+		<meta name="dcterms.contributor" content="{{contributor.lastName}}, {{contributor.firstName}}" />
+		{% endfor %}
+		<meta name="dcterms.publisher" content="{{work.publisher.name}}" />
+		<meta name="dcterms.language" content="{{work.language}}" />
+		<meta name="dcterms.title" content="{{work.title | escape | strip_html}}{% if work.subtitle %}:{{work.subtitle | escape | strip_html}}{% endif %}" />
+		<meta name="dcterms.description" content="{{work.description.long | escape | strip_html}}" />
+		<meta name="dcterms.rights" content="{{work.license.name}}" />
+		<meta name="dcterms.date" content="{{ work.date | date: '%Y' }}" />
+		<meta name="dcterms.issued" content="{{work.date | date: '%Y/%m/%d'}}" />
+		<meta name="dcterms.date" content="{{work.date | date:'%Y/%m/%d'}}" />
+		<meta name="dcterms.identifier" content="{{work.identifiers.isbn|replace: '-', ''}}" />
+		{% for s in work.subjects %}
+		<meta name="dcterms.subject" content="{{ s.name }}" />
+		{% endfor %}
+
 		<!-- OG -->
 		<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}"/>
-		<meta property="og:url" content="{{site.baseurl}}{{ page.url }}">
+		<meta property="og:url" content="{{ site.canonical-url}}{{ site.baseurl }}{{ page.url }}" />
 		<meta property="og:description" content="{{site.description | escape | strip_html}}"/>
 		<meta property="og:site_name" content="{{ site.title }}"/>
 		<meta property="og:type" content="book"/>
@@ -36,22 +51,22 @@
 
 		<!--  Twitter Card -->
 		<meta name="twitter:card" content="summary" />
-		<meta name="twitter:domain" content="{{site.baseurl}}" />
-		<meta name="twitter:creator" content="{{site.creators[0].twitter}}"/>
-		<meta name="twitter:site" content="{{site.creators[0].twitter}}" />
+		<meta name="twitter:domain" content="{{ site.canonical-url}}" />
+		<meta name="twitter:creator" content="{{work.creators[0].twitter}}"/>
+		<meta name="twitter:site" content="{{work.creators[0].twitter}}" />
 		<meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}" />
-		<meta name="twitter:description" content="{{site.description | escape | strip_html}}">
-		<meta name="twitter:url" content="{{site.baseurl|absolute_url}}{{ page.url }}"/>
+		<meta name="twitter:description" content="{{work.description.full | escape | strip_html}}">
+		<meta name="twitter:url" content="{{ site.canonical-url}}{{site.baseurl}}{{ page.url }}"/>
 		<!-- citation -->
-		<meta name="citation_title"content="{{site.bookTitle | escape | strip_html}}">
-		{% for creator in site.creators %}
+		<meta name="citation_title" content="{{work.title | escape | strip_html}}{% if work.subtitle %}:{{work.subtitle | escape | strip_html}}{% endif %}">
+		{% for creator in work.creators %}
 		<meta name="citation_author" content="{{creator.lastName}}, {{creator.firstName}}">
 		{% endfor %}
-		{% if site.date %}<meta name="citation_publication_date" content="{{site.date | date: '%Y/%m/%d'}}">{% endif %}
-		{% if site.pdf %}<meta name="citation_pdf_url" content="{{site.pdf|absolute_url}}">{% endif %}
+		{% if work.date %}<meta name="citation_publication_date" content="{{work.date | date: '%Y/%m/%d'}}">{% endif %}
+		{% if site.pdf %}<meta name="citation_pdf_url" content="{{site.url|absolute_url}}">{% endif %}
 		<meta name="citation_abstract_html_url" content="{{site.url|absolute_url}}{{page.url}}">
-		{% if site.lang %}<meta name="citation_language" content="{{site.lang}}" />{% endif %}
-		{% if site.isbn %}<meta name="citation_isbn" content="{{site.isbn}}" />{% endif %}
+		{% if work.language %}<meta name="citation_language" content="{{work.language}}" />{% endif %}
+		{% if work.identifiers.isbn %}<meta name="citation_isbn" content="{{work.identifiers.isbn}}" />{% endif %}
 
 		<!--  https://schema.org/Book -->
 		<script type="application/ld+json">
@@ -60,17 +75,17 @@
 			"@graph": [
 			{
 				"@type": "{{site.schema.type}}",
-				"name": "{{site.bookTitle | escape | strip_html}}",
-				{% if site.shortTitle %}"alternativeHeadline": "{{site.shortTitle | escape | strip_html}}",{% endif %}
-				{% if site.date %}"datePublished": "{{site.date | date: '%Y-%m-%d'}}",{% endif %}
-				{% if site.isbn %}"isbn": "{{site.isbn}}",{% endif %}
-				{% if site.abstract %}"description": "{{site.abstract | escape | strip_html}}",{% endif %}
+				"name": "{{work.title | escape | strip_html}}{% if work.subtitle %}:{{work.subtitle | escape | strip_html}}{% endif %}",
+				{% if work.title %}"alternativeHeadline": "{{work.title | escape | strip_html}}",{% endif %}
+				{% if work.date %}"datePublished": "{{work.date | date: '%Y-%m-%d'}}",{% endif %}
+				{% if work.identifiers.isbn %}"isbn": "{{work.identifiers.isbn}}",{% endif %}
+				{% if work.abstract %}"description": "{{work.abstract | escape | strip_html}}",{% endif %}
 				"abridged": "false",
 				"accessMode": ["textual", "visual"],
 				"accessModeSufficient": ["textual", "visual"],
-				"copyrightYear": {{site.date | date: '%Y'}},
+				"copyrightYear": {{work.date | date: '%Y'}},
 				"copyrightHolder": [
-				{% for creator in site.creators %}
+				{% for creator in work.creators %}
 				{
 					"@type": "Person",
 					"name": "{{creator.lastName}}, {{creator.firstName}}",
@@ -85,27 +100,27 @@
 					}{% if forloop.last == true %}{% else %},{% endif %}
 				{% endfor %}
 				],
-				"discussionUrl": "{{ site.repo_url}}/issues/",
-				{% if site.pdf %}
+				"discussionUrl": "{{project-repository}}/issues/",
+				{% if work.pdf %}
 				"associatedMedia": {
 					"@type": "MediaObject",
-					"contentUrl": "{{site.pdf}}",
+					"contentUrl": "{{work.pdf}}",
 					"encodingFormat": "application/pdf"
 				},
 				{% endif %}
-				{% if site.lang %}"inLanguage": "{{site.lang}}",{% endif %}
-				"isFamilyFriendly": "{{site.isFamilyFriendly}}",
-				{% if site.genre %}"genre": "{{site.genre}}",{% endif %}
-				{% if site.funder %}"funder": "{{site.funder}}",{% endif %}
-				{% if site.image %}"image": "{{site.image}}",{% endif %}
-				{% if site.cc %}"license": "http://creativecommons.org/licenses/{{site.cc}}/4.0/",{% endif %}
-				{% if site.publisher %}"publisher": {
+				{% if work.language %}"inLanguage": "{{work.language}}",{% endif %}
+				"isFamilyFriendly": "{{work.isFamilyFriendly}}",
+				{% if work.genre %}"genre": "{{work.genre}}",{% endif %}
+				{% if work.funder %}"funder": "{{work.funder}}",{% endif %}
+				{% if project-image %}"image": "{{project-image}}",{% endif %}
+				{% if work.license.url %}"license": "{{work.license.url}}",{% endif %}
+				{% if work.publisher.name %}"publisher": {
 					"@type": "Organization",
-					"name": "{{site.publisher}}"
+					"name": "{{work.publisher.name}}"
 				},
 				{% endif %}
 				"author": [
-				{% for creator in site.creators %}
+				{% for creator in work.creators %}
 				{
 					"@type": "Person",
 					"name": "{{creator.lastName}}, {{creator.firstName}}",

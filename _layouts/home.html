@@ -1,0 +1,60 @@
+---
+layout: compress
+---
+<!DOCTYPE html>
+{% include metadata %}
+{% include head.html %}
+
+<body>
+  {% include header.html %}
+
+  <section class="main home">
+    {% if work %}
+    <div class="page-cover">
+      <h1 class="home-heading-title">{{ title }}</h1>
+      <div class="home-heading-creators">{{creators-line}}</div>
+      <p><a href="{{work-url-contents-directory}}/{{web-start-page}}">Read the book</a></p>
+    </div>
+    <article class="content cover-content">
+      <p>{{project-version}} — {{work.description.full}}</p>
+      <div>
+        {% if work.products['print-pdf'] %}<a href="{{ work-url }}/pdf"><i class="fas fa-file-pdf"></i> Printable version</a><br>{% endif %}
+        {% if work.products['paged-view'] %}<a href="{{ work-url }}/paged"><i class="far fa-eye"></i> Paged view</a><br>{% endif %}
+        {% if work.products['epub'] %}<a href="{{ work-url }}/epub"><i class="fas fa-book-open"></i> EPUB version</a><br>{% endif %}
+        {% if work.products.pod %}<a href="{{ work-url }}/pod"><i class="fas fa-book"></i> Print-on-demand</a><br>{% endif %}
+      </div>
+      {% if translations %}
+      <div>
+        <h2>Translations</h2>
+        {% for t in translations %}
+          {{t.language}} - <a href="{{ site.baseurl }}/{{work.directory}}/{{ t.language }}{{work.contents_directory}}/{{t.products.web['start-page']}}">{{t.title}}</a>
+          - {% if t.products['print-pdf'] %}<a href="{{ work-url }}/{{ t.language }}/pdf"><i class="fas fa-file-pdf"></i> Printable version</a><br>{% endif %}
+          {% if t.products['paged-view'] %}<a href="{{ work-url }}/{{ t.language }}/paged"><i class="far fa-eye"></i> Paged view</a><br>{% endif %}
+          {% if t.products['epub'] %}<a href="{{ work-url }}/{{ t.language }}/epub"><i class="fas fa-book-open"></i> EPUB version</a><br>{% endif %}
+          {% if t.products.pod %}<a href="{{ work-url }}/{{ t.language }}/pod"><i class="fas fa-book"></i> Print-on-demand</a><br>{% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {{content}}
+    </article>
+
+    {% else %}
+    <div class="page-cover">
+      <h1>{{ project-name }}</h1>
+      <div>{{ project-description }}</div>
+    </div>
+
+    <article class="content cover-content">
+      {{content}}
+    </article>
+
+    {% endif %}
+  </section>
+  <script>
+    document.getElementById("open-nav").addEventListener("click", function () {
+      document.body.classList.toggle("nav-open");
+    });
+  </script>
+</body>
+</html>
