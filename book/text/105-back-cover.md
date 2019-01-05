@@ -28,6 +28,6 @@ type: back-cover
     <div class="back-cover-publisher-text"></div>
     <img class="back-cover-publisher-logo" src="{{ site.baseurl }}/images/{{work.publisher.logo}}"/>
   </div>
-  <div class="back-cover-qr"><img src='https://barcode.tec-it.com/barcode.ashx?data={{site.url|url_encode}}&code=MobileQRCode&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Svg&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0&modulewidth=0.265&eclevel=L' alt='Barcode Generator TEC-IT'/></div>
+  <div class="back-cover-qr"><img src='https://barcode.tec-it.com/barcode.ashx?data={{site.url|url_encode}}{{site.baseurl|url_encode}}&code=MobileQRCode&multiplebarcodes=false&translate-esc=false&unit=Fit&dpi=96&imagetype=Svg&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0&modulewidth=0.265&eclevel=L' alt='Barcode Generator TEC-IT'/></div>
 </div>
 <div class="back-cover-meta">Cover: {{work.cover_image.title}} by {{work.cover_image.creator}}</div>
