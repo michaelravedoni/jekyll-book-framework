@@ -1,0 +1,12 @@
+/* Footer */
+.jbf-footer {
+	opacity: 0.5;
+	font-family: "Fira Mono", monospace;
+	font-size: 1.7rem;
+	padding-bottom: 1rem;
+	@media (--m-down)
+	{
+		font-size: 1.5rem;
+		line-height: 2.65rem;
+	}
+}

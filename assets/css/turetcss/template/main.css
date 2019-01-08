@@ -1,0 +1,46 @@
+.jbf-main {
+
+}
+.jbf-page-content,
+.jbf-work-content,
+.jbf-work-header,
+.jbf-page-header,
+.jbf-footer {
+  max-width: var(--container-article);
+  margin-right: auto;
+  margin-left: auto;
+}
+.jbf-work-content {
+  counter-reset: paragraphs ;
+}
+.jbf-work-content p {
+  font-size: 1.25rem;
+  line-height: 1.681;
+}
+.jbf-work-content p::before {
+  counter-increment: paragraphs ;
+  content: counter(paragraphs) ;
+  text-align: right ;
+  font-family: "Fira Mono", monospace ;
+  font-weight: 400 ;
+  font-size: 0.8em ;
+  opacity: 0.6 ;
+  position: absolute;
+  margin-left: -6em;
+  margin-top: 2px;
+  width: 5em;
+  z-index: -1;
+}
+
+.jbf-work-title-heading {
+  margin-top: 5rem !important;
+  overflow-wrap: break-word;
+}
+.jbf-work-parent-heading {
+  font-size: 2rem;
+  margin-top: 1.5rem;
+  overflow-wrap: break-word;
+}
+.jbf-work-parent-heading + .jbf-work-title-heading {
+  margin-top: .5rem !important;
+}

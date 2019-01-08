@@ -8,12 +8,12 @@ layout: microtypo
 {%- include status.html -%}
 {% include header.html %}
 
-		<section class="main">
-			<div class="page-header">
-				{% if page.parent %}<div class="parent">{{ page.parent }}</div>{% endif %}
-				{% if page.title %}<h1 class="title">{{ page.title }}</h1>{% endif %}
+		<section class="jbf-main">
+			<div class="jbf-work-header jbf-container jbf-block">
+				{% if page.parent %}<div class="jbf-work-parent-heading">{{ page.parent }}</div>{% endif %}
+				{% if page.title %}<h1 class="jbf-work-title-heading">{{ page.title }}</h1>{% endif %}
 			</div>
-			<article class="content">
+			<article class="jbf-work-content jbf-container">
 
 				{{ content }}
 
@@ -42,4 +42,5 @@ layout: microtypo
 				</div>{% else %}
 				{% endif %}
 			</article>
+		</section>
 {% include footer.html %}

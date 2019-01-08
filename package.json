@@ -12,8 +12,24 @@
     "book"
   ],
   "main": "/_site",
-  "dependencies": {},
+  "dependencies": {
+    "turretcss": "^5.0.0"
+  },
   "devDependencies": {
+    "browser-sync": "^2.23.7",
+    "cssnano": "^4.1.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-postcss": "^7.0.1",
+    "gulp-util": "^3.0.8",
+    "postcss": "^6.0.20",
+    "postcss-browser-reporter": "^0.5.0",
+    "postcss-cli": "^3.2.0",
+    "postcss-import": "^12.0.0",
+    "postcss-preset-env": "^6.5.0",
+    "postcss-reporter": "^5.0.0",
+    "postcss-typescale": "^0.2.1",
+    "postcss-url": "^7.3.1",
     "run-run": "^1.1.0"
   },
   "scripts": {

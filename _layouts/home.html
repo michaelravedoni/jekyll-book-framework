@@ -9,46 +9,121 @@ layout: compress
   {%- include status.html -%}
   {% include header.html %}
 
-  <section class="main home">
+  <section class="jbf-main jbf-home jbf-page-content">
     {% if work %}
-    <div class="page-cover">
-      <h1 class="home-heading-title">{{ title }}</h1>
-      <div class="home-heading-creators">{{creators-line}}</div>
-      <p><a href="{{work-url-contents-directory}}/{{web-start-page}}">Read the book</a></p>
+    <div class="jbf-page-header jbf-container">
+      <h1 class="jbf-home-title-heading">{{ title }}</h1>
+      <div class="jbf-home-creators-heading">{{creators-line}}</div>
+      <div class="jbf-home-read-heading"><a href="{{work-url-contents-directory}}/{{web-start-page}}">Read the book →</a></div>
     </div>
-    <article class="content cover-content">
-      <p>{{project-version}} — {{work.description.full}}</p>
-      <div>
-        {% if work.products['print-pdf'] %}<a href="{{ work-url }}/pdf"><i class="fas fa-file-pdf"></i> Printable version</a><br>{% endif %}
-        {% if work.products['paged-view'] %}<a href="{{ work-url }}/paged"><i class="far fa-eye"></i> Paged view</a><br>{% endif %}
-        {% if work.products['epub'] %}<a href="{{ work-url }}/epub"><i class="fas fa-book-open"></i> EPUB version</a><br>{% endif %}
-        {% if work.products.pod %}<a href="{{ work-url }}/pod"><i class="fas fa-book"></i> Print-on-demand</a><br>{% endif %}
+    <div class="jbf-page-body jbf-container">
+      <div class="jbf-block">
+        <p class="jbf-home-description">{{work.description.full}}</p>
+        <p class="jbf-home-version">v{{project-version}}</p>
       </div>
-      {% if translations %}
-      <div>
-        <h2>Translations</h2>
-        {% for t in translations %}
-          {{t.language}} - <a href="{{ site.baseurl }}/{{work.directory}}/{{ t.language }}{{work.contents_directory}}/{{t.products.web['start-page']}}">{{t.title}}</a>
-          - {% if t.products['print-pdf'] %}<a href="{{ work-url }}/{{ t.language }}/pdf"><i class="fas fa-file-pdf"></i> Printable version</a><br>{% endif %}
-          {% if t.products['paged-view'] %}<a href="{{ work-url }}/{{ t.language }}/paged"><i class="far fa-eye"></i> Paged view</a><br>{% endif %}
-          {% if t.products['epub'] %}<a href="{{ work-url }}/{{ t.language }}/epub"><i class="fas fa-book-open"></i> EPUB version</a><br>{% endif %}
-          {% if t.products.pod %}<a href="{{ work-url }}/{{ t.language }}/pod"><i class="fas fa-book"></i> Print-on-demand</a><br>{% endif %}
-        {% endfor %}
+      <hr>
+      <div class="jbf-home-export-grid jbf-block">
+        <div class="jbf-home-export-main-heading">Exports</div>
+        <div class="jbf-home-export-main">
+          {% if work.products['print-pdf'] %}<i class="fas fa-file-pdf"></i> <a href="{{ work-url }}/pdf">Printable version</a><br>{% endif %}
+          {% if work.products['paged-view'] %}<i class="far fa-eye"></i> <a href="{{ work-url }}/paged">Paged view</a><br>{% endif %}
+          {% if work.products['epub'] %}<i class="fas fa-book-open"></i> <a href="{{ work-url }}/epub">EPUB version</a><br>{% endif %}
+          {% if work.products.pod %}<i class="fas fa-book"></i> <a href="{{ work-url }}/pod">Print-on-demand</a><br>{% endif %}
+        </div>
+        {% if translations %}
+        <div class="jbf-home-export-translations-heading">Translations</div>
+        <div class="jbf-home-export-translations">
+          {% for t in translations %}
+            {{t.language}} - <a href="{{ site.baseurl }}/{{work.directory}}/{{ t.language }}{{work.contents_directory}}/{{t.products.web['start-page']}}">{{t.title}}</a>
+            - {% if t.products['print-pdf'] %}<a href="{{ work-url }}/{{ t.language }}/pdf"><i class="fas fa-file-pdf"></i></a>{% endif %}
+            {% if t.products['paged-view'] %}<a href="{{ work-url }}/{{ t.language }}/paged"><i class="far fa-eye"></i></a>{% endif %}
+            {% if t.products['epub'] %}<a href="{{ work-url }}/{{ t.language }}/epub"><i class="fas fa-book-open"></i></a>{% endif %}
+            {% if t.products.pod %}<a href="{{ work-url }}/{{ t.language }}/pod"><i class="fas fa-book"></i></a>{% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      {% if work.abstract %}
+      <div class="jbf-block">
+        <h2>Abstract</h2>
+        {{ abstract }}
       </div>
       {% endif %}
 
-      {{content}}
-    </article>
+      <!--Creators-->
+      <div class="home-creators jbf-block">
+        <h2>Authors</h2>
+        {% for c in creators %}
+        <div class="home-creator">
+          <div class="home-creator-card">
+            <!--{% if c.pic %}<div class="home-creator-pic"><img src="{{site.baseurl}}/images/{{c.pic}}" alt="{{c.firstName}} {{c.lastName}}"></div>{% endif %}-->
+            <div class="home-creator-bio">
+              <div class="home-creator-name">{{c.firstName}} {{c.lastName}} <span class="home-creator-links">{{c.affiliation}} {% if c.email %}<a href="mailto:{{c.email}}"><i class="fas fa-at"></i></a>{% endif %} {% if c.twitter %}<a href="https://twitter.com/{{c.twitter| split: '@' | last}}"><i class="fab fa-twitter"></i></a>{% endif %} {% if c.url %}<a href="{{c.url}}"><i class="fas fa-home"></i></a>{% endif %}</span></div>
+              {{c.bio}}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
 
-    {% else %}
-    <div class="page-cover">
-      <h1>{{ project-name }}</h1>
-      <div>{{ project-description }}</div>
+      <!--Contributors-->
+      <div class="home-creators jbf-block">
+        {% for c in contributors %}
+        <div class="home-creator">
+          <div class="home-creator-card">
+            <!--{% if c.pic %}<div class="home-creator-pic"><img src="{{site.baseurl}}/images/{{c.pic}}" alt="{{c.firstName}} {{c.lastName}}"></div>{% endif %}-->
+            <div class="home-creator-bio">
+              <div class="home-creator-name">{{c.firstName}} {{c.lastName}} ({{c.role}}) <span class="home-creator-links">{{c.affiliation}} {% if c.email %}<a href="mailto:{{c.email}}"><i class="fas fa-at"></i></a>{% endif %} {% if c.twitter %}<a href="https://twitter.com/{{c.twitter| split: '@' | last}}"><i class="fab fa-twitter"></i></a>{% endif %} {% if c.url %}<a href="{{c.url}}"><i class="fas fa-home"></i></a>{% endif %}</span></div>
+
+              {{c.bio}}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="home-creators jbf-block">
+        <div class="home-creator">
+          <div class="home-creator-card">
+            {% if project-logo %}<div class="home-creator-pic"><img src="{{site.baseurl}}/images/{{project-logo}}" alt="{{project-organisation}} logo"></div>{% endif %}
+            <div class="home-creator-bio"><div class="home-creator-name">{{project-organisation}} <span class="home-creator-links">{{c.affiliation}} {% if project-email %}<a href="mailto:{{project-email}}"><i class="fas fa-at"></i></a>{% endif %} {% if c.twitter %}<a href="https://twitter.com/{{c.twitter| split: '@' | last}}"><i class="fab fa-twitter"></i></a>{% endif %} {% if project-url %}<a href="{{project-url}}"><i class="fas fa-home"></i></a>{% endif %}</span></div>{{ project-description }}</div>
+          </div>
+        </div>
+      </div>
+
+      {{content}}
+
+      <div class="jbf-home-license jbf-block">
+        <h2>License</h2>
+
+        <a class="license-image" href="{{license.url}}"><img src="{{site.baseurl}}/images/{{license.abbreviation|downcase}}.svg" alt="Creative Commons {{license.name}}"></a>
+
+        <div class="license-rights">{{work.rights}}</div>
+
+        <div class="licenses">
+          <div class="license-exceptions">{{work.license.some_exceptions}}</div>
+          <div class="license-full">{{work.license.full}}</div>
+          <div class="disclaimers">{{work.disclaimers}}</div>
+        </div>
+
+        <div class="license-cover">
+          <div class="license-cover-heading">On the front cover</div>
+          <div class="license-cover-item">{{work.cover_image.title}}{% if work.cover_image.date %}. {{work.cover_image.date}}{% endif %}{% if work.cover_image.creator %}. {{work.cover_image.creator}}{% endif %}.{% if work.cover_image.text %} <span class="license-cover-text">{{work.cover_image.text}}</span>{% endif %} {% if work.cover_image.text %} <span class="license-cover-source">{{work.cover_image.license}} from <a href="{{work.cover_image.source_url}}">{{work.cover_image.source}}</a></span>.{% endif %}</div>
+        </div>
+
+      </div>
     </div>
 
-    <article class="content cover-content">
+    {% else %}
+    <div class="jbf-page-header">
+      <h1 class="jbf-home-title-heading">{{ project-name }}</h1>
+      <div class="jbf-home-description">{{ project-description }}</div>
+    </div>
+
+    <div class="jbf-page-body">
       {{content}}
-    </article>
+    </div>
 
     {% endif %}
   </section>

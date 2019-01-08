@@ -1,0 +1,239 @@
+/*body {
+	height: auto;
+	overflow-x: hidden;
+	background-color: $body-background-color;
+
+	&.nav-open {
+		overflow: hidden;
+
+		nav,
+		header > form {
+			display: block;
+		}
+
+		header {
+			bottom: 0;
+		}
+	}
+
+	&::before {
+		content: "";
+		background-color: $content-background-color;
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: -1;
+	}
+
+	@media (min-width: $mobile-break) {
+		padding: 0 0 0 $nav-width;
+
+		&.nav-open {
+			overflow: auto;
+		}
+
+		&::after,
+		&::before {
+			content: "";
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			z-index: -1;
+		}
+
+		&::after {
+			left: 0;
+			width: $nav-width;
+			background-color: $nav-background-color;
+		}
+
+		#search-input,
+		&::after {
+			box-shadow: inset -10px 0 10px -10px rgba(0, 0, 0, 0.1);
+		}
+
+		&::before {
+			left: $nav-width;
+			right: 0;
+			background-color: $content-background-color;
+		}
+	}
+}*/
+
+/* Header and navigation */
+/*header {
+	$emblem-size: 45px;
+	$emblem-vertical-padding: ($nav-header-height - $emblem-size) / 2;
+	$emblem-horizontal-padding: $space;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	overflow-x: hidden;
+	z-index: 1;
+	background-color: $nav-background-color;
+	@media (min-width: $mobile-break) {
+		position: fixed;
+		height: 100%;
+	}
+
+	ul {
+		padding: 0;
+		margin: 0;
+	}
+
+	h1 {
+		padding: $emblem-vertical-padding 56px $emblem-vertical-padding $emblem-horizontal-padding * 1.25;
+		height: $nav-header-height * 1.3;
+		box-sizing: border-box;
+		background-color: $color-primary;
+		color: #fff;
+		margin: 0;
+		font-size: 1.1rem;
+		letter-spacing: 0;
+		font-weight: 700;
+		text-indent: 0;
+		@include display-flex();
+		@include flex-direction(row);
+		@include align-items(center);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+
+		a {
+			color: #fff;
+			text-decoration: none;
+			transition: color 0.2s ease;
+		}
+
+		a:hover, a:active {
+			color: $color-primary-light;
+			text-decoration: none;
+		}
+
+		img {
+			height: $emblem-size;
+			width: $emblem-size;
+			margin-right: $space - 5;
+		}
+	}
+
+.open-nav::before {
+	content: "Menu";
+}
+
+.open-nav {
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	width: 53px;
+	height: $emblem-size;
+	border: 0;
+	position: absolute;
+	top: 16px;
+	right: 12px;
+	border-radius: 2px;
+
+		&:focus {
+			outline: none;
+			background-color: rgba(0, 0, 0, 0.05);
+		}
+
+		&:hover {
+			background-color: rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	@media (min-width: $mobile-break) {
+		background-color: transparent;
+		width: $nav-width;
+		right: auto;
+		bottom: auto;
+
+		.open-nav {
+			display: none;
+		}
+
+		h1 {
+			box-shadow: inset -10px 0 10px -10px rgba(0, 0, 0, 0.1);
+		}
+	}
+}
+
+nav,
+header > form {
+	display: none;
+
+	@media (min-width: $mobile-break) {
+		display: block;
+	}
+}
+
+nav > ul {
+	padding: $space / 2 0 0 $space / 2;
+
+	& + ul {
+		border-top: 1px solid rgba(0, 0, 0, 0.075);
+	}
+}
+
+.nav-languages {
+	padding-top: 10px;
+	padding-left: 30px;
+}
+.nav-languages .nav-language {
+	margin-right: 10px;
+	display: inline;
+	padding: 0;
+}
+
+.nav-item {
+	display: block;
+	font-family: "Open Sans", monospace;
+	line-height: 1.5;
+	margin: 0;
+
+	nav:not(.full-navigation) & > ul {
+		display: none;
+	}
+
+	nav:not(.full-navigation) &.current > ul {
+		display: block;
+	}
+
+	a, a:hover, a:active {
+		border-bottom: none;
+	}
+
+	> a {
+		color: #666;
+		text-decoration: none;
+		font-size: 1rem;
+		padding: $space / 4 0 $space / 4 $space * 2;
+		display: block;
+	}
+
+	> .nav-item-text {
+		color: #666;
+		text-decoration: none;
+		font-size: 1rem;
+		padding: $space / 4 0 $space / 4 $space;
+		display: block;
+	}
+
+	&.current > a,
+	> a:active,
+	> a:hover {
+		color: $color-primary;
+		font-family: "Open Sans", monospace;
+		font-weight: 700;
+	}
+
+	&.top-level > a {
+		line-height: 1.5;
+		font-family: "Open Sans", monospace;
+		font-weight: 700;
+		padding-left: $space;
+	}
+}*/

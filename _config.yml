@@ -1,6 +1,5 @@
 # Site
 # -----------------------
-title               : "Site title"
 url                 : ""
 google_analytics_key: ""
 google_site_verification: ""
@@ -75,10 +74,12 @@ exclude:
   - materials
   - package.json
   - package-lock.json
+  - node_modules
   - rsync-ignore.txt
   - env.json
   - env-model.json
-  - bin
+  - gulpfile.js
+  - assets/css/turetcss/
 
 # Default page variables
 # ----------------------

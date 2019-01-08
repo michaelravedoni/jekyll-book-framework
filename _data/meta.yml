@@ -45,15 +45,15 @@ work:
 # ------------------------------------------------------------------------------
 # Title & Description
 # ------------------------------------------------------------------------------
-  title               : "Book title"      # e.g. The four seasons <Recording title proper (RDA 2.3.2)>
-  subtitle            : "Book subtitle"   # e.g. the revenant <Recording other title information>
+  title               : "The great book title"      # e.g. The four seasons <Recording title proper (RDA 2.3.2)>
+  subtitle            : "and his book subtitle"   # e.g. the revenant <Recording other title information>
   edition             : "First edition"   # e.g. First edition, Revised <Recording edition statement (RDA 2.5)>
   status              : draft             # draft, submitted, reviewed, revised (new version), published
   version             : v1.0.0
   description:
-    short             : The Book's short description.
+    short             : The Book's short description. With no dorm and no dancing, Stallman's social universe imploded.
     full: >-
-        The Book's long description.
+        The Book's long description. With no dorm and no dancing, Stallman's social universe imploded. Like an astronaut experiencing the aftereffects of zero-gravity, Stallman found that his ability to interact with nonhackers, especially female nonhackers, had atrophied significantly. After 16 weeks in the AI Lab, the self confidence he'd been quietly accumulating during his 4 years at Harvard was virtually gone.
 # ------------------------------------------------------------------------------
 # Publication Details
 # ------------------------------------------------------------------------------
@@ -91,9 +91,9 @@ work:
   isFamilyFriendly    : true
   genre               : ""
   funder              : ""
-  abstract            : "Abstract text."
+  abstract            : "Abstract text. By the spring of 1985, Richard Stallman had settled on the GNU Project's first milestone-a Lisp-based free software version of Emacs. To meet this goal, however, he faced two challenges. First, he had to rebuild Emacs in a way that made it platform independent. Second, he had to rebuild the Emacs Commune in a similar fashion. Outside the classroom, Stallman pursued his studies with even more diligence, rushing off to fulfill his laboratory-assistant duties at Rockefeller University during the week and dodging the Vietnam protesters on his way to Saturday school at Columbia. It was there, while the rest of the Science Honors Program students sat around discussing their college choices, that Stallman finally took a moment to participate in the preclass bull session."
   keywords            : "publishing, book, publishing chain, word processor, desktop publishin software, ebook"
-  abstract_en         : "Abstract text in english."
+  abstract_en         : "Abstract text in english. Almost a quarter century after its publication, Stallman still bristles when hearing Weizenbaum's computer description, discussing it in the present tense as if Weizenbaum himself was still in the room. He wants people to be just professionals, doing it for the money and wanting to get away from it and forget about it as soon as possible, Stallman says. Such statements, while reflective of the hacker ethic, also reflected the difficulty of translating the loose, informal nature of that ethic into the rigid, legal language of copyright. In writing the GNU Emacs License, Stallman had done more than close up the escape hatch that permitted proprietary offshoots. He had expressed the hacker ethic in a manner understandable to both lawyer and hacker alike."
   keywords_en         : "publishing, book, publishing chain, word processor, desktop publishin software, ebook"
 # ------------------------------------------------------------------------------
 # Contributors <Creator of Work (RDA 19.2)>
@@ -101,28 +101,32 @@ work:
   creators:
     - firstName       : A. N.
       lastName        : Author
-      affiliation     : Affiliation
+      affiliation     : Univerity of affiliation
       email           : authorname@domain.com
       twitter         : "@authorname"
       #orcid           : ""
       sameAs          :
         - https://authorname.com/
-      bio             : "Creator biography"
+      bio             : "For all the agony it produced, adolescence would have a encouraging effect on Stallman's sense of individuality. At a time when most of his classmates were growing their hair out, Stallman preferred to keep his short. At a time when the whole teenage world was listening to rock and roll, Stallman preferred classical music."
       url             : https://en.wikipedia.org/wiki/Rose_Valland
       pic             : contributors/author.svg
   contributors: # E.g. other contributors
-    - firstName       : A. N.
-      lastName        : Name
+    - firstName       : Johny
+      lastName        : Luss
       role            : Illustrator        # e.g. Illustrator (https://www.loc.gov/marc/relators/relaterm.html)
-      affiliation     : Affiliation
+      affiliation     : Company of affiliation
       email           : authorname@domain.com
       twitter         : "@authorname"
       #orcid           : ""
       sameAs          :
         - https://authorname.com/
-      bio             : "Creator biography"
+      bio             : "Almost a quarter century after its publication, Stallman still bristles when hearing Weizenbaum's description, discussing it in the present tense as if Weizenbaum himself was still in the room. He wants people to be just professionals, doing it for the money and wanting to get away from it and forget about it as soon as possible."
       url             : https://en.wikipedia.org/wiki/Rose_Valland
       pic             : contributors/author.svg
+    - firstName       : Beky
+      lastName        : Baskerville
+      role            : Illustrator
+      affiliation     : Affiliation
 # ------------------------------------------------------------------------------
 # Subjects
 # ------------------------------------------------------------------------------
@@ -136,7 +140,7 @@ work:
 # ------------------------------------------------------------------------------
 # Copright & License
 # ------------------------------------------------------------------------------
-  #rights: "© 2017 Publisher name" # e.g. a copyright statement
+  rights: "© 2017 Publisher name" # e.g. a copyright statement
   disclaimers: "While every precaution has been taken in the preparation of this book, the publisher and authors assume no responsibility for errors or omissions, or for damages resulting from the use of the information contained."
   license:
     name: Creative Commons Attribution 4.0 International License

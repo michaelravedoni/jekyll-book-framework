@@ -1,0 +1,226 @@
+/**
+* Media Queries
+*/
+
+@custom-media --xxl (min-width: 1920px);
+@custom-media --xl-down (max-width: 1919px);
+@custom-media --xl (min-width: 1680px) and (max-width: 1919px);
+@custom-media --xl-up (min-width: 1680px);
+@custom-media --l-down (max-width: 1679px);
+@custom-media --l (min-width: 1280px) and (max-width: 1679px);
+@custom-media --l-up (min-width: 1280px);
+@custom-media --m-down (max-width: 1279px);
+@custom-media --m (min-width: 960px) and (max-width: 1279px);
+@custom-media --m-up (min-width: 960px);
+@custom-media --s-down (max-width: 959px);
+@custom-media --s (min-width: 640px) and (max-width: 959px);
+@custom-media --s-up (min-width: 640px);
+@custom-media --xs-down (max-width: 639px);
+@custom-media --xs (min-width: 320px) and (max-width: 639px);
+@custom-media --xs-up (min-width: 320px);
+@custom-media --xxs (max-width: 320px);
+
+:root {
+
+  /**
+   * Root
+   */
+
+  --root-size: 16px;
+  --root-size-xl: var(--root-size);
+  --root-size-l: var(--root-size);
+  --root-size-m: var(--root-size);
+  --root-size-s: var(--root-size);
+  --root-size-xs: calc(var(--root-size) - 2px);
+
+  /**
+   * Focus Outline
+   */
+
+  --focus-outline: var(--border-width) solid var(--info);
+  --focus-outline-offset: var(--border-width);
+
+  /**
+   * Gutter
+   */
+
+  --gutter: var(--space-xs);
+
+  /**
+   * Container
+   */
+
+  --container-xl: 100rem;
+  --container-l: 85rem;
+  --container-m: 75rem;
+  --container-s: 40rem;
+  --container-xs: 30rem;
+
+  /**
+   * Color
+   */
+
+  --color: var(--dark);
+
+  /**
+   * Background
+   */
+
+  --background: var(--white);
+
+  /**
+   * Border
+   */
+
+  --border-width: 1px;
+  --border-style: solid;
+  --border-color: var(--light);
+  --border-radius: 0.125em;
+
+  /**
+   * Box Shadow
+   */
+
+  --box-shadow: none;
+  --hover-box-shadow: none;
+  --focus-box-shadow: none;
+  --active-box-shadow: none;
+
+  /**
+   * Z-Index
+   */
+
+  --z-index-high: 999;
+  --z-index-medium: 99;
+  --z-index-low: 9;
+
+  /**
+   * Speed
+   */
+
+  --speed: var(--speed-fast);
+  --speed-fast: 200ms;
+  --speed-medium: 300ms;
+  --speed-slow: 500ms;
+
+  /**
+   * Height
+   */
+
+  --height-xl: 4rem;
+  --height-l: 3.5rem;
+  --height-m: 3rem;
+  --height-s: 2.5rem;
+  --height-xs: 2rem;
+
+  /**
+   * Space
+   */
+
+  --space-xl: 6rem;
+  --space-l: 4rem;
+  --space-m: 3rem;
+  --space-s: 1.5rem;
+  --space-xs: 1rem;
+
+  /**
+   * Margin
+   */
+
+  --margin-xl: var(--space-xl);
+  --margin-l: var(--space-l);
+  --margin-m: var(--space-m);
+  --margin-s: var(--space-s);
+  --margin-xs: var(--space-xs);
+
+  /**
+   * Padding
+   */
+
+  --padding-xl: var(--space-xl);
+  --padding-l: var(--space-l);
+  --padding-m: var(--space-m);
+  --padding-s: var(--space-s);
+  --padding-xs: var(--space-xs);
+
+  /**
+   * Max Width
+   */
+
+  --max-width-xl: 70rem;
+  --max-width-l: 60rem;
+  --max-width-m: 50rem;
+  --max-width-s: 40rem;
+  --max-width-xs: 30rem;
+
+  /**
+   * Font
+   */
+
+  --font-family: var(--font-family-sans-serif);
+  --font-family-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  --font-family-sans-serif: 'Fira Sans', Helvetica, Arial, sans-serif;
+  --font-family-serif: Georgia, 'Times New Roman', Times, serif;
+  --font-family-monospace: Monaco, Menlo, Consolas, 'Courier New', monospace;
+
+  /**
+   * Font Weights
+   */
+
+  --font-weight: normal;
+  --font-weight-thin: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+
+  /**
+   * Font Sizes
+   */
+
+  --font-size-xl: 1.25rem;
+  --font-size-l: 1.125rem;
+  --font-size-m: 1rem;
+  --font-size-s: 0.875rem;
+  --font-size-xs: 0.75rem;
+
+  /**
+   * Line height
+   */
+
+  --line-height: var(--line-height-l);
+  --line-height-xl: 1.8;
+  --line-height-l: var(--golden-ratio);
+  --line-height-m: 1.5;
+  --line-height-s: 1.35;
+  --line-height-xs: 1.2;
+
+  /**
+   * Letter Spacing
+   */
+
+  --letter-spacing: 0;
+  --letter-spacing-xl: 0.15em;
+  --letter-spacing-l: 0.1em;
+  --letter-spacing-m: 0.05em;
+  --letter-spacing-s: 0.025em;
+  --letter-spacing-xs: 0.01em;
+
+  /**
+   * Type Scale
+   */
+  /* Suggested ratios. Source: http://type-scale.com/ */
+  --minor-second:     1.067;
+  --major-second:     1.125;
+  --minor-third:      1.200;
+  --major-third:      1.250;
+  --perfect-fourth:   1.333;
+  --augmented-fourth: 1.414;
+  --perfect-fifth:    1.500;
+  --golden-ratio:     1.618;
+
+  --scale-ratio: var(--perfect-fourth);
+  --scale-ratio-secondary: -var(--golden-ratio);
+}

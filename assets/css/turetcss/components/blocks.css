@@ -1,0 +1,25 @@
+/* Blocks */
+.jbf-block {
+	display: block;
+	margin: var(--margin-m) 0;
+}
+.jbf-block-large {
+	margin: var(--margin-l) 0;
+}
+.jbf-block-xlarge {
+	margin: var(--margin-xl) 0;
+}
+
+.jbf-section {
+	box-sizing: border-box;
+	padding-top: var(--padding-m);
+	padding-bottom: var(--padding-m);
+}
+.jbf-section-large {
+	padding-top: var(--padding-l);
+	padding-bottom: var(--padding-l);
+}
+.jbf-section-xlarge {
+	padding-top: var(--padding-xl);
+	padding-bottom: var(--padding-xl);
+}

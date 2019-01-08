@@ -1,0 +1,108 @@
+/* ========================================================================
+Component: Container
+========================================================================== */
+
+.jbf-container {
+	box-sizing: content-box;
+	max-width: var(--container-m);
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+/* Phone landscape and bigger */
+@media (--s-up) {
+	.jbf-container {
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+}
+/* Tablet landscape and bigger */
+@media (--m-up) {
+	.jbf-container {
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+}
+/*
+* Micro clearfix
+*/
+.jbf-container::before,
+.jbf-container::after {
+	content: "";
+	display: table;
+}
+.jbf-container::after {
+	clear: both;
+}
+/*
+* Remove margin from the last-child
+*/
+.jbf-container > :last-child {
+	/*margin-bottom: 0;*/
+}
+/*
+* Remove padding from nested containers
+*/
+.jbf-container .jbf-container {
+	padding-left: 0;
+	padding-right: 0;
+}
+/* Size modifier
+========================================================================== */
+.jbf-container-xsmall {
+	max-width: var(--container-xs);
+}
+.jbf-container-small {
+	max-width: var(--container-s);
+}
+.jbf-container-large {
+	max-width: var(--container-l);
+}
+.jbf-container-xlarge {
+	max-width: var(--container-xl);
+}
+.jbf-container-expand {
+	max-width: none;
+}
+/* Expand modifier
+========================================================================== */
+/*
+* Expand one side only
+*/
+.jbf-container-expand-left {
+	margin-left: 0;
+}
+.jbf-container-expand-right {
+	margin-right: 0;
+}
+/* Phone landscape and bigger */
+@media (--s-up) {
+	.jbf-container-expand-left.jbf-container-xsmall,
+	.jbf-container-expand-right.jbf-container-xsmall {
+		max-width: calc(50% + (750px / 2) - 30px);
+	}
+	.jbf-container-expand-left.jbf-container-small,
+	.jbf-container-expand-right.jbf-container-small {
+		max-width: calc(50% + (900px / 2) - 30px);
+	}
+}
+/* Tablet landscape and bigger */
+@media (--m-ip) {
+	.jbf-container-expand-left,
+	.jbf-container-expand-right {
+		max-width: calc(50% + (1200px / 2) - 40px);
+	}
+	.jbf-container-expand-left.jbf-container-xsmall,
+	.jbf-container-expand-right.jbf-container-xsmall {
+		max-width: calc(50% + (750px / 2) - 40px);
+	}
+	.jbf-container-expand-left.jbf-container-small,
+	.jbf-container-expand-right.jbf-container-small {
+		max-width: calc(50% + (900px / 2) - 40px);
+	}
+	.jbf-container-expand-left.jbf-container-large,
+	.jbf-container-expand-right.jbf-container-large {
+		max-width: calc(50% + (1600px / 2) - 40px);
+	}
+}

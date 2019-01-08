@@ -1,5 +1,5 @@
 /* Layout */
-.jbf-main,
+/*.jbf-main,
 .jbf-footer {
 	margin-top: $space + $nav-header-height + 7;
 
@@ -11,61 +11,10 @@
 	position: relative;
 	background-color: $content-background-color;
 	color: $color-font-body;
-
-	h3::before {
-		content: "";
-		@extend hr;
-		margin: 60px 0;
-	}
-}
-
-
-.content {
-	counter-reset: paragraphs ;
-}
-
-.content p::before {
-	counter-increment: paragraphs ;
-  content: counter(paragraphs) ;
-	text-align: right ;
-	font-family: "Fira Mono", monospace ;
-	font-weight: 400 ;
-	font-size: 0.8em ;
-	opacity: 0.6 ;
-	width: 15px ;
-	position: absolute ;
-	left: 0px ;
-	@media (min-width: $full-width-break) {
-		left: -10px ;
-	}
-}
-
-.cover-content p::before, .footnotes p::before, .no-counter p::before {
-	display: none ;
-}
-
-.content,
-footer,
-.page-header, .page-cover {
-	max-width: $content-max-width;
-	padding: 0 ($space + 5) $space;
-	margin: $space auto 0 auto;
-}
-
-/* Footer */
-.jbf-footer {
-	opacity: 0.5;
-	font-family: "Fira Mono", monospace;
-	font-size: 1.7rem;
-	@media (max-width: 500px)
-	{
-		font-size: 1.5rem;
-		line-height: 2.65rem;
-	}
-}
+}*/
 
 /* Page */
-
+/*
 .page-header {
 	h2,
 	h3 {
@@ -145,135 +94,4 @@ footer,
 	@media (min-width: $full-width-break) {
 		margin-top: 55px;
 	}
-}
-
-/* Status bar */
-.jbf-status-bar {
-	display: block;
-	padding: .2em 2em;
-	font-size: 75%;
-}
-.jbf-status-bar p {
-	margin: 0;
-}
-.jbf-status-bar-draft,
-.jbf-status-bar-revised {
-	background-color: #ffca69;
-}
-.jbf-status-bar-submitted {
-	background-color: #caf3dc;
-}
-.jbf-status-bar-reviewed {
-	background-color: #bedcff;
-}
-.jbf-status-bar-published {
-	display: none;
-}
-
-/* Home */
-.jbf-home-title-heading {
-
-}
-
-
-/* Home page */
-.jbf-home .cover-image {
-	width: 100%;
-}
-.home-creators {
-	margin-top:2em;
-	margin-bottom:2em;
-}
-.home-creator-name {
- font-weight: bold;
- border-bottom: solid 1px black;
-}
-.home-creator-links {
-	font-weight: normal;
-	font-size: 75%;
-	margin-left: 2.5rem;
-}
-.home-creator-card {
-	display: flex;
-	flex-direction: row;
-}
-.home-creator-bio {
-	padding: 1.5rem;
-	flex-grow: 1;
-}
-.home-creator-pic {
-	display: block;
-	width: 100px;
-	padding: 2px;
-}
-
-/* Home: Cover */
-.jbf-home-cover {
-	font-size:75%;
-	max-width:600px;
-	margin-top:6em;
-	margin-bottom: 6em;
-	-webkit-box-shadow: 1px 10px 100px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 1px 10px 100px 0px rgba(0,0,0,0.75);
-	box-shadow: 1px 10px 100px 0px rgba(0,0,0,0.75);
-
-	.cover-header,
-	.cover-meta {
-		margin-left: 2rem;
-		line-height: initial;
-	}
-	.cover-book-title {
-		background-color: var(--color-secondary);
-		font-size: 4em;
-		margin-top: 0;
-		margin-bottom: 0;
-		text-align: left;
-		}
-	.cover-book-subtitle {
-		background-color: var(--color-secondary);
-		font-size: 2em;
-		margin-top: 0;
-		text-align: left;
-		}
-	.cover-creators {
-		font-size: 3em;
-		padding-top: 2em;
-		margin-bottom: 10px;
-	}
-	.cover-meta {
-		text-align: right;
-		margin-right: 2em;
-		padding-bottom: 2em;
-	}
-	.cover-meta div {
-		 margin-bottom: 0;
-		 line-height: 1;
-	}
-}
-
-/* Colophon */
-
-.colophon-license-image {
-	margin-bottom: 1em;
-}
-.colophon-history-item,
-.colophon-contributors-item,
-.colophon-citation-item {
-	margin-left:2em;
-}
-.colophon-license-exceptions,
-.colophon-license,
-.colophon-disclaimers {
-	margin-bottom: .8em;
-}
-.colophon-contributors-role {
-	width: 6rem;
-	display: inline-block;
-}
-.colophon-cover-text,
-.colophon-cover-source {
-	font-size:85%;
-}
-.colophon-cover-heading {
-	font-weight: bold;
-}
+}*/

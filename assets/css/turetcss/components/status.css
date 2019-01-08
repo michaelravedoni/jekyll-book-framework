@@ -1,0 +1,28 @@
+/* Status bar */
+.jbf-status-bar {
+	display: block;
+	padding: .2em var(--padding-m);
+	font-size: var(--font-size-xs);
+}
+.jbf-status-bar p {
+	margin: 0;
+}
+.jbf-status-bar-draft,
+.jbf-status-bar-revised {
+	background-color: #ffca69;
+}
+.jbf-status-bar-submitted {
+	background-color: #caf3dc;
+}
+.jbf-status-bar-reviewed {
+	background-color: #bedcff;
+}
+.jbf-status-bar-published {
+	display: none;
+}
+
+@media (--s-down) {
+	.jbf-status-bar {
+		margin-top: var(--nav-height);
+	}
+}

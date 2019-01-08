@@ -1,0 +1,34 @@
+/* ========================================================================
+Component: Headings
+========================================================================== */
+
+@typescale (headings) {
+  scale: var(--scale-ratio);         /* typographic scale */
+  font-size: var(--root-size);      /* default font size */
+  line-height: var(--line-height);  /* baseline grid */
+}
+
+h1 {
+    typescale: headings 6 3;
+}
+
+h2 {
+    typescale: headings 5 2.5;
+}
+
+h3 {
+    typescale: headings 4 1.5;
+}
+
+h4 {
+    typescale: headings 3 1.5;
+}
+
+h5 {
+    typescale: headings 2 1.2;
+}
+
+h6 {
+    typescale: headings 1 1.2;
+    font-weight: var(--font-weight-medium);
+}

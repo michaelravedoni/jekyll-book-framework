@@ -42,7 +42,42 @@
     font-weight: 500;
     font-style: italic; }
 
-html {
+    /* Open Sans */
+    @font-face {
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: 400;
+      src: local('Open Sans Regular'),
+           local('OpenSans-Regular'),
+           url($baseurl+'/assets/fonts/OpenSans-Regular-webfont.woff') format('woff'),
+           url($baseurl+'/assets/fonts/OpenSans-Regular-webfont.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Open Sans';
+      font-style: italic;
+      font-weight: 400;
+      src: local('Open Sans Italic'),
+           local('OpenSans-Italic'),
+           url($baseurl+'/assets/fonts/OpenSans-Italic-webfont.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: 700;
+      src: local('Open Sans Bold'),
+           local('OpenSans-Bold'),
+           url($baseurl+'/assets/fonts/OpenSans-Bold-webfont.woff') format('woff');
+    }
+    @font-face {
+      font-family: 'Open Sans';
+      font-style: italic;
+      font-weight: 700;
+      src: local('Open Sans Bold Italic'),
+           local('OpenSans-BoldItalic'),
+           url($baseurl+'/assets/fonts/OpenSans-Italic-webfont.woff') format('woff');
+    }
+
+/*html {
 	height: 100%;
 	max-height: 100%;
 	font-size: 10px;
@@ -54,7 +89,7 @@ body {
 	max-height: 100%;
 	font-family: "Fira Sans", sans-serif;
 	letter-spacing: 0.01rem;
-	font-size: 1.9em;
+	font-size: 1em;
 	line-height: 1.75em;
 	color: #3A4145;
 	font-weight: 400;
@@ -318,3 +353,4 @@ kbd {
 		font-size: 1.8rem;
 	}
 }
+*/
