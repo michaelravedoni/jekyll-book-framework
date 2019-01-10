@@ -1,0 +1,100 @@
+/**
+* modal.css
+* Author: Pedro Laxe
+* Version: 1.0.6
+* License: GPLv2
+* Adapted for jekyll-book-framework
+**/
+.jbf-modal {
+	/*left: 50%;*/
+	margin: .5rem;
+	opacity: 0;
+	position: absolute;
+	top: .5rem;
+	visibility: hidden;
+	width: calc(100% - 1rem);
+	box-shadow: 0 3px 3px rgba(0,0,0,.25);
+	box-sizing: border-box;
+	transition: all .4s ease-in-out;
+	-moz-transition: all .4s ease-in-out;
+	-webkit-transition: all .4s ease-in-out;
+}
+.jbf-modal:target {
+	opacity: 1;
+	visibility: visible;
+}
+.jbf-modal .modal-header, .jbf-modal .modal-footer {
+	border-bottom: 1px solid var(--light);
+	border-radius: 5px 5px 0 0;
+}
+.jbf-modal .modal-footer {
+	border: none;
+	border-top: 1px solid var(--light);
+	border-radius: 0 0 5px 5px;
+}
+.jbf-modal .modal-heading {
+	margin: 0;
+	color: var(--dark);
+	font-size: 1.76rem;
+	font-weight: 700;
+}
+.jbf-modal .btn {
+	float: right;
+}
+.jbf-modal .modal-body,
+.jbf-modal .modal-header,
+.jbf-modal .modal-footer {
+	padding: 5px;
+	color: var(--dark);
+}
+.jbf-modal .modal-content {
+	background: var(--light-50);
+	position: relative;
+	z-index: 20;
+	border-radius: 5px;
+	color: var(--dark);
+}
+.jbf-modal .modal-body {
+	background: var(--white);
+}
+.jbf-modal .modal-overlay {
+	background-color: var(--dark);
+	background: rgba(0,0,0,.8);
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+}
+.jbf-modal .modal-body ul li a {
+	color: var(--dark);
+	text-decoration: none;
+}
+/* Responsive Options */
+@media (--s-up) {
+	.jbf-modal {
+		width: var(--container-s);
+		margin-right: calc(var(--nav-width) * -1);
+		margin-left: calc(var(--nav-width) * -1);
+		right: 50%;
+		left: 50%;
+	}
+}
+
+/* Close Button */
+.jbf-modal .modal-close {
+	width: 25px;
+	right: 0px;
+	position: absolute;
+	margin: 5px;
+}
+.jbf-modal svg {
+	display: block;
+}
+.jbf-modal .modal-close-x {
+  stroke: var(--dark);
+  fill: transparent;
+  stroke-linecap: round;
+  stroke-width: 5;
+}

@@ -50,11 +50,11 @@
    * Container
    */
 
-  --container-xl: 100rem;
-  --container-l: 85rem;
-  --container-m: 75rem;
-  --container-s: 40rem;
-  --container-xs: 30rem;
+  --container-xl: 100rem; /* 1600px */
+  --container-l: 85rem; /* 1360px */
+  --container-m: 75rem; /* 1200px */
+  --container-s: 40rem; /* 640px */
+  --container-xs: 30rem; /* 480px */
 
   /**
    * Color
@@ -161,7 +161,7 @@
   --font-family-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   --font-family-sans-serif: 'Fira Sans', Helvetica, Arial, sans-serif;
   --font-family-serif: Georgia, 'Times New Roman', Times, serif;
-  --font-family-monospace: Monaco, Menlo, Consolas, 'Courier New', monospace;
+  --font-family-monospace: 'Fira Mono', Monaco, Menlo, Consolas, 'Courier New', monospace;
 
   /**
    * Font Weights

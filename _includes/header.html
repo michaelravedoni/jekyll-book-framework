@@ -10,9 +10,9 @@
 
     <div class="nav-item nav-languages">
       {% if translations %}
-      <a class="nav-language" href="{{ work-url-contents-directory }}/{{work.products.web['start-page']}}">{{work.language}}</a>
+      <a class="nav-language{% if work.language == language %} current{% endif %}" href="{{ work-url }}{{work.contents_directory}}/{{work.products.web['start-page']}}">{{work.language}}</a>
       {% for t in translations %}
-      <a class="nav-language" href="{{ work-url }}/{{ t.language }}{{work.contents_directory}}/{{t.products.web['start-page']}}">{{t.language}}</a>
+      <a class="nav-language{% if t.language == language %} current{% endif %}" href="{{ work-url }}/{{ t.language }}{{work.contents_directory}}/{{t.products.web['start-page']}}">{{t.language}}</a>
       {% endfor %}
       {% endif %}
     </div>
@@ -46,13 +46,40 @@
               {% if work.products.pod %}<li class="nav-item"><a href="{{ work-url-translation }}/pod"><i class="fas fa-book"></i> Print-on-demand version</a></li>{% endif %}
         </ul>
       </li>
+      <li class="nav-item top-level"><a href="#cite" onclick="addActive(this)">Cite</a></li>
     </ul>
 
   </nav>
 </header>
 
+<div id="cite" class='jbf-modal' role="dialog" aria-labelledby="Cite this book" aria-describedby="Cite this book">
+  <div class="modal-content">
+    <div class="modal-header">
+      <a href="#" id="close">
+        <div class="modal-close">
+          <svg viewbox="0 0 40 40">
+            <path class="modal-close-x" d="M 10,10 L 30,30 M 30,10 L 10,30" />
+          </svg>
+        </div>
+      </a>
+      <div class="modal-heading">Cite this book</div>
+
+    </div>
+    <div class="modal-body jbf-container">
+      <div class="jbf-block">{{creators-line}}. {{work.date|date: '%Y'}}{% if title %}. <i>{{title}}</i>{% endif %}{% if publisher %}. {{publisher.name}}{% endif %}{% if isbn %}. ISBN: {{isbn}}{% endif %}{% if issn %}. ISSN: {{issn}}{% endif %}{% if doi %}. DOI: {{doi}}{% endif %}{% if pid %}. {{pid}}{% endif %}.</div>
+    </div>
+  </div>
+  <a href="#"><div class="modal-overlay"></div></a>
+</div>
+
 <script>
   function addActive(element){
-   element.parentElement.classList.toggle('current');
-}
+    element.parentElement.classList.toggle('current');
+  }
+  /* Cite modal */
+  window.onkeydown = function( event ) {
+    if ( event.keyCode === 27 ) {
+      document.getElementById('close').click();
+    }
+  };
 </script>

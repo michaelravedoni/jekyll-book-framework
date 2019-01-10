@@ -206,6 +206,12 @@ nav>ul+ul {
 	display: inline;
 	padding: 0;
 }
+
+.nav-languages .nav-language.current {
+	color: var(--primary);
+	font-weight: 700;
+	text-decoration-line: underline;
+}
 .nav-item {
 	display: block;
 	font-family: "Open Sans", monospace;
