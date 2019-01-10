@@ -1024,7 +1024,7 @@ or parent-language overrides, if they exist. {% endcomment %}
 
 {% comment %}Get global url without baseurl.{% endcomment %}
 {% capture work-url-nb %}/{{work.directory}}{% endcapture %}
-{% capture work-url-nb-translation %}{{ work-url-nb }}{% if is-book-subdirectory %}/{{ book-subdirectory }}{% endif %}{% if is-translation %}/{{ language }}{% endif %}{% endcapture %}
+{% capture work-url-nb-translation %}{{ work-url-nb }}{% if is-translation %}/{{ language }}{% endif %}{% endcapture %}
 {% capture work-url-nb-contents-directory %}{{ work-url-nb-translation }}{% if work.contents_directory %}{{ work.contents_directory }}{% endif %}{% endcapture %}
 {% capture work-url-nb-about-page %}{{ work-url-nb-contents-directory }}/{{web-about-page}}{% endcapture %}
 {% capture work-url-nb-start-page %}{{ work-url-nb-contents-directory }}/{{web-start-page}}{% endcapture %}

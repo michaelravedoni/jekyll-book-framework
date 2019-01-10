@@ -10,7 +10,7 @@
     {% for nav in web-nav-tree %}
       {% comment %} set "current" class on current page {% endcomment %}
 
-      {% capture nav_url %}{{ work-url-contents-directory }}/{{ nav.file }}/{% endcapture %}
+      {% capture nav_url %}{{ work-url-contents-directory }}/{{ nav.file }}{% endcapture %}
       {% capture nav_file_number %}{{ nav.file | split: '-' | first' }}{% endcapture %}
       {% capture nav_page_number %}{{ page.name | split: '-' | first' }}{% endcapture %}
 
@@ -43,7 +43,7 @@
               {% assign active = "" %}
             {% endif %}
 
-          {% capture child_nav_url %}{{ work-url-contents-directory }}/{{ child.file }}/{% endcapture %}
+          {% capture child_nav_url %}{{ work-url-contents-directory }}/{{ child.file }}{% endcapture %}
             <li class="nav-item {{active}}"><a href="{{ child_nav_url }}">{{ child.label }}</a></li>
           {% endfor %}
         </ul>
