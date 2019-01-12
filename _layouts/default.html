@@ -17,28 +17,24 @@ layout: microtypo
 
 				{{ content }}
 
-				{% comment %}
-				{% assign items = web-nav-tree %}
-				{% capture page_url_last %}{{ page.url | split: "/" | last }}{% endcapture %}
-				{% for item in items %}
-				{% if item.file == page_url_last %}
+				{% capture page_to_look_for %}{{page.name| split: "." | first}}{% endcapture %}
+				{% for p in nav-paginate-list %}
+				{% if p.file == page_to_look_for %}
 				{% assign next_i = forloop.index0 | plus: 1 %}
 				{% assign prev_i = forloop.index0 | minus: 1 %}
-				{{item.file}}<br />
-				Next: {{ items[next_i] }}<br />
-				Previous: {{ items[prev_i] }}<br /><br />
+				{% assign next = nav_paginate_list[next_i] %}
+				{% assign prev = nav_paginate_list[prev_i] %}
 				{% endif %}
 				{% endfor %}
-				{% endcomment %}
 
-				{% if page.previous %}
-				<div class="prev" title="Previous part" rel="prev">
-					<a href="{{site.baseurl}}{{page.previous}}">← Previous part</a>
+				{% if prev_i >= 0 %}
+				<div class="jbl-prev" title="Previous part" rel="prev">
+					<a href="{{work-url-contents-directory}}/{{prev.file}}">← {{prev.label}}</a>
 				</div>{% else %}
 				{% endif %}
-				{% if page.next %}
-				<div class="next" title="Next part" rel="next">
-					<a href="{{site.baseurl}}{{page.next}}">Next part →</a>
+				{% if next %}
+				<div class="jbl-next" title="Next part" rel="next">
+					<a href="{{work-url-contents-directory}}/{{next.file}}">{{next.label}} →</a>
 				</div>{% else %}
 				{% endif %}
 			</article>

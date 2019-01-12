@@ -91,7 +91,7 @@ See all the metadata gathered for a given page.
 | Print-PDF-specific format     | Defined in `meta.yml` for main book, and overriden there by any `translations` or `variants`            | `print-pdf-format`     | {{ print-pdf-format }}                                                                         | String |
 | Print-PDF-specific identifier | Defined in `meta.yml` for main book, and overriden there by any `translations` or `variants`            | `print-pdf-identifier` | {{ print-pdf-identifier }}                                                                     | String |
 | Print-PDF-specific image      | Defined in `meta.yml` for main book, and overriden there by any `translations` or `variants`            | `print-pdf-image`      | {{ print-pdf-image }}                                                                          | String |
-| Print-PDF-specific file list  | Defined in `meta.yml` as `files` for main book, and overriden there by any `translations` or `variants` | `print-pdf-file-list`  | {% if print-pdf-file-list != "" %}Defined, but not shown here{% else %}None defined{% endif %} | Array  |
+| Print-PDF-specific file list  | Defined in `meta.yml` as `files` for main book, and overriden there by any `translations` or `variants` | `print-pdf-file-list`  | {% if print-pdf-file-list != "" %}{{print-pdf-file-list}}{% else %}None defined{% endif %} | Array  |
 | Print-PDF-specific TOC        | Defined in `meta.yml` as `toc` for main book, and overriden there by any `translations` or `variants`   | `print-pdf-toc`        | {{ print-pdf-toc }}                                                                            | Array  |
 
 |         Description         |                   Source                  |      Output tag     |      Current result     |   Type  |
@@ -100,7 +100,7 @@ See all the metadata gathered for a given page.
 | Screen-PDF-specific format     | Defined in `meta.yml` for main book, and overriden there by any `translations` or `variants`            | `paged-view-format`     | {{ paged-view-format }}                                                                         | String |
 | Screen-PDF-specific identifier | Defined in `meta.yml` for main book, and overriden there by any `translations` or `variants`            | `paged-view-identifier` | {{ paged-view-identifier }}                                                                     | String |
 | Screen-PDF-specific image      | Defined in `meta.yml` for main book, and overriden there by any `translations` or `variants`            | `paged-view-image`      | {{ paged-view-image }}                                                                          | String |
-| Screen-PDF-specific file list  | Defined in `meta.yml` as `files` for main book, and overriden there by any `translations` or `variants` | `paged-view-file-list`  | {% if paged-view-file-list != "" %}Defined, but not shown here{% else %}None defined{% endif %} | Array  |
+| Screen-PDF-specific file list  | Defined in `meta.yml` as `files` for main book, and overriden there by any `translations` or `variants` | `paged-view-file-list`  | {% if paged-view-file-list != "" %}{{paged-view-file-list}}{% else %}None defined{% endif %} | Array  |
 | Screen-PDF-specific TOC        | Defined in `meta.yml` as `toc` for main book, and overriden there by any `translations` or `variants`   | `paged-view-toc`        | {{ paged-view-toc }}                                                                            | Array  |
 
 |         Description         |                   Source                  |      Output tag     |      Current result     |   Type  |
@@ -112,8 +112,9 @@ See all the metadata gathered for a given page.
 | Web-specific TOC        | Defined in `meta.yml` as `toc` for main book, and overriden there by any `translations` or `variants`   | `web-toc`           | {{ web-toc }}                                                                            | Array  |
 | Web start-page          | Defined in `meta.yml` for main book, and overriden there by any `translations` or `variants`            | `web-start-page`    | {{ web-start-page }}                                                                     | String |
 | Web contents-page       | Defined in `meta.yml` for main book, and overriden there by any `translations` or `variants`            | `web-contents-page` | {{ web-contents-page }}                                                                  | String |
-| Web-specific file-list  | Defined in `meta.yml` as `files` for main book, and overriden there by any `translations` or `variants` | `web-file-list`     | {% if web-file-list != "" %}Defined, but not shown here{% else %}None defined{% endif %} | Array  |
-| Web-specific navigation | Defined in `meta.yml` as `nav` for main book, and overriden there by any `translations` or `variants`   | `web-nav-tree`      | {% if web-nav-tree %}{% if web-nav-tree != "" %}Defined, but not shown here{% else %}None defined{% endif %}{% else %}None defined{% endif %}                                                                       | Array  |
+| Web-specific file-list  | Defined in `meta.yml` as `files` for main book, and overriden there by any `translations` or `variants` | `web-file-list`     | {% if web-file-list != "" %}{{web-file-list}}{% else %}None defined{% endif %} | Array  |
+| Web-specific navigation | Defined in `meta.yml` as `nav` for main book, and overriden there by any `translations` or `variants`   | `web-nav-tree`      | {% if web-nav-tree %}{% if web-nav-tree != "" %}{{web-nav-tree}}{% else %}None defined{% endif %}{% else %}None defined{% endif %}                                                                       | Array  |
+| Web-specific paginated navigation | Defined in `meta.yml` as `nav` for main book, and generated in metadata   | `nav-paginate-list`      | {% if nav-paginate-list %}{% if nav-paginate-list != "" %}{{nav-paginate-list}}{% else %}None defined{% endif %}{% else %}None defined{% endif %}                                                                       | Array  |
 
 |                Description                 |                                                   Source                                                  |      Output tag      |                                       Current result                                      |  Type  |
 |--------------------------------------------|-----------------------------------------------------------------------------------------------------------|----------------------|-------------------------------------------------------------------------------------------|--------|
@@ -121,7 +122,7 @@ See all the metadata gathered for a given page.
 | Epub-specific format                       | Defined in `meta.yml` for main book, and overriden there by any `translations` or `variants`              | `epub-format`        | {{ epub-format }}                                                                         | String |
 | Epub-specific identifier                   | Defined in `meta.yml` for main book, and overriden there by any `translations` or `variants`              | `epub-identifier`    | {{ epub-identifier }}                                                                     | String |
 | Epub-specific image                        | Defined in `meta.yml` for main book, and overriden there by any `translations` or `variants`              | `epub-image`         | {{ epub-image }}                                                                          | String |
-| Epub-specific file list                    | Defined in `meta.yml` as `files` for main book, and overriden there by any `translations` or `variants`   | `epub-file-list`     | {% if epub-file-list != "" %}Defined, but not shown here{% else %}None defined{% endif %} | Array  |
+| Epub-specific file list                    | Defined in `meta.yml` as `files` for main book, and overriden there by any `translations` or `variants`   | `epub-file-list`     | {% if epub-file-list != "" %}{{epub-file-list}}{% else %}None defined{% endif %} | Array  |
 | Epub-specific TOC                          | Defined in `meta.yml` as `toc` for main book, and overriden there by any `translations` or `variants`     | `epub-toc`           | {{ epub-toc }}                                                                            | Array  |
 | Epub-specific TOC page                     | Defined, optionally, in `meta.yml` for main book, and overriden there by any `translations` or `variants` | `epub-contents-page` | {{ epub-contents-page }}                                                                  | Array  |
 | Epub-specific language for OPF Dublin Core | Defined, optionally, in `meta.yml` for the `epub` product                                                 | `epub-language`      | {{ epub-language }}                                                                       | String |
@@ -223,5 +224,13 @@ See all the metadata gathered for a given page.
 |       Description       |              Source              |   Output tag   |   Current result   |   Type  |
 |-------------------------|----------------------------------|----------------|--------------------|---------|
 | Work url | Constructed | `work-url` | {{ work-url }} | String |
+| Work translation url | Constructed | `work-url-translation` | {{ work-url-translation }} | String |
 | Work content directory url | Constructed | `work-url-contents-directory` | {{ work-url-contents-directory }} | String |
 | Work about page url | Constructed | `work-url-about-page` | {{ work-url-about-page }} | String |
+| Work start page url | Constructed | `work-url-start-page` | {{ work-url-start-page }} | String |
+
+| Work url without baseurl | Constructed | `work-url-nb` | {{ work-url }} | String |
+| Work translation url without baseurl | Constructed | `work-url-nb-translation` | {{ work-url-translation }} | String |
+| Work content directory url without baseurl | Constructed | `work-url-nb-contents-directory` | {{ work-url-contents-directory }} | String |
+| Work about page url without baseurl | Constructed | `work-url-nb-about-page` | {{ work-url-about-page }} | String |
+| Work start page url without baseurl | Constructed | `work-url-nb-start-page` | {{ work-url-start-page }} | String |

@@ -34,6 +34,7 @@
 @import './components/headings';
 @import './components/blocks';
 @import './components/status';
+@import './components/pagination';
 @import './components/modal';
 
 

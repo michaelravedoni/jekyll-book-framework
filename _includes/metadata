@@ -15,7 +15,17 @@ is already loaded on this page.{% endcomment %}
     {% assign build = site.build %}
 {% endif %}
 
-{% capture output-format %}web{% endcapture %}
+
+{% comment %}Assign output-format.{% endcomment %}
+{% if page.url contains "paged" %}
+  {% capture output-format %}paged-view{% endcapture %}
+{% elsif page.url contains "epub" %}
+  {% capture output-format %}epub{% endcapture %}
+{% elsif page.url contains "print-pdf" %}
+  {% capture output-format %}print-pdf{% endcapture %}
+{% else %}
+  {% capture output-format %}web{% endcapture %}
+{% endif %}
 
 {% comment %}
 Assign project information to variables. This is the same for all books in the project.
@@ -63,6 +73,7 @@ Useful for checking whether we're in a real book directory.{% endcomment %}
 Get the directory for this book only
 We'll rewrite this later if we're in a translation
 {% endcomment %}
+{% assign is-translation = false %}
 
 {% capture book-directory %}{{ page.path | replace: "/", " " | truncatewords: 1, "" }}{% endcapture %}
 
@@ -547,7 +558,7 @@ override any metadata set for that variant.{% endcomment %}
             {% if data.products.print-pdf.files %}{% assign print-pdf-file-list = data.products.print-pdf.files %}{% endif %}
             {% if data.products.print-pdf.toc %}
                 {% assign print-pdf-toc = data.products.print-pdf.toc %}
-                {% if site.output == "print-pdf" %}
+                {% if output-format == "print-pdf" %}
                     {% assign variant-toc = true %}
                 {% endif %}
             {% endif %}
@@ -562,7 +573,7 @@ override any metadata set for that variant.{% endcomment %}
             {% if data.products.web.nav %}{% assign web-nav-tree = data.products.web.nav %}{% endif %}
             {% if data.products.web.toc %}
                 {% assign web-toc = data.products.web.toc %}
-                {% if site.output == "web" %}
+                {% if output-format == "web" %}
                     {% assign variant-toc = true %}
                 {% endif %}
             {% endif %}
@@ -576,7 +587,7 @@ override any metadata set for that variant.{% endcomment %}
             {% if data.products.epub.language %}{% capture epub-language %}{{ work.products.epub.language }}{% endcapture %}{% endif %}
             {% if data.products.epub.toc %}
                 {% assign epub-toc = data.products.epub.toc %}
-                {% if site.output == "epub" %}
+                {% if output-format == "epub" %}
                     {% assign variant-toc = true %}
                 {% endif %}
             {% endif %}
@@ -588,7 +599,7 @@ override any metadata set for that variant.{% endcomment %}
             {% if data.products.paged-view.files %}{% assign paged-view-file-list = data.products.paged-view.files %}{% endif %}
             {% if data.products.paged-view.toc %}
                 {% assign paged-view-toc = data.products.paged-view.toc %}
-                {% if site.output == "paged-view" %}
+                {% if output-format == "paged-view" %}
                     {% assign variant-toc = true %}
                 {% endif %}
             {% endif %}
@@ -635,12 +646,12 @@ override any metadata set for that variant.{% endcomment %}
             {% endif %}
             {% if data.products.app.toc %}
                 {% assign app-toc = data.products.app.toc %}
-                {% if site.output == "app" %}
+                {% if output-format == "app" %}
                     {% assign variant-toc = true %}
                 {% endif %}
             {% else %}
                 {% assign app-toc = web-toc %}
-                {% if site.output == "app" %}
+                {% if output-format == "app" %}
                     {% assign variant-toc = true %}
                 {% endif %}
             {% endif %}
@@ -662,7 +673,7 @@ override any metadata set for that variant.{% endcomment %}
 {% endif %}
 
 {% comment %} Generate a file-list for the current output. {% endcomment %}
-{% capture file-list-name %}{{ site.output }}-file-list{% endcapture %}
+{% capture file-list-name %}{{ output-format }}-file-list{% endcapture %}
 
 {% comment %} Don't indent. We don't want indents in file lists. {% endcomment %}
 {% capture file-list %}
@@ -676,6 +687,17 @@ override any metadata set for that variant.{% endcomment %}
 {% endfor %}
 {% endfor %}
 {% endcapture %}
+
+{% comment %} Generate a nav-paginate-list for the web output. {% endcomment %}
+{% assign nav_paginate_list = "" | split: "|" %}
+{% assign web_nav_tree = web-nav-tree %}
+{% for item in web_nav_tree %}
+  {% assign nav_paginate_list = nav_paginate_list | push: item %}
+  {% capture child_push_var %}{% if item.children %}{% for c in item.children %}
+    {% assign nav_paginate_list = nav_paginate_list | push: c %}
+  {% endfor %}{% endif %}{% endcapture %}
+{% endfor %}
+{% assign nav-paginate-list = nav_paginate_list %}
 
 {% comment %}
 Check if we're on the project homepage:
@@ -767,7 +789,7 @@ be sure we're pointing to the webserver root.{% endcomment %}
 {% if path-to-root-directory == "" %}
 {% assign is-root-directory = true %}
 {% capture path-to-root-directory %}{{ site.baseurl }}{% endcapture %}
-    {% if site.output == "web" %}
+    {% if output-format == "web" %}
         {% capture path-to-root-directory %}{{ site.baseurl }}/{% endcapture %}
     {% endif %}
 {% endif %}
@@ -793,7 +815,7 @@ such as the home and search pages, when building a single-language site or app.
 {% comment %}If this is a translation, and a language subfolder of images exists,
 the {{ images }} path should include the language subdirectory.{% endcomment %}
 {% if is-translation %}
-    {% capture path-to-translation-images-directory %}/{{ book-directory }}/{{ book-subdirectory }}/images/{{ site.output }}/{% endcapture %}
+    {% capture path-to-translation-images-directory %}/{{ book-directory }}/{{ book-subdirectory }}/images/{{ output-format }}/{% endcapture %}
     {% assign translated-images = site.static_files | where_exp: "file", "file.path contains path-to-translation-images-directory" %}
     {% assign translated-images-number = translated-images | size %}
 
@@ -836,7 +858,7 @@ might be included, and not to the item file itself.{% endcomment %}
 
     {% comment %} Epub has no book or root directory, so the path is shallower,
     given how we structure our epubs. {% endcomment %}
-    {% if site.output == "epub" %}
+    {% if output-format == "epub" %}
         {% capture images %}../items/{{ site.image-set }}{% endcapture %}
     {% endif %}
 
@@ -849,14 +871,14 @@ might be included, and not to the item file itself.{% endcomment %}
 {% comment %}For PDF and web outputs, check if we are using external-media,
 and if we are, get the relevant path as `external-media`, defaulting to
 remote-media for web and local-media for PDF.{% endcomment %}
-{% if site.output == "print-pdf" or site.output == "paged-view" %}
+{% if output-format == "print-pdf" or output-format == "paged-view" %}
     {% if site.data.settings.local-media.[build] and site.data.settings.local-media.[build] != "" %}
         {% capture external-media %}{% unless site.data.settings.local-media.[build] contains "http" %}{{ path-to-root-directory }}{% endunless %}{{ site.data.settings.local-media.[build] }}{% endcapture %}
     {% elsif site.data.settings.remote-media.[build] and site.data.settings.remote-media.[build] != "" %}
         {% capture external-media %}{{ site.data.settings.remote-media.[build] }}{% endcapture %}
     {% endif %}
 {% endif %}
-{% if site.output == "web" %}
+{% if output-format == "web" %}
     {% if site.data.settings.remote-media.[build] and site.data.settings.remote-media.[build] != "" %}
         {% capture external-media %}{{ site.data.settings.remote-media.[build] }}{% endcapture %}
     {% elsif site.data.settings.local-media.[build] and site.data.settings.local-media.[build] != "" %}
@@ -886,7 +908,7 @@ remote-media for web and local-media for PDF.{% endcomment %}
 {% comment %}If using a Google Play expansion file for images,
 and this is an app output, rewrite the images path accordingly{% endcomment %}
 {% assign google-play-expansion-file-enabled = false %}
-{% if site.data.settings.app.google-play-expansion-file-enabled == true and site.output == "app" %}
+{% if site.data.settings.app.google-play-expansion-file-enabled == true and output-format == "app" %}
     {% assign google-play-expansion-file-enabled = true %}
     {% capture images %}content://{{ project-app-id }}{% if site.build-language and site.build-language != "" %}.{{ site.build-language }}{% endif %}.expansion{% endcapture %}
 {% endif %}
@@ -896,13 +918,13 @@ First, the default. Then if a translation, the translation's.{% endcomment %}
 {% capture path-to-styles-directory %}{{ path-to-book-directory }}styles{% endcapture %}
 
 {% if is-translation %}
-    {% if site.output == "print-pdf" %}
+    {% if output-format == "print-pdf" %}
         {% capture path-to-translation-stylesheet %}/{{ book-directory }}/{{ book-subdirectory }}/styles/{{ print-pdf-stylesheet }}{% endcapture %}
-    {% elsif site.output == "paged-view" %}
+    {% elsif output-format == "paged-view" %}
         {% capture path-to-translation-stylesheet %}/{{ book-directory }}/{{ book-subdirectory }}/styles/{{ paged-view-stylesheet }}{% endcapture %}
-    {% elsif site.output == "epub" %}
+    {% elsif output-format == "epub" %}
         {% capture path-to-translation-stylesheet %}/{{ book-directory }}/{{ book-subdirectory }}/styles/{{ epub-stylesheet }}{% endcapture %}
-    {% elsif site.output == "app" %}
+    {% elsif output-format == "app" %}
         {% capture path-to-translation-stylesheet %}/{{ book-directory }}/{{ book-subdirectory }}/styles/{{ app-stylesheet }}{% endcapture %}
     {% else %}
         {% capture path-to-translation-stylesheet %}/{{ book-directory }}/{{ book-subdirectory }}/styles/{{ web-stylesheet }}{% endcapture %}

@@ -1,0 +1,32 @@
+/* Pagination */
+.jbl-prev a,
+.jbl-next a {
+	font-family: var(--font-family-monospace);
+	text-transform: uppercase;
+	margin: var(--margin-s) 0 var(--margin-s) 0;
+	font-size: 1.1rem;
+	line-height: 2rem;
+	color: var(--dark);
+	text-decoration: none;
+	border-bottom: var(--dark) 0.2rem solid;
+	transition: color 0.2s ease;
+}
+.jbl-prev a:hover,
+.jbl-next a:hover {
+	color: var(--primary-hover);
+}
+@media (--s-down) {
+	.jbl-prev a,
+	.jbl-next a {
+		font-size: 1rem;
+		line-height: 2rem;
+	}
+}
+.jbl-prev a {
+	float: left;
+	text-align: left;
+}
+.jbl-next a {
+	float: right;
+	text-align: right;
+}
