@@ -98,6 +98,9 @@
 
 
 
+
+
+
     
     
     
@@ -187,6 +190,12 @@
     
 
     
+
+
+
+
+
+
 
 
 
@@ -1244,7 +1253,7 @@
       <td>Print-PDF-specific file list</td>
       <td>Defined in <code class="highlighter-rouge">meta.yml</code> as <code class="highlighter-rouge">files</code> for main book, and overriden there by any <code class="highlighter-rouge">translations</code> or <code class="highlighter-rouge">variants</code></td>
       <td><code class="highlighter-rouge">print-pdf-file-list</code></td>
-      <td>Defined, but not shown here</td>
+      <td> </td>
       <td>Array</td>
     </tr>
     <tr>
@@ -1300,7 +1309,7 @@
       <td>Screen-PDF-specific file list</td>
       <td>Defined in <code class="highlighter-rouge">meta.yml</code> as <code class="highlighter-rouge">files</code> for main book, and overriden there by any <code class="highlighter-rouge">translations</code> or <code class="highlighter-rouge">variants</code></td>
       <td><code class="highlighter-rouge">paged-view-file-list</code></td>
-      <td>Defined, but not shown here</td>
+      <td>{“cover”=&gt;”0-0-cover”, “front_matter”=&gt;[{“file”=&gt;”0-1-titlepage”, “id”=&gt;”titlepage”, “class”=&gt;”titlepage”}, {“file”=&gt;”0-4-toc”, “id”=&gt;”toc”, “class”=&gt;”toc”}], “body_matter”=&gt;[{“file”=&gt;”00-introduction”, “label”=&gt;”Introduction”, “id”=&gt;”introduction”, “class”=&gt;”chapter”, “level”=&gt;1}, {“file”=&gt;”01-00-chapter”, “label”=&gt;”1. Chapter 1”, “id”=&gt;”chapter-1”, “class”=&gt;”chapter”, “level”=&gt;1}, {“file”=&gt;”01-01-section-1”, “label”=&gt;”1.1 Section 1”, “id”=&gt;”section-1”, “class”=&gt;”section”, “level”=&gt;2}, {“file”=&gt;”01-02-section-2”, “label”=&gt;”1.2 Section 2”, “id”=&gt;”section-2”, “class”=&gt;”section”, “level”=&gt;2}, {“file”=&gt;”05-conclusion”, “label”=&gt;”Conclusion”, “id”=&gt;”conclusion”, “class”=&gt;”chapter”, “level”=&gt;1}], “back_matter”=&gt;[{“file”=&gt;”105-back-cover”, “id”=&gt;”back-cover”, “class”=&gt;”back-cover”}]}</td>
       <td>Array</td>
     </tr>
     <tr>
@@ -1377,14 +1386,21 @@
       <td>Web-specific file-list</td>
       <td>Defined in <code class="highlighter-rouge">meta.yml</code> as <code class="highlighter-rouge">files</code> for main book, and overriden there by any <code class="highlighter-rouge">translations</code> or <code class="highlighter-rouge">variants</code></td>
       <td><code class="highlighter-rouge">web-file-list</code></td>
-      <td>Defined, but not shown here</td>
+      <td> </td>
       <td>Array</td>
     </tr>
     <tr>
       <td>Web-specific navigation</td>
       <td>Defined in <code class="highlighter-rouge">meta.yml</code> as <code class="highlighter-rouge">nav</code> for main book, and overriden there by any <code class="highlighter-rouge">translations</code> or <code class="highlighter-rouge">variants</code></td>
       <td><code class="highlighter-rouge">web-nav-tree</code></td>
-      <td>Defined, but not shown here</td>
+      <td>{“label”=&gt;”Introduction”, “file”=&gt;”00-introduction”, “id”=&gt;”00-introduction”}{“label”=&gt;”Chapitre 1”, “file”=&gt;”01-00-chapter”, “id”=&gt;”01-chapitre-1”, “children”=&gt;[{“label”=&gt;”Section 1”, “file”=&gt;”01-01-section-1”, “id”=&gt;”01-chapter-1-section-1”}, {“label”=&gt;”Section 2”, “file”=&gt;”01-02-section-2”, “id”=&gt;”01-chapter-1-section-2”}]}{“label”=&gt;”Conclusion”, “file”=&gt;”05-conclusion”, “id”=&gt;”conclusion”}</td>
+      <td>Array</td>
+    </tr>
+    <tr>
+      <td>Web-specific paginated navigation</td>
+      <td>Defined in <code class="highlighter-rouge">meta.yml</code> as <code class="highlighter-rouge">nav</code> for main book, and generated in metadata</td>
+      <td><code class="highlighter-rouge">nav-paginate-list</code></td>
+      <td>{“label”=&gt;”Introduction”, “file”=&gt;”00-introduction”, “id”=&gt;”00-introduction”}{“label”=&gt;”Chapitre 1”, “file”=&gt;”01-00-chapter”, “id”=&gt;”01-chapitre-1”, “children”=&gt;[{“label”=&gt;”Section 1”, “file”=&gt;”01-01-section-1”, “id”=&gt;”01-chapter-1-section-1”}, {“label”=&gt;”Section 2”, “file”=&gt;”01-02-section-2”, “id”=&gt;”01-chapter-1-section-2”}]}{“label”=&gt;”Section 1”, “file”=&gt;”01-01-section-1”, “id”=&gt;”01-chapter-1-section-1”}{“label”=&gt;”Section 2”, “file”=&gt;”01-02-section-2”, “id”=&gt;”01-chapter-1-section-2”}{“label”=&gt;”Conclusion”, “file”=&gt;”05-conclusion”, “id”=&gt;”conclusion”}</td>
       <td>Array</td>
     </tr>
   </tbody>
@@ -1433,7 +1449,7 @@
       <td>Epub-specific file list</td>
       <td>Defined in <code class="highlighter-rouge">meta.yml</code> as <code class="highlighter-rouge">files</code> for main book, and overriden there by any <code class="highlighter-rouge">translations</code> or <code class="highlighter-rouge">variants</code></td>
       <td><code class="highlighter-rouge">epub-file-list</code></td>
-      <td>Defined, but not shown here</td>
+      <td>{“0-0-cover”=&gt;”cover”}{“0-1-titlepage”=&gt;”title-page”}{“0-2-copyright”=&gt;”copyright-page”}{“0-3-contents”=&gt;”toc”}{“01”=&gt;”text”}02</td>
       <td>Array</td>
     </tr>
     <tr>
@@ -1874,7 +1890,7 @@
       <td>The potential path to translated images</td>
       <td>Constructed from variables</td>
       <td><code class="highlighter-rouge">path-to-translation-images-directory</code></td>
-      <td>/book/fr/images//</td>
+      <td>/book/fr/images/web/</td>
       <td>String</td>
     </tr>
     <tr>
@@ -2072,6 +2088,13 @@
       <td>String</td>
     </tr>
     <tr>
+      <td>Work translation url</td>
+      <td>Constructed</td>
+      <td><code class="highlighter-rouge">work-url-translation</code></td>
+      <td>/jekyll-book-framework/book/fr</td>
+      <td>String</td>
+    </tr>
+    <tr>
       <td>Work content directory url</td>
       <td>Constructed</td>
       <td><code class="highlighter-rouge">work-url-contents-directory</code></td>
@@ -2085,11 +2108,59 @@
       <td>/jekyll-book-framework/book/fr/text/104-about</td>
       <td>String</td>
     </tr>
+    <tr>
+      <td>Work start page url</td>
+      <td>Constructed</td>
+      <td><code class="highlighter-rouge">work-url-start-page</code></td>
+      <td>/jekyll-book-framework/book/fr/text/00-introduction</td>
+      <td>String</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Work url without baseurl</td>
+      <td>Constructed</td>
+      <td><code class="highlighter-rouge">work-url-nb</code></td>
+      <td>/jekyll-book-framework/book</td>
+      <td>String</td>
+    </tr>
+    <tr>
+      <td>Work translation url without baseurl</td>
+      <td>Constructed</td>
+      <td><code class="highlighter-rouge">work-url-nb-translation</code></td>
+      <td>/jekyll-book-framework/book/fr</td>
+      <td>String</td>
+    </tr>
+    <tr>
+      <td>Work content directory url without baseurl</td>
+      <td>Constructed</td>
+      <td><code class="highlighter-rouge">work-url-nb-contents-directory</code></td>
+      <td>/jekyll-book-framework/book/fr/text</td>
+      <td>String</td>
+    </tr>
+    <tr>
+      <td>Work about page url without baseurl</td>
+      <td>Constructed</td>
+      <td><code class="highlighter-rouge">work-url-nb-about-page</code></td>
+      <td>/jekyll-book-framework/book/fr/text/104-about</td>
+      <td>String</td>
+    </tr>
+    <tr>
+      <td>Work start page url without baseurl</td>
+      <td>Constructed</td>
+      <td><code class="highlighter-rouge">work-url-nb-start-page</code></td>
+      <td>/jekyll-book-framework/book/fr/text/00-introduction</td>
+      <td>String</td>
+    </tr>
   </tbody>
 </table>
 
 
 
+				
 				
 
 				
