@@ -165,7 +165,7 @@ work:
       #contents-page: "0-3-contents" # Your contents-page file, if you have one.
       about-page: "104-about" # Your about-page file, if you have one.
       date: "2018-02-01" # YYYY-MM-DD e.g. publication date or last revision
-      format: "Digital online" # e.g. Print-on-demand, Digital download, Digital online
+      distribution: "Digital online" # e.g. Print-on-demand, Digital download, Digital online
       identifier: "" # e.g. ISBN or UUID
       image: "cover.jpg"
       nav: # For each menu item, include at least label and file. Optionally add id (for deep linking) and children.
@@ -209,7 +209,10 @@ work:
           id: "index"
     paged-view:
       date: "2016-05-07" # YYYY-MM-DD e.g. publication date or last revision
-      format: "Digital download" # e.g. Print-on-demand, Digital download, Digital online
+      distribution: "Digital download" # e.g. Print-on-demand, Digital download, Digital online
+      format:
+        width: 148mm
+        height: 210mm
       identifier: "" # e.g. ISBN or UUID
       image: "cover.jpg"
       layout: book
@@ -304,7 +307,7 @@ work:
     # wait until the work is fully loaded, print ('ctrl-p') and export to pdf
     # from the dialog box.
     print-pdf:
-      format: "Print format" # e.g. Print-on-demand, Digital download, Digital online
+      distribution: "Print format" # e.g. Print-on-demand, Digital download, Digital online
       # Formats not yet implemented
       formats:
         - name: A5
@@ -324,7 +327,7 @@ work:
           url: "/output/book-a5-20180103.pdf" # /output/work-format-yyyymmdd.pdf
     epub:
       date: "2016-05-07" # YYYY-MM-DD e.g. publication date or last revision
-      format: "Digital download" # e.g. Print-on-demand, Digital download, Digital online
+      distribution: "Digital download" # e.g. Print-on-demand, Digital download, Digital online
       #identifier: "9780000000000" # e.g. ISBN or UUID
       image: "cover.jpg"
       start-page: "0-3-contents"
@@ -405,7 +408,7 @@ work:
               id: "conclusion"
         paged-view:
           date: "2016-05-07" # YYYY-MM-DD e.g. publication date or last revision
-          format: "Digital download" # e.g. Print-on-demand, Digital download, Digital online
+          distribution: "Digital download" # e.g. Print-on-demand, Digital download, Digital online
           layout: book
           files:
             cover: "0-0-cover"

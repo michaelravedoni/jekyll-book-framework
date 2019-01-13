@@ -136,7 +136,11 @@ $baseurl: "{{ site.baseurl }}";
 }
 
 @page {
-  size: A5 portrait;
+  /* Change only if you want to override the meta.yml variables.
+  Change paged-view.format.width and .height in meta.yml.
+  Otherwise, uncomment this line:
+  */
+  /* size: 148mm 210mm; */
 
 	font-family: "Fira Sans", sans-serif;
   font-weight: 400 ;
