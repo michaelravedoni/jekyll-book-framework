@@ -306,16 +306,48 @@ work:
     # the pdf files manually. To go to the "/work/paged" page (e.g. "/book/paged"),
     # wait until the work is fully loaded, print ('ctrl-p') and export to pdf
     # from the dialog box.
+    # In the meantime, you can generate paged-view on the fly. To do this,
+    # change the variables in 'formats'.
     print-pdf:
       distribution: "Print format" # e.g. Print-on-demand, Digital download, Digital online
-      # Formats not yet implemented
+      # List formats you want to generat on the fly. The 'base' unit indicates
+      # the scale at which the format will be generated in relation to the
+      # browser (rem). The base unit is 16px or 1rem. Choose 'width' and 'height'
+      # from the <page-syze property> <https://www.w3.org/TR/css-page-3/#typedef-page-size-page-size>.
+      # Or add one on your need.
+      # A5: 148mm 210mm
+      # A4: 210mm 297mm
+      # A3: 297mm 420mm
+      # B5: 176mm 250mm
+      # B4: 250mm 353mm
+      # B5: 182mm 257mm
+      # B4: 257mm 364mm
+      # Pocket Book: 4.25in 6.88in
+      # Digest: 5.5in 8.5in
+      # US Trade: 6in 9in
+      # Royal: 6.13in 9.21in
+      # Comic Book: 6.625in 10.25in
+      # Crown Quarto: 7.44in 9.68in
+      # letter: 8.5in 11in (default)
+      # legal: 8.5in 14in
+      # ledger: 11in 17in
       formats:
         - name: A5
-          width: 6in
-          height: 9in
-        - name: A4
           width: 148mm
           height: 210mm
+          base: 16px
+        - name: A4
+          width: 210mm
+          height: 297mm
+          base: 18px
+        - name: US Trade
+          width: 6in
+          height: 9in
+          base: 16px
+        - name: Pocket Book
+          width: 4.25in
+          height: 6.88in
+          base: 12px
       generated:
         - name: "A5"
           format: "a5"

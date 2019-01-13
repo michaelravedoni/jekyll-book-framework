@@ -3,8 +3,8 @@ Get the file metadata.
 {% endcomment %}
 {% include metadata %}
 
-<div class="pdf-generated">
-<h2>Generated</h2>
+<div class="pdf-generated jbf-block">
+<h2>Pre-generated</h2>
 {% for f in work.products['print-pdf'].generated %}
   <div class="pdf-generated-item">
     <strong>{{f.name}}</strong> <small>{{f.date|date: '%d.%m.%Y'}} ({{f.size}} - {{f.color}})</small> &rarr; <a href="{{site.url}}{{site.baseurl}}{{f.url}}">Get file</a>
@@ -12,11 +12,12 @@ Get the file metadata.
 {% endfor %}
 </div>
 
-<!--<div class="pdf-formats">
-<h2>On the fly</h2>
+<div class="pdf-formats jbf-block">
+<h2>Generated on the fly</h2>
+<p>In this section, you have to generate the pdf files manually. Click on <i>Generate the file</i> and wait until the work is fully loaded. Then, print <kbd>ctrl+p</kbd> and export/save to pdf from the dialog box.</p>
 {% for f in work.products['print-pdf'].formats %}
   <div class="pdf-format-item">
-    <strong>{{f.name}}</strong> ({{f.width}}x{{f.height}}) &rarr; <a href="{{work-url-translation}}/paged?width={{f.width}}&height={{f.height}}" target="_blank">Generate the file</a>
+    <strong>{{f.name}}</strong> ({{f.width}}x{{f.height}}) &rarr; <a href="{{work-url-translation}}/paged?width={{f.width}}&height={{f.height}}&fontSizeBase={{f.base}}" target="_blank">Generate the file</a>
   </div>
 {% endfor %}
-</div>-->
+</div>

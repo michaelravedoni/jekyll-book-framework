@@ -127,8 +127,8 @@ $baseurl: "{{ site.baseurl }}";
 
 /* variable used for the book */
 :root {
-  --margin-top: 73px;
-  --margin-bottom: 73px;
+  --margin-top: 4.5rem;
+  --margin-bottom: 4.5rem;
 	--color-primary: teal;
 	--color-secondary: indianred;
 	--color-bg-chapter: whitesmoke;
@@ -145,7 +145,7 @@ $baseurl: "{{ site.baseurl }}";
 	font-family: "Fira Sans", sans-serif;
   font-weight: 400 ;
   font-size: var(--font-size-base);
-	line-height: 27px;
+	line-height: calc(var(--font-size-base) * 1.618);
 }
 
 @page:blank {
