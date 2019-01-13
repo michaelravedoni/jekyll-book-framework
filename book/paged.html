@@ -85,6 +85,7 @@
 			let marginBottom = getUrlVars()["marginBottom"];
 			let marginLeft = getUrlVars()["marginLeft"];
 			let marginRight = getUrlVars()["marginRight"];
+			let fontSizeBase = getUrlVars()["fontSizeBase"];
 
 			if (width != undefined) {document.documentElement.style.setProperty('--width', width);}
 			if (height != undefined) {document.documentElement.style.setProperty('--height', height);}
@@ -93,7 +94,16 @@
 			if (marginBottom != undefined) {document.documentElement.style.setProperty('--margin-bottom', marginBottom);}
 			if (marginLeft != undefined) {document.documentElement.style.setProperty('--margin-left', marginLeft);}
 			if (marginRight != undefined) {document.documentElement.style.setProperty('--margin-right', marginRight);}
+			if (fontSizeBase != undefined) {document.documentElement.style.setProperty('--font-size-base', fontSizeBase);}
 		</script>
+
+		<style>
+			:root {
+			  --width: 148mm;
+				--height: 210mm;
+				--font-size-base: 16px; /* fallback value if not defined elsewhere */
+			}
+		</style>
 
 		<script src="/jekyll-book-framework/assets/js/orderedList.js" type="text/javascript"></script>
 	  <script>
